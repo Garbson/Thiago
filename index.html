@@ -263,8 +263,22 @@
         box-shadow: 0 10px 28px rgba(180, 122, 16, 0.25);
       }
       .property-modal {
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        scrollbar-gutter: stable;
+        -webkit-overflow-scrolling: touch;
+      }
+      .property-modal::-webkit-scrollbar,
+      .property-thumbs::-webkit-scrollbar {
+        width: 7px;
+        height: 5px;
+      }
+      .property-modal::-webkit-scrollbar-track,
+      .property-thumbs::-webkit-scrollbar-track {
+        background: #eee8df;
+      }
+      .property-modal::-webkit-scrollbar-thumb,
+      .property-thumbs::-webkit-scrollbar-thumb {
+        background: linear-gradient(#d8a630, #a86f0a);
+        border-radius: 999px;
       }
       #app {
         display: flex;
@@ -1312,12 +1326,13 @@
       >
         <div
           v-if="selectedProperty"
-          class="property-modal fixed inset-0 z-[100] bg-[#f8f6f2] overflow-y-auto"
+          ref="propertyPage"
+          class="property-modal fixed inset-0 z-[100] bg-[#f7f4ef] overflow-x-hidden overflow-y-auto overscroll-contain touch-pan-y"
           role="main"
           :aria-label="selectedProperty.title"
         >
           <div
-            class="min-h-screen bg-white"
+            class="min-h-full bg-[radial-gradient(circle_at_85%_8%,rgba(201,151,46,.12),transparent_28%)]"
           >
             <header class="sticky top-0 z-20 border-b border-gray-100 bg-white/95 backdrop-blur-xl">
               <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
@@ -1328,23 +1343,30 @@
                 >
                   <span aria-hidden="true">←</span> {{ t('properties').back }}
                 </button>
-                <img
-                  src="assets/carneiro-chiaradia-logo-transparent.png"
-                  alt="Carneiro & Chiaradia"
-                  class="h-12 sm:h-14 w-auto object-contain"
-                />
+                <div class="flex items-center gap-3">
+                  <span class="hidden sm:block text-right">
+                    <strong class="block text-sm text-navy">Carneiro & Chiaradia</strong>
+                    <small class="text-[10px] uppercase tracking-[.2em] text-primary">Investimentos imobiliários</small>
+                  </span>
+                  <img
+                    src="assets/carneiro-chiaradia-logo-transparent.png"
+                    alt="Carneiro & Chiaradia"
+                    class="h-11 sm:h-12 w-auto object-contain"
+                  />
+                </div>
               </div>
             </header>
-            <div class="max-w-7xl mx-auto grid lg:grid-cols-5 lg:min-h-[calc(100vh-5rem)]">
-              <div class="lg:col-span-3 bg-gray-100">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-7 lg:gap-10 px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
+              <div class="lg:col-span-7 min-w-0">
                 <div
-                  class="relative aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[570px]"
+                  class="relative aspect-[4/3] sm:aspect-[16/10] max-h-[560px] overflow-hidden rounded-2xl lg:rounded-[2rem] bg-gray-200 shadow-[0_24px_70px_rgba(15,34,58,.16)]"
                 >
                   <img
                     :src="propertyGallery[activeImage]"
                     :alt="selectedProperty.title"
                     class="w-full h-full object-cover"
                   />
+                  <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/35 to-transparent pointer-events-none"></div>
                   <button
                     v-if="propertyGallery.length > 1"
                     @click="activeImage = (activeImage - 1 + propertyGallery.length) % propertyGallery.length"
@@ -1362,12 +1384,32 @@
                     ›
                   </button>
                   <span
-                    class="absolute bottom-3 right-3 bg-black/60 text-white px-3 py-1.5 rounded-full text-xs"
+                    class="absolute bottom-4 right-4 bg-navy/80 backdrop-blur-md text-white px-3.5 py-2 rounded-full text-xs font-semibold"
                     >{{ activeImage + 1 }} / {{ propertyGallery.length }}</span
                   >
                 </div>
+                <div
+                  v-if="propertyGallery.length > 1"
+                  class="flex gap-3 overflow-x-auto py-4 property-thumbs"
+                  aria-label="Galeria de fotos"
+                >
+                  <button
+                    v-for="(image, index) in propertyGallery"
+                    :key="image"
+                    @click="activeImage = index"
+                    class="shrink-0 w-24 sm:w-28 aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all"
+                    :class="activeImage === index ? 'border-primary shadow-lg scale-[1.02]' : 'border-transparent opacity-65 hover:opacity-100'"
+                    :aria-label="`${index + 1}`"
+                  >
+                    <img :src="image" :alt="selectedProperty.title" class="w-full h-full object-cover" />
+                  </button>
+                </div>
+                <div class="hidden lg:flex items-center gap-2 mt-2 text-xs text-gray-500">
+                  <span class="w-2 h-2 rounded-full bg-primary"></span>
+                  {{ selectedProperty.location }} · {{ t('properties').share }}
+                </div>
               </div>
-              <div class="lg:col-span-2 p-6 sm:p-8 lg:p-10 lg:self-center">
+              <div class="lg:col-span-5 lg:sticky lg:top-28 lg:self-start bg-white rounded-2xl lg:rounded-[2rem] border border-white/80 shadow-[0_24px_70px_rgba(15,34,58,.10)] p-6 sm:p-8 lg:p-9">
                 <span
                   class="text-primary text-xs font-bold tracking-widest uppercase"
                   >{{ selectedProperty.tag }}</span
@@ -1377,16 +1419,17 @@
                 >
                   {{ selectedProperty.title }}
                 </h2>
-                <p class="text-gray-500 text-sm mb-5">
-                  {{ selectedProperty.location }}
+                <p class="inline-flex items-center gap-2 text-gray-500 text-sm mb-5 rounded-full bg-gray-50 px-3 py-2">
+                  <span class="text-primary">●</span> {{ selectedProperty.location }}
                 </p>
-                <div class="text-3xl font-bold text-primary mb-5">
+                <div class="text-3xl sm:text-4xl font-bold text-primary mb-2">
                   {{ selectedProperty.price }}
                 </div>
+                <p class="text-xs text-gray-400 mb-6">{{ t('properties').value }}</p>
                 <div class="grid grid-cols-3 gap-2 mb-6">
                   <div
                     v-if="selectedProperty.bedrooms"
-                    class="bg-gray-50 rounded-xl p-3 text-center"
+                    class="bg-[#f7f4ef] rounded-2xl p-3.5 text-center border border-[#eee7dd]"
                   >
                     <strong class="block"
                       >{{ selectedProperty.bedrooms }}</strong
@@ -1396,7 +1439,7 @@
                   </div>
                   <div
                     v-if="selectedProperty.area"
-                    class="bg-gray-50 rounded-xl p-3 text-center"
+                    class="bg-[#f7f4ef] rounded-2xl p-3.5 text-center border border-[#eee7dd]"
                   >
                     <strong class="block">{{ selectedProperty.area }}</strong
                     ><span class="text-xs text-gray-500"
@@ -1405,7 +1448,7 @@
                   </div>
                   <div
                     v-if="selectedProperty.parking"
-                    class="bg-gray-50 rounded-xl p-3 text-center"
+                    class="bg-[#f7f4ef] rounded-2xl p-3.5 text-center border border-[#eee7dd]"
                   >
                     <strong class="block">{{ selectedProperty.parking }}</strong
                     ><span class="text-xs text-gray-500"
@@ -1413,7 +1456,7 @@
                     >
                   </div>
                 </div>
-                <h3 class="font-bold text-gray-900 mb-2">
+                <h3 class="font-display text-xl font-bold text-gray-900 mb-2">
                   {{ t('properties').about }}
                 </h3>
                 <p class="text-gray-600 text-sm leading-relaxed mb-5">
@@ -1432,7 +1475,7 @@
                   <a
                     :href="propertyWhatsappLink"
                     target="_blank"
-                    class="flex justify-center bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl px-5 py-4"
+                    class="flex justify-center items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded-2xl px-5 py-4 shadow-lg shadow-green-600/20 transition-all hover:-translate-y-0.5"
                     >{{ t('properties').whatsapp }}</a
                   >
                   <button
@@ -1982,6 +2025,8 @@
           const activeFilter = ref("all");
           const selectedProperty = ref(null);
           const activeImage = ref(0);
+          const propertyPage = ref(null);
+          let propertyReturnScroll = 0;
           const searchSubmitted = ref(false);
           const shareCopied = ref(false);
           const qualification = reactive({
@@ -3283,6 +3328,15 @@
           });
 
           function openProperty(property) {
+            const isOpening = !selectedProperty.value;
+            if (isOpening) {
+              propertyReturnScroll = window.scrollY;
+              document.documentElement.style.overflow = "hidden";
+              document.body.style.position = "fixed";
+              document.body.style.top = `-${propertyReturnScroll}px`;
+              document.body.style.width = "100%";
+              document.body.style.overflow = "hidden";
+            }
             selectedProperty.value = property;
             activeImage.value = 0;
             shareCopied.value = false;
@@ -3296,12 +3350,19 @@
                 "",
                 `?imovel=${encodeURIComponent(id)}`,
               );
-            document.body.style.overflow = "hidden";
+            Vue.nextTick(() => {
+              if (propertyPage.value) propertyPage.value.scrollTop = 0;
+            });
           }
 
           function closeProperty() {
             selectedProperty.value = null;
+            document.documentElement.style.overflow = "";
+            document.body.style.position = "";
+            document.body.style.top = "";
+            document.body.style.width = "";
             document.body.style.overflow = "";
+            window.scrollTo(0, propertyReturnScroll);
             if (new URLSearchParams(location.search).has("imovel"))
               history.replaceState({}, "", location.pathname);
           }
@@ -3319,8 +3380,7 @@
           function openPropertyFromUrl() {
             const id = new URLSearchParams(location.search).get("imovel");
             if (!id) {
-              selectedProperty.value = null;
-              document.body.style.overflow = "";
+              if (selectedProperty.value) closeProperty();
               return;
             }
             const property = properties.value.find(
@@ -3344,7 +3404,11 @@
           Vue.watch(
             fallbackProperties,
             (val) => {
-              if (!apiPropertiesLoaded.value) properties.value = val;
+              if (!apiPropertiesLoaded.value) {
+                properties.value = val;
+                if (new URLSearchParams(location.search).has("imovel"))
+                  Vue.nextTick(openPropertyFromUrl);
+              }
             },
             { immediate: true },
           );
@@ -3443,6 +3507,7 @@
             scrollToProperties,
             selectedProperty,
             activeImage,
+            propertyPage,
             propertyGallery,
             propertyWhatsappLink,
             shareCopied,
