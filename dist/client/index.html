@@ -8,7 +8,11 @@
       name="description"
       content="Carneiro & Chiaradia - Imóveis para morar, sair do aluguel e investir no litoral catarinense."
     />
-    <link rel="icon" type="image/png" href="assets/carneiro-chiaradia-logo-transparent.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/carneiro-chiaradia-logo-transparent.png"
+    />
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -56,7 +60,7 @@
       }
 
       .gradient-text {
-        background: linear-gradient(120deg, #9A6B0D, #E5BC57 52%, #B47A10);
+        background: linear-gradient(120deg, #9a6b0d, #e5bc57 52%, #b47a10);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -228,17 +232,23 @@
 
       .gold-line {
         height: 2px;
-        background: linear-gradient(90deg, transparent, #C9972E, #E5BC57, transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          #c9972e,
+          #e5bc57,
+          transparent
+        );
       }
 
       ::-webkit-scrollbar {
         width: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #F5F0EB;
+        background: #f5f0eb;
       }
       ::-webkit-scrollbar-thumb {
-        background: #C9972E;
+        background: #c9972e;
         border-radius: 4px;
       }
 
@@ -247,37 +257,120 @@
         width: 100%;
       }
       .filter-chip.active {
-        background: linear-gradient(135deg, #B47A10, #E5BC57);
-        border-color: #C9972E;
+        background: linear-gradient(135deg, #b47a10, #e5bc57);
+        border-color: #c9972e;
         color: white;
         box-shadow: 0 10px 28px rgba(180, 122, 16, 0.25);
       }
-      .property-modal { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-      #app { display: flex; flex-direction: column; }
-      #app > * { order: 10; }
-      #hero { order: 1; }
-      #busca { order: 2; }
-      #imoveis { order: 3; padding-top: 2.5rem !important; }
-      #primeiro-imovel { order: 4; }
-      [data-aos="fade-up"] { transform: translate3d(0, 42px, 0) scale(.975); filter: blur(9px); opacity: 0; transition-timing-function: cubic-bezier(.16,1,.3,1) !important; }
-      [data-aos="fade-up"].aos-animate { transform: translate3d(0,0,0) scale(1); filter: blur(0); opacity: 1; }
-      [data-aos="fade-right"] { transform: translate3d(-55px, 18px, 0) rotate(-1.5deg); filter: blur(8px); opacity: 0; transition-timing-function: cubic-bezier(.16,1,.3,1) !important; }
-      [data-aos="fade-right"].aos-animate { transform: none; filter: blur(0); opacity: 1; }
-      .card-glow { transition: transform .55s cubic-bezier(.16,1,.3,1), box-shadow .55s, border-color .55s; }
-      .card-glow:hover { transform: translateY(-8px); box-shadow: 0 24px 55px rgba(13,38,68,.12), 0 4px 18px rgba(201,151,46,.14); }
-      .gold-line { background-size: 200% 100%; animation: goldShimmer 4s ease-in-out infinite; }
-      @keyframes goldShimmer { 0%,100% { background-position: 0 50%; opacity: .6 } 50% { background-position: 100% 50%; opacity: 1 } }
+      .property-modal {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      #app {
+        display: flex;
+        flex-direction: column;
+      }
+      #app > * {
+        order: 10;
+      }
+      #hero {
+        order: 1;
+      }
+      #busca {
+        order: 2;
+      }
+      #imoveis {
+        order: 3;
+        padding-top: 2.5rem !important;
+      }
+      #primeiro-imovel {
+        order: 4;
+      }
+      [data-aos="fade-up"] {
+        transform: translate3d(0, 42px, 0) scale(0.975);
+        filter: blur(9px);
+        opacity: 0;
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+      }
+      [data-aos="fade-up"].aos-animate {
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: blur(0);
+        opacity: 1;
+      }
+      [data-aos="fade-right"] {
+        transform: translate3d(-55px, 18px, 0) rotate(-1.5deg);
+        filter: blur(8px);
+        opacity: 0;
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+      }
+      [data-aos="fade-right"].aos-animate {
+        transform: none;
+        filter: blur(0);
+        opacity: 1;
+      }
+      .card-glow {
+        transition:
+          transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.55s,
+          border-color 0.55s;
+      }
+      .card-glow:hover {
+        transform: translateY(-8px);
+        box-shadow:
+          0 24px 55px rgba(13, 38, 68, 0.12),
+          0 4px 18px rgba(201, 151, 46, 0.14);
+      }
+      .gold-line {
+        background-size: 200% 100%;
+        animation: goldShimmer 4s ease-in-out infinite;
+      }
+      @keyframes goldShimmer {
+        0%,
+        100% {
+          background-position: 0 50%;
+          opacity: 0.6;
+        }
+        50% {
+          background-position: 100% 50%;
+          opacity: 1;
+        }
+      }
       @media (max-width: 767px) {
-        section { scroll-margin-top: 64px; }
-        #sobre, #servicos, #processo, #depoimentos { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
-        #servicos .grid > :nth-child(n+4), #depoimentos .grid > :nth-child(n+3) { display: none; }
-        [data-aos] { transition-duration: .35s !important; }
-        .hero-col:nth-child(1) .hero-col-inner { animation-duration: 34s; }
-        .hero-col:nth-child(2) .hero-col-inner { animation-duration: 39s; }
+        section {
+          scroll-margin-top: 64px;
+        }
+        #sobre,
+        #servicos,
+        #processo,
+        #depoimentos {
+          padding-top: 3.5rem !important;
+          padding-bottom: 3.5rem !important;
+        }
+        #servicos .grid > :nth-child(n + 4),
+        #depoimentos .grid > :nth-child(n + 3) {
+          display: none;
+        }
+        [data-aos] {
+          transition-duration: 0.35s !important;
+        }
+        .hero-col:nth-child(1) .hero-col-inner {
+          animation-duration: 34s;
+        }
+        .hero-col:nth-child(2) .hero-col-inner {
+          animation-duration: 39s;
+        }
       }
       @media (prefers-reduced-motion: reduce) {
-        .hero-col-inner, .marquee-track { animation: none !important; }
-        [data-aos] { transform: none !important; filter: none !important; transition: none !important; opacity: 1 !important; }
+        .hero-col-inner,
+        .marquee-track {
+          animation: none !important;
+        }
+        [data-aos] {
+          transform: none !important;
+          filter: none !important;
+          transition: none !important;
+          opacity: 1 !important;
+        }
       }
     </style>
   </head>
@@ -456,7 +549,8 @@
       </nav>
 
       <!-- Hero Section -->
-      <section id="hero"
+      <section
+        id="hero"
         class="relative flex items-center justify-center pt-20 pb-24"
         style="min-height: 94vh"
       >
@@ -558,31 +652,65 @@
       </section>
 
       <!-- Busca rápida: leva o visitante direto ao imóvel certo -->
-      <section id="busca" class="relative z-20 pt-8 pb-5 px-4" :aria-label="t('search').ariaLabel">
-        <div class="max-w-6xl mx-auto bg-white rounded-3xl border border-gray-200 shadow-xl shadow-gray-300/30 p-5 sm:p-7">
-          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <section
+        id="busca"
+        class="relative z-20 pt-8 pb-5 px-4"
+        :aria-label="t('search').ariaLabel"
+      >
+        <div
+          class="max-w-6xl mx-auto bg-white rounded-3xl border border-gray-200 shadow-xl shadow-gray-300/30 p-5 sm:p-7"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
+          >
             <div>
-              <span class="text-primary text-xs font-bold tracking-widest uppercase">{{ t('search').eyebrow }}</span>
-              <h2 class="font-display text-2xl font-bold text-gray-800 mt-1">{{ t('search').title }}</h2>
+              <span
+                class="text-primary text-xs font-bold tracking-widest uppercase"
+                >{{ t('search').eyebrow }}</span
+              >
+              <h2 class="font-display text-2xl font-bold text-gray-800 mt-1">
+                {{ t('search').title }}
+              </h2>
             </div>
-            <button @click="submitSearch" class="inline-flex justify-center bg-navy hover:bg-primary text-white px-6 py-3 rounded-xl text-sm font-bold transition">{{ searchCta }}</button>
+            <button
+              @click="submitSearch"
+              class="inline-flex justify-center bg-navy hover:bg-primary text-white px-6 py-3 rounded-xl text-sm font-bold transition"
+            >
+              {{ searchCta }}
+            </button>
           </div>
           <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 mt-6">
-            <button v-for="option in filterOptions" :key="option.value" @click="activeFilter = option.value"
+            <button
+              v-for="option in filterOptions"
+              :key="option.value"
+              @click="activeFilter = option.value"
               class="filter-chip border border-gray-200 bg-gray-50 text-gray-600 px-3 sm:px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold transition"
-              :class="{ active: activeFilter === option.value }">
+              :class="{ active: activeFilter === option.value }"
+            >
               {{ option.label }}
             </button>
           </div>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-3 mt-6 pt-6 border-t border-gray-100">
-            <label class="text-xs font-semibold text-gray-600">{{ t('search').city }}
-              <select v-model="qualification.city" class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none">
+          <div
+            class="grid sm:grid-cols-2 lg:grid-cols-5 gap-3 mt-6 pt-6 border-t border-gray-100"
+          >
+            <label class="text-xs font-semibold text-gray-600"
+              >{{ t('search').city }}
+              <select
+                v-model="qualification.city"
+                class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none"
+              >
                 <option value="">{{ t('search').anyCity }}</option>
-                <option v-for="city in cityOptions" :key="city" :value="city">{{ city }}</option>
+                <option v-for="city in cityOptions" :key="city" :value="city">
+                  {{ city }}
+                </option>
               </select>
             </label>
-            <label class="text-xs font-semibold text-gray-600">{{ t('search').budget }}
-              <select v-model="qualification.maxPrice" class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none">
+            <label class="text-xs font-semibold text-gray-600"
+              >{{ t('search').budget }}
+              <select
+                v-model="qualification.maxPrice"
+                class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none"
+              >
                 <option value="">{{ t('search').anyBudget }}</option>
                 <option value="500000">{{ t('search').upTo500 }}</option>
                 <option value="800000">{{ t('search').upTo800 }}</option>
@@ -591,8 +719,12 @@
                 <option value="999999999">{{ t('search').above2000 }}</option>
               </select>
             </label>
-            <label class="text-xs font-semibold text-gray-600">{{ t('search').entry }}
-              <select v-model="qualification.entry" class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none">
+            <label class="text-xs font-semibold text-gray-600"
+              >{{ t('search').entry }}
+              <select
+                v-model="qualification.entry"
+                class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none"
+              >
                 <option value="">{{ t('search').notInformed }}</option>
                 <option value="50000">{{ t('search').upTo50 }}</option>
                 <option value="100000">{{ t('search').upTo100 }}</option>
@@ -600,19 +732,36 @@
                 <option value="200001">{{ t('search').above200 }}</option>
               </select>
             </label>
-            <label class="text-xs font-semibold text-gray-600">{{ t('search').bedrooms }}
-              <select v-model="qualification.bedrooms" class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none">
+            <label class="text-xs font-semibold text-gray-600"
+              >{{ t('search').bedrooms }}
+              <select
+                v-model="qualification.bedrooms"
+                class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none"
+              >
                 <option value="">{{ t('search').anyBedrooms }}</option>
-                <option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
               </select>
             </label>
-            <label class="text-xs font-semibold text-gray-600">{{ t('search').timeline }}
-              <select v-model="qualification.timeline" class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none">
+            <label class="text-xs font-semibold text-gray-600"
+              >{{ t('search').timeline }}
+              <select
+                v-model="qualification.timeline"
+                class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none"
+              >
                 <option value="">{{ t('search').notInformed }}</option>
                 <option :value="t('search').now">{{ t('search').now }}</option>
-                <option :value="t('search').threeMonths">{{ t('search').threeMonths }}</option>
-                <option :value="t('search').sixMonths">{{ t('search').sixMonths }}</option>
-                <option :value="t('search').planning">{{ t('search').planning }}</option>
+                <option :value="t('search').threeMonths">
+                  {{ t('search').threeMonths }}
+                </option>
+                <option :value="t('search').sixMonths">
+                  {{ t('search').sixMonths }}
+                </option>
+                <option :value="t('search').planning">
+                  {{ t('search').planning }}
+                </option>
               </select>
             </label>
           </div>
@@ -655,9 +804,7 @@
                 <div
                   class="absolute -inset-8 bg-gradient-to-br from-primary/10 to-gray-300/20 rounded-[2rem] blur-2xl"
                 ></div>
-                <div
-                  class="relative rounded-2xl p-4 sm:p-6 lg:p-3"
-                >
+                <div class="relative rounded-2xl p-4 sm:p-6 lg:p-3">
                   <img
                     src="assets/carneiro-chiaradia-logo-transparent.png"
                     alt="Carneiro & Chiaradia"
@@ -756,13 +903,27 @@
             </p>
           </div>
 
-          <div v-if="searchSubmitted" class="max-w-4xl mx-auto mb-8 rounded-2xl border p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4"
-            :class="filteredProperties.length ? 'bg-green-50 border-green-200' : 'bg-amber-50 border-amber-200'">
+          <div
+            v-if="searchSubmitted"
+            class="max-w-4xl mx-auto mb-8 rounded-2xl border p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4"
+            :class="filteredProperties.length ? 'bg-green-50 border-green-200' : 'bg-amber-50 border-amber-200'"
+          >
             <div class="flex-1">
-              <strong class="text-gray-900 block mb-1">{{ resultTitle }}</strong>
-              <p class="text-sm text-gray-600">{{ filteredProperties.length ? t('search').matchText : t('search').noMatchText }}</p>
+              <strong class="text-gray-900 block mb-1"
+                >{{ resultTitle }}</strong
+              >
+              <p class="text-sm text-gray-600">
+                {{ filteredProperties.length ? t('search').matchText :
+                t('search').noMatchText }}
+              </p>
             </div>
-            <a v-if="!filteredProperties.length" :href="qualifiedWhatsappLink" target="_blank" class="inline-flex justify-center bg-green-600 hover:bg-green-700 text-white rounded-xl px-5 py-3 text-sm font-bold whitespace-nowrap">{{ t('search').sendProfile }}</a>
+            <a
+              v-if="!filteredProperties.length"
+              :href="qualifiedWhatsappLink"
+              target="_blank"
+              class="inline-flex justify-center bg-green-600 hover:bg-green-700 text-white rounded-xl px-5 py-3 text-sm font-bold whitespace-nowrap"
+              >{{ t('search').sendProfile }}</a
+            >
           </div>
 
           <div class="grid md:grid-cols-3 gap-6">
@@ -835,7 +996,9 @@
                 >
                   <span v-html="step.icon" class="text-primary"></span>
                 </div>
-                <h3 class="text-gray-800 font-semibold mb-2">{{ step.title }}</h3>
+                <h3 class="text-gray-800 font-semibold mb-2">
+                  {{ step.title }}
+                </h3>
                 <p class="text-gray-500 text-sm leading-relaxed">
                   {{ step.desc }}
                 </p>
@@ -1115,47 +1278,170 @@
               </div>
             </button>
           </div>
-          <div v-if="filteredProperties.length === 0" class="text-center bg-white border border-gray-200 rounded-3xl p-8 sm:p-12">
-            <div class="w-14 h-14 mx-auto mb-5 rounded-full bg-primary/10 text-primary flex items-center justify-center text-2xl">⌕</div>
-            <h3 class="font-display text-2xl font-bold text-gray-900 mb-3">{{ t('search').noMatchTitle }}</h3>
-            <p class="text-gray-600 max-w-2xl mx-auto mb-6">{{ t('search').noMatchText }}</p>
-            <a :href="qualifiedWhatsappLink" target="_blank" class="inline-flex justify-center bg-green-600 hover:bg-green-700 text-white rounded-xl px-6 py-4 text-sm font-bold">{{ t('search').sendProfile }}</a>
+          <div
+            v-if="filteredProperties.length === 0"
+            class="text-center bg-white border border-gray-200 rounded-3xl p-8 sm:p-12"
+          >
+            <div
+              class="w-14 h-14 mx-auto mb-5 rounded-full bg-primary/10 text-primary flex items-center justify-center text-2xl"
+            >
+              ⌕
+            </div>
+            <h3 class="font-display text-2xl font-bold text-gray-900 mb-3">
+              {{ t('search').noMatchTitle }}
+            </h3>
+            <p class="text-gray-600 max-w-2xl mx-auto mb-6">
+              {{ t('search').noMatchText }}
+            </p>
+            <a
+              :href="qualifiedWhatsappLink"
+              target="_blank"
+              class="inline-flex justify-center bg-green-600 hover:bg-green-700 text-white rounded-xl px-6 py-4 text-sm font-bold"
+              >{{ t('search').sendProfile }}</a
+            >
           </div>
         </div>
       </section>
 
-      <!-- Detalhes do imóvel -->
-      <transition enter-active-class="transition duration-200" enter-from-class="opacity-0" leave-active-class="transition duration-150" leave-to-class="opacity-0">
-        <div v-if="selectedProperty" @click.self="closeProperty" class="property-modal fixed inset-0 z-[100] bg-gray-950/75 p-3 sm:p-8 overflow-y-auto" role="dialog" aria-modal="true" :aria-label="selectedProperty.title">
-          <div class="max-w-5xl mx-auto bg-white rounded-3xl overflow-hidden shadow-2xl relative">
-            <button @click="closeProperty" class="absolute top-4 right-4 z-10 w-11 h-11 rounded-full bg-black/65 text-white text-2xl" :aria-label="t('properties').close">&times;</button>
-            <div class="grid lg:grid-cols-5">
+      <!-- Página do imóvel -->
+      <transition
+        enter-active-class="transition duration-200"
+        enter-from-class="opacity-0"
+        leave-active-class="transition duration-150"
+        leave-to-class="opacity-0"
+      >
+        <div
+          v-if="selectedProperty"
+          class="property-modal fixed inset-0 z-[100] bg-[#f8f6f2] overflow-y-auto"
+          role="main"
+          :aria-label="selectedProperty.title"
+        >
+          <div
+            class="min-h-screen bg-white"
+          >
+            <header class="sticky top-0 z-20 border-b border-gray-100 bg-white/95 backdrop-blur-xl">
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+                <button
+                  @click="closeProperty"
+                  class="inline-flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2.5 text-sm font-semibold text-gray-700 hover:border-primary hover:text-primary transition-colors"
+                  :aria-label="t('properties').back"
+                >
+                  <span aria-hidden="true">←</span> {{ t('properties').back }}
+                </button>
+                <img
+                  src="assets/carneiro-chiaradia-logo-transparent.png"
+                  alt="Carneiro & Chiaradia"
+                  class="h-12 sm:h-14 w-auto object-contain"
+                />
+              </div>
+            </header>
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-5 lg:min-h-[calc(100vh-5rem)]">
               <div class="lg:col-span-3 bg-gray-100">
-                <div class="relative aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[570px]">
-                  <img :src="propertyGallery[activeImage]" :alt="selectedProperty.title" class="w-full h-full object-cover" />
-                  <button v-if="propertyGallery.length > 1" @click="activeImage = (activeImage - 1 + propertyGallery.length) % propertyGallery.length" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/55 text-white rounded-full" :aria-label="t('properties').previous">‹</button>
-                  <button v-if="propertyGallery.length > 1" @click="activeImage = (activeImage + 1) % propertyGallery.length" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/55 text-white rounded-full" :aria-label="t('properties').next">›</button>
-                  <span class="absolute bottom-3 right-3 bg-black/60 text-white px-3 py-1.5 rounded-full text-xs">{{ activeImage + 1 }} / {{ propertyGallery.length }}</span>
+                <div
+                  class="relative aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[570px]"
+                >
+                  <img
+                    :src="propertyGallery[activeImage]"
+                    :alt="selectedProperty.title"
+                    class="w-full h-full object-cover"
+                  />
+                  <button
+                    v-if="propertyGallery.length > 1"
+                    @click="activeImage = (activeImage - 1 + propertyGallery.length) % propertyGallery.length"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/55 text-white rounded-full"
+                    :aria-label="t('properties').previous"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    v-if="propertyGallery.length > 1"
+                    @click="activeImage = (activeImage + 1) % propertyGallery.length"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/55 text-white rounded-full"
+                    :aria-label="t('properties').next"
+                  >
+                    ›
+                  </button>
+                  <span
+                    class="absolute bottom-3 right-3 bg-black/60 text-white px-3 py-1.5 rounded-full text-xs"
+                    >{{ activeImage + 1 }} / {{ propertyGallery.length }}</span
+                  >
                 </div>
               </div>
-              <div class="lg:col-span-2 p-6 sm:p-8">
-                <span class="text-primary text-xs font-bold tracking-widest uppercase">{{ selectedProperty.tag }}</span>
-                <h2 class="font-display text-3xl font-bold text-gray-900 mt-2 mb-2">{{ selectedProperty.title }}</h2>
-                <p class="text-gray-500 text-sm mb-5">{{ selectedProperty.location }}</p>
-                <div class="text-3xl font-bold text-primary mb-5">{{ selectedProperty.price }}</div>
-                <div class="grid grid-cols-3 gap-2 mb-6">
-                  <div v-if="selectedProperty.bedrooms" class="bg-gray-50 rounded-xl p-3 text-center"><strong class="block">{{ selectedProperty.bedrooms }}</strong><span class="text-xs text-gray-500">{{ t('properties').bedrooms }}</span></div>
-                  <div v-if="selectedProperty.area" class="bg-gray-50 rounded-xl p-3 text-center"><strong class="block">{{ selectedProperty.area }}</strong><span class="text-xs text-gray-500">{{ t('properties').area }}</span></div>
-                  <div v-if="selectedProperty.parking" class="bg-gray-50 rounded-xl p-3 text-center"><strong class="block">{{ selectedProperty.parking }}</strong><span class="text-xs text-gray-500">{{ t('properties').parking }}</span></div>
+              <div class="lg:col-span-2 p-6 sm:p-8 lg:p-10 lg:self-center">
+                <span
+                  class="text-primary text-xs font-bold tracking-widest uppercase"
+                  >{{ selectedProperty.tag }}</span
+                >
+                <h2
+                  class="font-display text-3xl font-bold text-gray-900 mt-2 mb-2"
+                >
+                  {{ selectedProperty.title }}
+                </h2>
+                <p class="text-gray-500 text-sm mb-5">
+                  {{ selectedProperty.location }}
+                </p>
+                <div class="text-3xl font-bold text-primary mb-5">
+                  {{ selectedProperty.price }}
                 </div>
-                <h3 class="font-bold text-gray-900 mb-2">{{ t('properties').about }}</h3>
-                <p class="text-gray-600 text-sm leading-relaxed mb-5">{{ selectedProperty.details || selectedProperty.desc }}</p>
+                <div class="grid grid-cols-3 gap-2 mb-6">
+                  <div
+                    v-if="selectedProperty.bedrooms"
+                    class="bg-gray-50 rounded-xl p-3 text-center"
+                  >
+                    <strong class="block"
+                      >{{ selectedProperty.bedrooms }}</strong
+                    ><span class="text-xs text-gray-500"
+                      >{{ t('properties').bedrooms }}</span
+                    >
+                  </div>
+                  <div
+                    v-if="selectedProperty.area"
+                    class="bg-gray-50 rounded-xl p-3 text-center"
+                  >
+                    <strong class="block">{{ selectedProperty.area }}</strong
+                    ><span class="text-xs text-gray-500"
+                      >{{ t('properties').area }}</span
+                    >
+                  </div>
+                  <div
+                    v-if="selectedProperty.parking"
+                    class="bg-gray-50 rounded-xl p-3 text-center"
+                  >
+                    <strong class="block">{{ selectedProperty.parking }}</strong
+                    ><span class="text-xs text-gray-500"
+                      >{{ t('properties').parking }}</span
+                    >
+                  </div>
+                </div>
+                <h3 class="font-bold text-gray-900 mb-2">
+                  {{ t('properties').about }}
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed mb-5">
+                  {{ selectedProperty.details || selectedProperty.desc }}
+                </p>
                 <ul class="space-y-2 text-sm text-gray-600 mb-7">
-                  <li v-for="item in selectedProperty.features || []" :key="item" class="flex gap-2"><span class="text-primary">✓</span>{{ item }}</li>
+                  <li
+                    v-for="item in selectedProperty.features || []"
+                    :key="item"
+                    class="flex gap-2"
+                  >
+                    <span class="text-primary">✓</span>{{ item }}
+                  </li>
                 </ul>
                 <div class="grid gap-3">
-                  <a :href="propertyWhatsappLink" target="_blank" class="flex justify-center bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl px-5 py-4">{{ t('properties').whatsapp }}</a>
-                  <button @click="copyPropertyLink" class="flex justify-center border border-gray-200 hover:border-primary text-gray-700 font-semibold rounded-xl px-5 py-3 text-sm">{{ shareCopied ? t('properties').copied : t('properties').share }}</button>
+                  <a
+                    :href="propertyWhatsappLink"
+                    target="_blank"
+                    class="flex justify-center bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl px-5 py-4"
+                    >{{ t('properties').whatsapp }}</a
+                  >
+                  <button
+                    @click="copyPropertyLink"
+                    class="flex justify-center border border-gray-200 hover:border-primary text-gray-700 font-semibold rounded-xl px-5 py-3 text-sm"
+                  >
+                    {{ shareCopied ? t('properties').copied :
+                    t('properties').share }}
+                  </button>
                 </div>
               </div>
             </div>
@@ -1164,20 +1450,53 @@
       </transition>
 
       <!-- Jornada para sair do aluguel -->
-      <section id="primeiro-imovel" class="py-16 lg:py-24 bg-navy text-white relative overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_85%_20%,rgba(201,151,46,.24),transparent_32%)]"></div>
+      <section
+        id="primeiro-imovel"
+        class="py-16 lg:py-24 bg-navy text-white relative overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 bg-[radial-gradient(circle_at_85%_20%,rgba(201,151,46,.24),transparent_32%)]"
+        ></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div data-aos="fade-right">
-              <span class="text-primary-light text-xs font-bold tracking-[.22em] uppercase">{{ t('firstHome').tag }}</span>
-              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-5 leading-tight">{{ t('firstHome').title }}</h2>
-              <p class="text-white/70 text-lg leading-relaxed mb-7">{{ t('firstHome').subtitle }}</p>
-              <a href="#busca" @click="activeFilter = 'first-home'" class="inline-flex bg-primary hover:bg-primary-light text-white rounded-xl px-6 py-4 font-bold">{{ t('firstHome').cta }}</a>
+              <span
+                class="text-primary-light text-xs font-bold tracking-[.22em] uppercase"
+                >{{ t('firstHome').tag }}</span
+              >
+              <h2
+                class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-5 leading-tight"
+              >
+                {{ t('firstHome').title }}
+              </h2>
+              <p class="text-white/70 text-lg leading-relaxed mb-7">
+                {{ t('firstHome').subtitle }}
+              </p>
+              <a
+                href="#busca"
+                @click="activeFilter = 'first-home'"
+                class="inline-flex bg-primary hover:bg-primary-light text-white rounded-xl px-6 py-4 font-bold"
+                >{{ t('firstHome').cta }}</a
+              >
             </div>
             <div class="grid gap-4">
-              <div v-for="(step, i) in t('firstHome').steps" :key="step.title" data-aos="fade-up" :data-aos-delay="i * 100" class="bg-white/10 border border-white/10 backdrop-blur-sm rounded-2xl p-5 flex gap-4">
-                <span class="w-10 h-10 flex-shrink-0 rounded-full bg-primary text-white font-bold flex items-center justify-center">{{ i + 1 }}</span>
-                <div><h3 class="font-bold mb-1">{{ step.title }}</h3><p class="text-white/65 text-sm leading-relaxed">{{ step.text }}</p></div>
+              <div
+                v-for="(step, i) in t('firstHome').steps"
+                :key="step.title"
+                data-aos="fade-up"
+                :data-aos-delay="i * 100"
+                class="bg-white/10 border border-white/10 backdrop-blur-sm rounded-2xl p-5 flex gap-4"
+              >
+                <span
+                  class="w-10 h-10 flex-shrink-0 rounded-full bg-primary text-white font-bold flex items-center justify-center"
+                  >{{ i + 1 }}</span
+                >
+                <div>
+                  <h3 class="font-bold mb-1">{{ step.title }}</h3>
+                  <p class="text-white/65 text-sm leading-relaxed">
+                    {{ step.text }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -1221,14 +1540,35 @@
             {{ t('quote').text }}
           </p>
           <div class="grid sm:grid-cols-3 gap-3 my-8 text-left">
-            <a href="https://www.ibge.gov.br/cidades-e-estados/sc/itapoa.html" target="_blank" class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition">
-              <strong class="text-2xl text-primary block">+108%</strong><span class="text-sm text-gray-600">{{ t('quote').metricPopulation }}</span>
+            <a
+              href="https://www.ibge.gov.br/cidades-e-estados/sc/itapoa.html"
+              target="_blank"
+              class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition"
+            >
+              <strong class="text-2xl text-primary block">+108%</strong
+              ><span class="text-sm text-gray-600"
+                >{{ t('quote').metricPopulation }}</span
+              >
             </a>
-            <a href="https://siteinstitucional.sc.senai.br/pt-br/imprensa/porto-itapoa-inaugura-expansao-com-investimento-de-r-815-milhoes" target="_blank" class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition">
-              <strong class="text-2xl text-primary block">R$ 2,5 bi</strong><span class="text-sm text-gray-600">{{ t('quote').metricPort }}</span>
+            <a
+              href="https://siteinstitucional.sc.senai.br/pt-br/imprensa/porto-itapoa-inaugura-expansao-com-investimento-de-r-815-milhoes"
+              target="_blank"
+              class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition"
+            >
+              <strong class="text-2xl text-primary block">R$ 2,5 bi</strong
+              ><span class="text-sm text-gray-600"
+                >{{ t('quote').metricPort }}</span
+              >
             </a>
-            <a href="https://www2.ielsc.org.br/pt-br/imprensa/cooperativa-paranaense-coamo-anuncia-novo-porto-em-itapoa" target="_blank" class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition">
-              <strong class="text-2xl text-primary block">R$ 3 bi</strong><span class="text-sm text-gray-600">{{ t('quote').metricCoamo }}</span>
+            <a
+              href="https://www2.ielsc.org.br/pt-br/imprensa/cooperativa-paranaense-coamo-anuncia-novo-porto-em-itapoa"
+              target="_blank"
+              class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition"
+            >
+              <strong class="text-2xl text-primary block">R$ 3 bi</strong
+              ><span class="text-sm text-gray-600"
+                >{{ t('quote').metricCoamo }}</span
+              >
             </a>
           </div>
           <p class="text-xs text-gray-400 mb-8">{{ t('quote').sources }}</p>
@@ -1300,7 +1640,9 @@
               <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">
                 {{ tt.text }}
               </p>
-              <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
+              <div
+                class="flex items-center gap-3 pt-4 border-t border-gray-200"
+              >
                 <div
                   class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center"
                 >
@@ -1642,7 +1984,13 @@
           const activeImage = ref(0);
           const searchSubmitted = ref(false);
           const shareCopied = ref(false);
-          const qualification = reactive({ city: "", maxPrice: "", entry: "", bedrooms: "", timeline: "" });
+          const qualification = reactive({
+            city: "",
+            maxPrice: "",
+            entry: "",
+            bedrooms: "",
+            timeline: "",
+          });
 
           function setLang(l) {
             lang.value = l;
@@ -1670,20 +2018,79 @@
                   "Seja para morar, sair do aluguel ou investir com segurança. Encontramos o imóvel ideal para você em Itapoá, Balneário Camboriú, Itajaí e todo o litoral de SC.",
                 cta1: "Fale Conosco",
                 cta2: "Ver Imóveis",
-                marqueeCities: "Itapoá · Balneário Camboriú · Itajaí", marqueeLand: "Terrenos & Permutas", marqueeInvest: "Investimentos Estratégicos",
+                marqueeCities: "Itapoá · Balneário Camboriú · Itajaí",
+                marqueeLand: "Terrenos & Permutas",
+                marqueeInvest: "Investimentos Estratégicos",
               },
               search: {
-                ariaLabel: "Busca de imóveis", eyebrow: "Encontre seu imóvel", title: "Qual é o seu objetivo?", show: "Ver opções",
-                filters: { all: "Todos", firstHome: "Primeiro imóvel", live: "Comprar para morar", launch: "Comprar na planta", invest: "Investir", swap: "Terreno para permuta" },
-                city: "Cidade", anyCity: "Qualquer cidade", budget: "Valor máximo", anyBudget: "Qualquer valor", entry: "Entrada disponível", bedrooms: "Quartos", anyBedrooms: "Qualquer quantidade", timeline: "Quando pretende comprar?", notInformed: "Prefiro não informar",
-                upTo500: "Até R$ 500 mil", upTo800: "Até R$ 800 mil", upTo1200: "Até R$ 1,2 milhão", upTo2000: "Até R$ 2 milhões", above2000: "Acima de R$ 2 milhões", upTo50: "Até R$ 50 mil", upTo100: "Até R$ 100 mil", upTo200: "Até R$ 200 mil", above200: "Acima de R$ 200 mil",
-                now: "O quanto antes", threeMonths: "Nos próximos 3 meses", sixMonths: "De 3 a 6 meses", planning: "Ainda estou planejando", refine: "Buscar imóveis", matchText: "Estas opções do catálogo combinam com os critérios informados.", matchOne: "Encontramos 1 imóvel para você.", matchMany: "Encontramos {count} imóveis para você.",
-                noMatchTitle: "Ainda não encontramos esse imóvel no catálogo", noMatchText: "Nosso catálogo é exclusivo e tem poucas opções publicadas. Envie seu perfil pelo WhatsApp e o corretor fará o possível para encontrar um imóvel com as características que você procura, inclusive fora do catálogo.", sendProfile: "Enviar perfil pelo WhatsApp",
-                profileMessage: "Olá! Não encontrei no catálogo e gostaria que o corretor buscasse um imóvel com este perfil:", profileGoal: "Objetivo",
+                ariaLabel: "Busca de imóveis",
+                eyebrow: "Encontre seu imóvel",
+                title: "Qual é o seu objetivo?",
+                show: "Ver opções",
+                filters: {
+                  all: "Todos",
+                  firstHome: "Primeiro imóvel",
+                  live: "Comprar para morar",
+                  launch: "Comprar na planta",
+                  invest: "Investir",
+                  swap: "Terreno para permuta",
+                },
+                city: "Cidade",
+                anyCity: "Qualquer cidade",
+                budget: "Valor máximo",
+                anyBudget: "Qualquer valor",
+                entry: "Entrada disponível",
+                bedrooms: "Quartos",
+                anyBedrooms: "Qualquer quantidade",
+                timeline: "Quando pretende comprar?",
+                notInformed: "Prefiro não informar",
+                upTo500: "Até R$ 500 mil",
+                upTo800: "Até R$ 800 mil",
+                upTo1200: "Até R$ 1,2 milhão",
+                upTo2000: "Até R$ 2 milhões",
+                above2000: "Acima de R$ 2 milhões",
+                upTo50: "Até R$ 50 mil",
+                upTo100: "Até R$ 100 mil",
+                upTo200: "Até R$ 200 mil",
+                above200: "Acima de R$ 200 mil",
+                now: "O quanto antes",
+                threeMonths: "Nos próximos 3 meses",
+                sixMonths: "De 3 a 6 meses",
+                planning: "Ainda estou planejando",
+                refine: "Buscar imóveis",
+                matchText:
+                  "Estas opções do catálogo combinam com os critérios informados.",
+                matchOne: "Encontramos 1 imóvel para você.",
+                matchMany: "Encontramos {count} imóveis para você.",
+                noMatchTitle: "Ainda não encontramos esse imóvel no catálogo",
+                noMatchText:
+                  "Nosso catálogo é exclusivo e tem poucas opções publicadas. Envie seu perfil pelo WhatsApp e o corretor fará o possível para encontrar um imóvel com as características que você procura, inclusive fora do catálogo.",
+                sendProfile: "Enviar perfil pelo WhatsApp",
+                profileMessage:
+                  "Olá! Não encontrei no catálogo e gostaria que o corretor buscasse um imóvel com este perfil:",
+                profileGoal: "Objetivo",
               },
               firstHome: {
-                tag: "Saia do aluguel", title: "A parcela da sua casa própria pode estar mais próxima do que você imagina.", subtitle: "Conte um pouco sobre seu momento. Vamos buscar opções compatíveis com sua renda, sua entrada e as necessidades da sua família.", cta: "Quero buscar meu primeiro imóvel",
-                steps: [{ title: "Conte seu perfil", text: "Informe cidade, orçamento, entrada e o prazo em que pretende comprar." }, { title: "Receba opções realistas", text: "Selecionamos imóveis compatíveis, dentro e fora do catálogo público." }, { title: "Conquiste suas chaves", text: "Acompanhamos negociação, financiamento e documentação até a entrega." }],
+                tag: "Saia do aluguel",
+                title:
+                  "A parcela da sua casa própria pode estar mais próxima do que você imagina.",
+                subtitle:
+                  "Conte um pouco sobre seu momento. Vamos buscar opções compatíveis com sua renda, sua entrada e as necessidades da sua família.",
+                cta: "Quero buscar meu primeiro imóvel",
+                steps: [
+                  {
+                    title: "Conte seu perfil",
+                    text: "Informe cidade, orçamento, entrada e o prazo em que pretende comprar.",
+                  },
+                  {
+                    title: "Receba opções realistas",
+                    text: "Selecionamos imóveis compatíveis, dentro e fora do catálogo público.",
+                  },
+                  {
+                    title: "Conquiste suas chaves",
+                    text: "Acompanhamos negociação, financiamento e documentação até a entrega.",
+                  },
+                ],
               },
               about: {
                 tag: "Quem Somos",
@@ -1764,11 +2171,21 @@
                 installments: "Parcelas",
                 swap: "Aceita permuta por unidades",
                 interest: "Tenho interesse",
-                details: "Ver detalhes e fotos", empty: "Ainda não há imóveis publicados com esse perfil. Fale conosco para receber opções exclusivas.",
-                close: "Fechar detalhes", previous: "Foto anterior", next: "Próxima foto", bedrooms: "quartos", area: "área", parking: "vagas",
-                about: "Sobre este imóvel", whatsapp: "Quero saber mais pelo WhatsApp",
+                details: "Ver detalhes e fotos",
+                empty:
+                  "Ainda não há imóveis publicados com esse perfil. Fale conosco para receber opções exclusivas.",
+                back: "Voltar ao catálogo",
+                close: "Fechar detalhes",
+                previous: "Foto anterior",
+                next: "Próxima foto",
+                bedrooms: "quartos",
+                area: "área",
+                parking: "vagas",
+                about: "Sobre este imóvel",
+                whatsapp: "Quero saber mais pelo WhatsApp",
                 whatsappMessage: "Olá! Quero mais informações sobre",
-                share: "Compartilhar este imóvel", copied: "Link copiado!",
+                share: "Compartilhar este imóvel",
+                copied: "Link copiado!",
               },
               quote: {
                 title1: "Itapoá reúne qualidade de vida e",
@@ -1776,7 +2193,12 @@
                 text: "O avanço populacional e os investimentos portuários ajudam a explicar por que incorporadoras e compradores estão olhando para Itapoá. É uma cidade para morar bem hoje e acompanhar de perto para o futuro.",
                 company: "Investimentos e Negócios Imobiliários",
                 sources: "Dados públicos e anúncios institucionais.",
-                metricPopulation: "de crescimento populacional entre 2010 e 2022", metricPort: "já investidos pelo Porto Itapoá, com novas expansões planejadas", metricCoamo: "previstos para um novo terminal portuário da Coamo",
+                metricPopulation:
+                  "de crescimento populacional entre 2010 e 2022",
+                metricPort:
+                  "já investidos pelo Porto Itapoá, com novas expansões planejadas",
+                metricCoamo:
+                  "previstos para um novo terminal portuário da Coamo",
               },
               testimonials: {
                 tag: "Depoimentos",
@@ -1889,20 +2311,79 @@
                   "Whether to live, leave renting behind or invest with confidence. We find the perfect property for you in Itapoá, Balneário Camboriú, Itajaí and all across SC's coast.",
                 cta1: "Contact Us",
                 cta2: "See Properties",
-                marqueeCities: "Itapoá · Balneário Camboriú · Itajaí", marqueeLand: "Land & Swaps", marqueeInvest: "Strategic Investments",
+                marqueeCities: "Itapoá · Balneário Camboriú · Itajaí",
+                marqueeLand: "Land & Swaps",
+                marqueeInvest: "Strategic Investments",
               },
               search: {
-                ariaLabel: "Property search", eyebrow: "Find your property", title: "What is your goal?", show: "View options",
-                filters: { all: "All", firstHome: "First home", live: "Buy to live", launch: "Buy off-plan", invest: "Invest", swap: "Land swap" },
-                city: "City", anyCity: "Any city", budget: "Maximum budget", anyBudget: "Any budget", entry: "Available down payment", bedrooms: "Bedrooms", anyBedrooms: "Any number", timeline: "When do you plan to buy?", notInformed: "Prefer not to say",
-                upTo500: "Up to R$ 500k", upTo800: "Up to R$ 800k", upTo1200: "Up to R$ 1.2m", upTo2000: "Up to R$ 2m", above2000: "Above R$ 2m", upTo50: "Up to R$ 50k", upTo100: "Up to R$ 100k", upTo200: "Up to R$ 200k", above200: "Above R$ 200k",
-                now: "As soon as possible", threeMonths: "Within 3 months", sixMonths: "In 3 to 6 months", planning: "Still planning", refine: "Search properties", matchText: "These catalog options match the criteria you provided.", matchOne: "We found 1 property for you.", matchMany: "We found {count} properties for you.",
-                noMatchTitle: "We have not found this property in the catalog yet", noMatchText: "Our catalog is exclusive and only shows a few properties. Send your profile on WhatsApp and the agent will do their best to find a property with the characteristics you need, including options outside the catalog.", sendProfile: "Send profile on WhatsApp",
-                profileMessage: "Hello! I did not find it in the catalog and would like the agent to search for a property with this profile:", profileGoal: "Goal",
+                ariaLabel: "Property search",
+                eyebrow: "Find your property",
+                title: "What is your goal?",
+                show: "View options",
+                filters: {
+                  all: "All",
+                  firstHome: "First home",
+                  live: "Buy to live",
+                  launch: "Buy off-plan",
+                  invest: "Invest",
+                  swap: "Land swap",
+                },
+                city: "City",
+                anyCity: "Any city",
+                budget: "Maximum budget",
+                anyBudget: "Any budget",
+                entry: "Available down payment",
+                bedrooms: "Bedrooms",
+                anyBedrooms: "Any number",
+                timeline: "When do you plan to buy?",
+                notInformed: "Prefer not to say",
+                upTo500: "Up to R$ 500k",
+                upTo800: "Up to R$ 800k",
+                upTo1200: "Up to R$ 1.2m",
+                upTo2000: "Up to R$ 2m",
+                above2000: "Above R$ 2m",
+                upTo50: "Up to R$ 50k",
+                upTo100: "Up to R$ 100k",
+                upTo200: "Up to R$ 200k",
+                above200: "Above R$ 200k",
+                now: "As soon as possible",
+                threeMonths: "Within 3 months",
+                sixMonths: "In 3 to 6 months",
+                planning: "Still planning",
+                refine: "Search properties",
+                matchText:
+                  "These catalog options match the criteria you provided.",
+                matchOne: "We found 1 property for you.",
+                matchMany: "We found {count} properties for you.",
+                noMatchTitle:
+                  "We have not found this property in the catalog yet",
+                noMatchText:
+                  "Our catalog is exclusive and only shows a few properties. Send your profile on WhatsApp and the agent will do their best to find a property with the characteristics you need, including options outside the catalog.",
+                sendProfile: "Send profile on WhatsApp",
+                profileMessage:
+                  "Hello! I did not find it in the catalog and would like the agent to search for a property with this profile:",
+                profileGoal: "Goal",
               },
               firstHome: {
-                tag: "Stop renting", title: "Your own-home payment may be closer than you think.", subtitle: "Tell us about your situation. We will look for options that match your income, down payment and family needs.", cta: "Find my first home",
-                steps: [{ title: "Tell us your profile", text: "Share your preferred city, budget, down payment and buying timeline." }, { title: "Receive realistic options", text: "We select compatible properties both inside and outside the public catalog." }, { title: "Get your keys", text: "We guide negotiation, financing and documentation through completion." }],
+                tag: "Stop renting",
+                title: "Your own-home payment may be closer than you think.",
+                subtitle:
+                  "Tell us about your situation. We will look for options that match your income, down payment and family needs.",
+                cta: "Find my first home",
+                steps: [
+                  {
+                    title: "Tell us your profile",
+                    text: "Share your preferred city, budget, down payment and buying timeline.",
+                  },
+                  {
+                    title: "Receive realistic options",
+                    text: "We select compatible properties both inside and outside the public catalog.",
+                  },
+                  {
+                    title: "Get your keys",
+                    text: "We guide negotiation, financing and documentation through completion.",
+                  },
+                ],
               },
               about: {
                 tag: "About Us",
@@ -1983,11 +2464,21 @@
                 installments: "Installments",
                 swap: "Accepts swap for units",
                 interest: "I'm interested",
-                details: "View details and photos", empty: "No properties with this profile are currently published. Contact us for exclusive options.",
-                close: "Close details", previous: "Previous photo", next: "Next photo", bedrooms: "bedrooms", area: "area", parking: "spaces",
-                about: "About this property", whatsapp: "Learn more on WhatsApp",
+                details: "View details and photos",
+                empty:
+                  "No properties with this profile are currently published. Contact us for exclusive options.",
+                back: "Back to listings",
+                close: "Close details",
+                previous: "Previous photo",
+                next: "Next photo",
+                bedrooms: "bedrooms",
+                area: "area",
+                parking: "spaces",
+                about: "About this property",
+                whatsapp: "Learn more on WhatsApp",
                 whatsappMessage: "Hello! I would like more information about",
-                share: "Share this property", copied: "Link copied!",
+                share: "Share this property",
+                copied: "Link copied!",
               },
               quote: {
                 title1: "Itapoá combines quality of life with",
@@ -1995,7 +2486,10 @@
                 text: "Population growth and port investments help explain why developers and buyers are looking at Itapoá. It is a place to live well today and watch closely for the future.",
                 company: "Real Estate Investments and Business",
                 sources: "Public data and institutional announcements.",
-                metricPopulation: "population growth between 2010 and 2022", metricPort: "already invested by Porto Itapoá, with further expansions planned", metricCoamo: "planned for a new Coamo port terminal",
+                metricPopulation: "population growth between 2010 and 2022",
+                metricPort:
+                  "already invested by Porto Itapoá, with further expansions planned",
+                metricCoamo: "planned for a new Coamo port terminal",
               },
               testimonials: {
                 tag: "Testimonials",
@@ -2040,8 +2534,14 @@
                     q: "Why invest in Itapoá?",
                     a: "Itapoá is one of the fastest-growing cities on the coast of SC, with strong appreciation, preserved nature, expanding infrastructure and prices still accessible compared to BC and the region.",
                   },
-                  { q: "Do you help first-time buyers stop renting?", a: "Yes. We assess income, available down payment, family needs and financing possibilities to find realistic options, guiding you through negotiation and documentation." },
-                  { q: "How do I know if I can finance my first home?", a: "We make an initial assessment and suggest properties within your budget. Final approval and terms depend on the financial institution's credit analysis." },
+                  {
+                    q: "Do you help first-time buyers stop renting?",
+                    a: "Yes. We assess income, available down payment, family needs and financing possibilities to find realistic options, guiding you through negotiation and documentation.",
+                  },
+                  {
+                    q: "How do I know if I can finance my first home?",
+                    a: "We make an initial assessment and suggest properties within your budget. Final approval and terms depend on the financial institution's credit analysis.",
+                  },
                   {
                     q: "Do you work with developers?",
                     a: "Yes! We connect landowners to developers and builders, facilitating swaps and negotiations that benefit both parties.",
@@ -2102,20 +2602,80 @@
                   "Ya sea para vivir, dejar el alquiler o invertir con seguridad. Encontramos el inmueble ideal para ti en Itapoá, Balneário Camboriú, Itajaí y todo el litoral de SC.",
                 cta1: "Contáctanos",
                 cta2: "Ver Inmuebles",
-                marqueeCities: "Itapoá · Balneário Camboriú · Itajaí", marqueeLand: "Terrenos y Permutas", marqueeInvest: "Inversiones Estratégicas",
+                marqueeCities: "Itapoá · Balneário Camboriú · Itajaí",
+                marqueeLand: "Terrenos y Permutas",
+                marqueeInvest: "Inversiones Estratégicas",
               },
               search: {
-                ariaLabel: "Búsqueda de inmuebles", eyebrow: "Encuentra tu inmueble", title: "¿Cuál es tu objetivo?", show: "Ver opciones",
-                filters: { all: "Todos", firstHome: "Primera vivienda", live: "Comprar para vivir", launch: "Comprar sobre plano", invest: "Invertir", swap: "Terreno para permuta" },
-                city: "Ciudad", anyCity: "Cualquier ciudad", budget: "Valor máximo", anyBudget: "Cualquier valor", entry: "Entrada disponible", bedrooms: "Habitaciones", anyBedrooms: "Cualquier cantidad", timeline: "¿Cuándo quieres comprar?", notInformed: "Prefiero no informar",
-                upTo500: "Hasta R$ 500 mil", upTo800: "Hasta R$ 800 mil", upTo1200: "Hasta R$ 1,2 millones", upTo2000: "Hasta R$ 2 millones", above2000: "Más de R$ 2 millones", upTo50: "Hasta R$ 50 mil", upTo100: "Hasta R$ 100 mil", upTo200: "Hasta R$ 200 mil", above200: "Más de R$ 200 mil",
-                now: "Lo antes posible", threeMonths: "En los próximos 3 meses", sixMonths: "De 3 a 6 meses", planning: "Todavía estoy planificando", refine: "Buscar inmuebles", matchText: "Estas opciones del catálogo coinciden con los criterios informados.", matchOne: "Encontramos 1 inmueble para ti.", matchMany: "Encontramos {count} inmuebles para ti.",
-                noMatchTitle: "Todavía no encontramos este inmueble en el catálogo", noMatchText: "Nuestro catálogo es exclusivo y muestra pocas opciones. Envía tu perfil por WhatsApp y el agente hará todo lo posible por encontrar un inmueble con las características que buscas, incluso fuera del catálogo.", sendProfile: "Enviar perfil por WhatsApp",
-                profileMessage: "¡Hola! No lo encontré en el catálogo y quisiera que el agente buscara un inmueble con este perfil:", profileGoal: "Objetivo",
+                ariaLabel: "Búsqueda de inmuebles",
+                eyebrow: "Encuentra tu inmueble",
+                title: "¿Cuál es tu objetivo?",
+                show: "Ver opciones",
+                filters: {
+                  all: "Todos",
+                  firstHome: "Primera vivienda",
+                  live: "Comprar para vivir",
+                  launch: "Comprar sobre plano",
+                  invest: "Invertir",
+                  swap: "Terreno para permuta",
+                },
+                city: "Ciudad",
+                anyCity: "Cualquier ciudad",
+                budget: "Valor máximo",
+                anyBudget: "Cualquier valor",
+                entry: "Entrada disponible",
+                bedrooms: "Habitaciones",
+                anyBedrooms: "Cualquier cantidad",
+                timeline: "¿Cuándo quieres comprar?",
+                notInformed: "Prefiero no informar",
+                upTo500: "Hasta R$ 500 mil",
+                upTo800: "Hasta R$ 800 mil",
+                upTo1200: "Hasta R$ 1,2 millones",
+                upTo2000: "Hasta R$ 2 millones",
+                above2000: "Más de R$ 2 millones",
+                upTo50: "Hasta R$ 50 mil",
+                upTo100: "Hasta R$ 100 mil",
+                upTo200: "Hasta R$ 200 mil",
+                above200: "Más de R$ 200 mil",
+                now: "Lo antes posible",
+                threeMonths: "En los próximos 3 meses",
+                sixMonths: "De 3 a 6 meses",
+                planning: "Todavía estoy planificando",
+                refine: "Buscar inmuebles",
+                matchText:
+                  "Estas opciones del catálogo coinciden con los criterios informados.",
+                matchOne: "Encontramos 1 inmueble para ti.",
+                matchMany: "Encontramos {count} inmuebles para ti.",
+                noMatchTitle:
+                  "Todavía no encontramos este inmueble en el catálogo",
+                noMatchText:
+                  "Nuestro catálogo es exclusivo y muestra pocas opciones. Envía tu perfil por WhatsApp y el agente hará todo lo posible por encontrar un inmueble con las características que buscas, incluso fuera del catálogo.",
+                sendProfile: "Enviar perfil por WhatsApp",
+                profileMessage:
+                  "¡Hola! No lo encontré en el catálogo y quisiera que el agente buscara un inmueble con este perfil:",
+                profileGoal: "Objetivo",
               },
               firstHome: {
-                tag: "Deja el alquiler", title: "La cuota de tu vivienda propia puede estar más cerca de lo que imaginas.", subtitle: "Cuéntanos sobre tu situación. Buscaremos opciones compatibles con tus ingresos, entrada y necesidades familiares.", cta: "Buscar mi primera vivienda",
-                steps: [{ title: "Cuéntanos tu perfil", text: "Indica ciudad, presupuesto, entrada y plazo de compra." }, { title: "Recibe opciones realistas", text: "Seleccionamos inmuebles compatibles dentro y fuera del catálogo público." }, { title: "Recibe tus llaves", text: "Acompañamos negociación, financiación y documentación hasta la entrega." }],
+                tag: "Deja el alquiler",
+                title:
+                  "La cuota de tu vivienda propia puede estar más cerca de lo que imaginas.",
+                subtitle:
+                  "Cuéntanos sobre tu situación. Buscaremos opciones compatibles con tus ingresos, entrada y necesidades familiares.",
+                cta: "Buscar mi primera vivienda",
+                steps: [
+                  {
+                    title: "Cuéntanos tu perfil",
+                    text: "Indica ciudad, presupuesto, entrada y plazo de compra.",
+                  },
+                  {
+                    title: "Recibe opciones realistas",
+                    text: "Seleccionamos inmuebles compatibles dentro y fuera del catálogo público.",
+                  },
+                  {
+                    title: "Recibe tus llaves",
+                    text: "Acompañamos negociación, financiación y documentación hasta la entrega.",
+                  },
+                ],
               },
               about: {
                 tag: "Quiénes Somos",
@@ -2196,11 +2756,21 @@
                 installments: "Cuotas",
                 swap: "Acepta permuta por unidades",
                 interest: "Me interesa",
-                details: "Ver detalles y fotos", empty: "Todavía no hay inmuebles publicados con este perfil. Contáctanos para recibir opciones exclusivas.",
-                close: "Cerrar detalles", previous: "Foto anterior", next: "Foto siguiente", bedrooms: "habitaciones", area: "área", parking: "plazas",
-                about: "Sobre este inmueble", whatsapp: "Quiero saber más por WhatsApp",
+                details: "Ver detalles y fotos",
+                empty:
+                  "Todavía no hay inmuebles publicados con este perfil. Contáctanos para recibir opciones exclusivas.",
+                back: "Volver al catálogo",
+                close: "Cerrar detalles",
+                previous: "Foto anterior",
+                next: "Foto siguiente",
+                bedrooms: "habitaciones",
+                area: "área",
+                parking: "plazas",
+                about: "Sobre este inmueble",
+                whatsapp: "Quiero saber más por WhatsApp",
                 whatsappMessage: "¡Hola! Quiero más información sobre",
-                share: "Compartir este inmueble", copied: "¡Enlace copiado!",
+                share: "Compartir este inmueble",
+                copied: "¡Enlace copiado!",
               },
               quote: {
                 title1: "Itapoá reúne calidad de vida y",
@@ -2208,7 +2778,12 @@
                 text: "El crecimiento poblacional y las inversiones portuarias ayudan a explicar por qué constructoras y compradores miran hacia Itapoá. Es una ciudad para vivir bien hoy y seguir de cerca hacia el futuro.",
                 company: "Inversiones y Negocios Inmobiliarios",
                 sources: "Datos públicos y anuncios institucionales.",
-                metricPopulation: "de crecimiento poblacional entre 2010 y 2022", metricPort: "ya invertidos por Porto Itapoá, con nuevas expansiones planificadas", metricCoamo: "previstos para una nueva terminal portuaria de Coamo",
+                metricPopulation:
+                  "de crecimiento poblacional entre 2010 y 2022",
+                metricPort:
+                  "ya invertidos por Porto Itapoá, con nuevas expansiones planificadas",
+                metricCoamo:
+                  "previstos para una nueva terminal portuaria de Coamo",
               },
               testimonials: {
                 tag: "Testimonios",
@@ -2254,8 +2829,14 @@
                     q: "¿Por qué invertir en Itapoá?",
                     a: "Itapoá es una de las ciudades que más crece en el litoral de SC, con valorización expresiva, naturaleza preservada, infraestructura en expansión y precios aún accesibles comparados con BC y la región.",
                   },
-                  { q: "¿Ayudan a quienes quieren comprar su primera vivienda y dejar el alquiler?", a: "Sí. Analizamos ingresos, entrada disponible, necesidades familiares y posibilidades de financiación para encontrar opciones realistas y acompañar la negociación y la documentación." },
-                  { q: "¿Cómo sé si puedo financiar mi primera vivienda?", a: "Hacemos una evaluación inicial y sugerimos inmuebles compatibles con tu presupuesto. La aprobación y las condiciones finales dependen del análisis de crédito de la entidad financiera." },
+                  {
+                    q: "¿Ayudan a quienes quieren comprar su primera vivienda y dejar el alquiler?",
+                    a: "Sí. Analizamos ingresos, entrada disponible, necesidades familiares y posibilidades de financiación para encontrar opciones realistas y acompañar la negociación y la documentación.",
+                  },
+                  {
+                    q: "¿Cómo sé si puedo financiar mi primera vivienda?",
+                    a: "Hacemos una evaluación inicial y sugerimos inmuebles compatibles con tu presupuesto. La aprobación y las condiciones finales dependen del análisis de crédito de la entidad financiera.",
+                  },
                   {
                     q: "¿Trabajan con desarrolladoras?",
                     a: "¡Sí! Conectamos propietarios de terrenos con desarrolladoras y constructoras, facilitando permutas y negociaciones que benefician a ambas partes.",
@@ -2577,13 +3158,26 @@
 
           const fallbackProperties = computed(() => {
             const texts = propertyTexts[lang.value] || propertyTexts.pt;
-            return propertyData.map((p, i) => ({ id: `catalogo-${i + 1}`, slug: `catalogo-${i + 1}`, ...p, ...texts[i] }));
+            return propertyData.map((p, i) => ({
+              id: `catalogo-${i + 1}`,
+              slug: `catalogo-${i + 1}`,
+              ...p,
+              ...texts[i],
+            }));
           });
 
           const apiPropertiesLoaded = ref(false);
           const properties = ref([]);
 
-          const cityOptions = computed(() => [...new Set(properties.value.map((p) => (p.location || "").split(",")[0].trim()).filter(Boolean))].sort());
+          const cityOptions = computed(() =>
+            [
+              ...new Set(
+                properties.value
+                  .map((p) => (p.location || "").split(",")[0].trim())
+                  .filter(Boolean),
+              ),
+            ].sort(),
+          );
 
           function currencyNumber(value) {
             if (typeof value === "number") return value;
@@ -2592,21 +3186,59 @@
 
           const filteredProperties = computed(() => {
             return properties.value.filter((property) => {
-              const intentMatch = activeFilter.value === "all" || (property.intent || inferIntent(property)).includes(activeFilter.value);
-              const cityMatch = !qualification.city || (property.location || "").startsWith(qualification.city);
-              const priceMatch = !qualification.maxPrice || currencyNumber(property.price) <= Number(qualification.maxPrice);
-              const bedroomMatch = !qualification.bedrooms || Number(property.bedrooms || 0) >= Number(qualification.bedrooms);
+              const intentMatch =
+                activeFilter.value === "all" ||
+                (property.intent || inferIntent(property)).includes(
+                  activeFilter.value,
+                );
+              const cityMatch =
+                !qualification.city ||
+                (property.location || "").startsWith(qualification.city);
+              const priceMatch =
+                !qualification.maxPrice ||
+                currencyNumber(property.price) <=
+                  Number(qualification.maxPrice);
+              const bedroomMatch =
+                !qualification.bedrooms ||
+                Number(property.bedrooms || 0) >=
+                  Number(qualification.bedrooms);
               return intentMatch && cityMatch && priceMatch && bedroomMatch;
             });
           });
 
-          const searchCta = computed(() => searchSubmitted.value ? t("search").refine : t("search").show);
-          const resultTitle = computed(() => filteredProperties.value.length === 0 ? t("search").noMatchTitle : filteredProperties.value.length === 1 ? t("search").matchOne : t("search").matchMany.replace("{count}", filteredProperties.value.length));
+          const searchCta = computed(() =>
+            searchSubmitted.value ? t("search").refine : t("search").show,
+          );
+          const resultTitle = computed(() =>
+            filteredProperties.value.length === 0
+              ? t("search").noMatchTitle
+              : filteredProperties.value.length === 1
+                ? t("search").matchOne
+                : t("search").matchMany.replace(
+                    "{count}",
+                    filteredProperties.value.length,
+                  ),
+          );
 
           const qualifiedWhatsappLink = computed(() => {
             const f = t("search").filters;
-            const intents = { all: f.all, "first-home": f.firstHome, live: f.live, launch: f.launch, invest: f.invest, swap: f.swap };
-            const lines = [t("search").profileMessage, `${t("search").profileGoal}: ${intents[activeFilter.value]}`, `${t("search").city}: ${qualification.city || t("search").notInformed}`, `${t("search").budget}: ${qualification.maxPrice ? `R$ ${Number(qualification.maxPrice).toLocaleString("pt-BR")}` : t("search").notInformed}`, `${t("search").entry}: ${qualification.entry ? `R$ ${Number(qualification.entry).toLocaleString("pt-BR")}` : t("search").notInformed}`, `${t("search").bedrooms}: ${qualification.bedrooms || t("search").notInformed}`, `${t("search").timeline}: ${qualification.timeline || t("search").notInformed}`];
+            const intents = {
+              all: f.all,
+              "first-home": f.firstHome,
+              live: f.live,
+              launch: f.launch,
+              invest: f.invest,
+              swap: f.swap,
+            };
+            const lines = [
+              t("search").profileMessage,
+              `${t("search").profileGoal}: ${intents[activeFilter.value]}`,
+              `${t("search").city}: ${qualification.city || t("search").notInformed}`,
+              `${t("search").budget}: ${qualification.maxPrice ? `R$ ${Number(qualification.maxPrice).toLocaleString("pt-BR")}` : t("search").notInformed}`,
+              `${t("search").entry}: ${qualification.entry ? `R$ ${Number(qualification.entry).toLocaleString("pt-BR")}` : t("search").notInformed}`,
+              `${t("search").bedrooms}: ${qualification.bedrooms || t("search").notInformed}`,
+              `${t("search").timeline}: ${qualification.timeline || t("search").notInformed}`,
+            ];
             return `${whatsappLink}?text=${encodeURIComponent(lines.join("\n"))}`;
           });
 
@@ -2616,10 +3248,13 @@
           }
 
           function inferIntent(property) {
-            const content = `${property.type || ""} ${property.tag || ""} ${property.title || ""}`.toLowerCase();
+            const content =
+              `${property.type || ""} ${property.tag || ""} ${property.title || ""}`.toLowerCase();
             const intents = [];
-            if (/casa|apart|resid/.test(content)) intents.push("live", "first-home");
-            if (/lançamento|planta|incorp|área/.test(content)) intents.push("launch", "invest");
+            if (/casa|apart|resid/.test(content))
+              intents.push("live", "first-home");
+            if (/lançamento|planta|incorp|área/.test(content))
+              intents.push("launch", "invest");
             if (/terreno|lote|invest/.test(content)) intents.push("invest");
             if (/permuta/.test(content)) intents.push("swap");
             return [...new Set(intents.length ? intents : ["live"])];
@@ -2628,7 +3263,11 @@
           const propertyGallery = computed(() => {
             if (!selectedProperty.value) return [];
             const images = selectedProperty.value.images || [];
-            const gallery = [...new Set([selectedProperty.value.image, ...images].filter(Boolean))];
+            const gallery = [
+              ...new Set(
+                [selectedProperty.value.image, ...images].filter(Boolean),
+              ),
+            ];
             if (gallery.length === 1) {
               gallery.push(
                 "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1000&h=750&fit=crop",
@@ -2648,14 +3287,23 @@
             activeImage.value = 0;
             shareCopied.value = false;
             const id = property.id || property.slug;
-            if (id && new URLSearchParams(location.search).get("imovel") !== String(id)) history.pushState({ property: id }, "", `?imovel=${encodeURIComponent(id)}`);
+            if (
+              id &&
+              new URLSearchParams(location.search).get("imovel") !== String(id)
+            )
+              history.pushState(
+                { property: id },
+                "",
+                `?imovel=${encodeURIComponent(id)}`,
+              );
             document.body.style.overflow = "hidden";
           }
 
           function closeProperty() {
             selectedProperty.value = null;
             document.body.style.overflow = "";
-            if (new URLSearchParams(location.search).has("imovel")) history.replaceState({}, "", location.pathname);
+            if (new URLSearchParams(location.search).has("imovel"))
+              history.replaceState({}, "", location.pathname);
           }
 
           async function copyPropertyLink() {
@@ -2675,14 +3323,22 @@
               document.body.style.overflow = "";
               return;
             }
-            const property = properties.value.find((p) => String(p.id || p.slug) === id);
+            const property = properties.value.find(
+              (p) => String(p.id || p.slug) === id,
+            );
             if (property) openProperty(property);
           }
 
           const handlePopState = () => openPropertyFromUrl();
 
           function scrollToProperties() {
-            setTimeout(() => document.querySelector("#imoveis")?.scrollIntoView({ behavior: "smooth" }), 80);
+            setTimeout(
+              () =>
+                document
+                  .querySelector("#imoveis")
+                  ?.scrollIntoView({ behavior: "smooth" }),
+              80,
+            );
           }
 
           Vue.watch(
