@@ -1,0 +1,2803 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carneiro & Chiaradia | Investimentos e Negócios Imobiliários</title>
+    <meta
+      name="description"
+      content="Carneiro & Chiaradia - Imóveis para morar, sair do aluguel e investir no litoral catarinense."
+    />
+    <link rel="icon" type="image/png" href="assets/carneiro-chiaradia-logo-transparent.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#C9972E",
+              "primary-light": "#E5BC57",
+              "primary-dark": "#9A6B0D",
+              navy: "#0B2F5B",
+              "navy-light": "#174B82",
+              "navy-dark": "#061E3C",
+              dark: "#F5F0EB",
+              darker: "#EDE7E0",
+              cream: "#FAF7F4",
+              warmgray: "#D6CFC7",
+            },
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+              display: ["Playfair Display", "serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+        overflow-x: hidden;
+      }
+
+      .gradient-text {
+        background: linear-gradient(120deg, #9A6B0D, #E5BC57 52%, #B47A10);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-text-shadow {
+        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.72);
+      }
+      .hero-gradient {
+        background:
+          linear-gradient(
+            to bottom,
+            rgba(11, 20, 27, 0.78) 0%,
+            rgba(11, 20, 27, 0.62) 50%,
+            rgba(11, 20, 27, 0.86) 100%
+          ),
+          radial-gradient(
+            ellipse at 30% 50%,
+            rgba(184, 147, 47, 0.08) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse at 70% 20%,
+            rgba(27, 42, 74, 0.15) 0%,
+            transparent 50%
+          );
+      }
+
+      .hero-columns {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        padding: 0 8px;
+        overflow: hidden;
+        mask-image: linear-gradient(
+          to bottom,
+          transparent 0%,
+          black 10%,
+          black 85%,
+          transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          transparent 0%,
+          black 10%,
+          black 85%,
+          transparent 100%
+        );
+      }
+      .hero-col {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .hero-col:nth-child(3),
+      .hero-col:nth-child(4) {
+        display: none;
+      }
+      .hero-col-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+      .hero-col:nth-child(1) .hero-col-inner {
+        animation: scrollUp 40s linear infinite;
+      }
+      .hero-col:nth-child(2) .hero-col-inner {
+        animation: scrollDown 45s linear infinite;
+      }
+      .hero-col:nth-child(3) .hero-col-inner {
+        animation: scrollUp 38s linear infinite;
+      }
+      .hero-col:nth-child(4) .hero-col-inner {
+        animation: scrollDown 42s linear infinite;
+      }
+      @keyframes scrollUp {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-50%);
+        }
+      }
+      @keyframes scrollDown {
+        0% {
+          transform: translateY(-50%);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+      .hero-col-inner img {
+        width: 100%;
+        border-radius: 8px;
+        object-fit: cover;
+        aspect-ratio: 3/4;
+      }
+      @media (min-width: 768px) {
+        .hero-columns {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 12px;
+          padding: 0 12px;
+        }
+        .hero-col {
+          gap: 12px;
+        }
+        .hero-col:nth-child(3),
+        .hero-col:nth-child(4) {
+          display: flex;
+        }
+        .hero-col-inner {
+          gap: 12px;
+        }
+        .hero-col:nth-child(1) .hero-col-inner {
+          animation-duration: 30s;
+        }
+        .hero-col:nth-child(2) .hero-col-inner {
+          animation-duration: 35s;
+        }
+        .hero-col:nth-child(3) .hero-col-inner {
+          animation-duration: 28s;
+        }
+        .hero-col:nth-child(4) .hero-col-inner {
+          animation-duration: 32s;
+        }
+        .hero-col-inner img {
+          border-radius: 12px;
+          aspect-ratio: 9/16;
+        }
+      }
+
+      .card-glow:hover {
+        box-shadow: 0 0 30px rgba(139, 115, 85, 0.1);
+      }
+
+      .marquee-track {
+        display: flex;
+        animation: marquee 25s linear infinite;
+        width: max-content;
+      }
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .nav-blur {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .faq-content {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.35s ease,
+          padding 0.35s ease;
+      }
+      .faq-content.open {
+        max-height: 500px;
+      }
+
+      .gold-line {
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #C9972E, #E5BC57, transparent);
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #F5F0EB;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #C9972E;
+        border-radius: 4px;
+      }
+
+      .props-stage {
+        position: relative;
+        width: 100%;
+      }
+      .filter-chip.active {
+        background: linear-gradient(135deg, #B47A10, #E5BC57);
+        border-color: #C9972E;
+        color: white;
+        box-shadow: 0 10px 28px rgba(180, 122, 16, 0.25);
+      }
+      .property-modal { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+      #app { display: flex; flex-direction: column; }
+      #app > * { order: 10; }
+      #hero { order: 1; }
+      #busca { order: 2; }
+      #imoveis { order: 3; padding-top: 2.5rem !important; }
+      #primeiro-imovel { order: 4; }
+      [data-aos="fade-up"] { transform: translate3d(0, 42px, 0) scale(.975); filter: blur(9px); opacity: 0; transition-timing-function: cubic-bezier(.16,1,.3,1) !important; }
+      [data-aos="fade-up"].aos-animate { transform: translate3d(0,0,0) scale(1); filter: blur(0); opacity: 1; }
+      [data-aos="fade-right"] { transform: translate3d(-55px, 18px, 0) rotate(-1.5deg); filter: blur(8px); opacity: 0; transition-timing-function: cubic-bezier(.16,1,.3,1) !important; }
+      [data-aos="fade-right"].aos-animate { transform: none; filter: blur(0); opacity: 1; }
+      .card-glow { transition: transform .55s cubic-bezier(.16,1,.3,1), box-shadow .55s, border-color .55s; }
+      .card-glow:hover { transform: translateY(-8px); box-shadow: 0 24px 55px rgba(13,38,68,.12), 0 4px 18px rgba(201,151,46,.14); }
+      .gold-line { background-size: 200% 100%; animation: goldShimmer 4s ease-in-out infinite; }
+      @keyframes goldShimmer { 0%,100% { background-position: 0 50%; opacity: .6 } 50% { background-position: 100% 50%; opacity: 1 } }
+      @media (max-width: 767px) {
+        section { scroll-margin-top: 64px; }
+        #sobre, #servicos, #processo, #depoimentos { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+        #servicos .grid > :nth-child(n+4), #depoimentos .grid > :nth-child(n+3) { display: none; }
+        [data-aos] { transition-duration: .35s !important; }
+        .hero-col:nth-child(1) .hero-col-inner { animation-duration: 34s; }
+        .hero-col:nth-child(2) .hero-col-inner { animation-duration: 39s; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hero-col-inner, .marquee-track { animation: none !important; }
+        [data-aos] { transform: none !important; filter: none !important; transition: none !important; opacity: 1 !important; }
+      }
+    </style>
+  </head>
+  <body class="bg-cream text-gray-800 antialiased">
+    <div id="app">
+      <!-- Navbar -->
+      <nav
+        class="fixed top-0 left-0 right-0 z-50 nav-blur bg-cream/90 border-b border-gray-200 transition-all duration-300"
+        :class="{ 'shadow-md shadow-gray-300/50': scrolled }"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between h-16 lg:h-20">
+            <a href="#" class="flex items-center gap-3">
+              <img
+                src="assets/carneiro-chiaradia-logo-transparent.png"
+                alt="Carneiro & Chiaradia"
+                class="h-12 lg:h-16 w-16 lg:w-24 object-contain"
+              />
+              <div class="hidden sm:block">
+                <span
+                  class="text-gray-800 font-semibold text-lg leading-tight block"
+                >
+                  Carneiro & Chiaradia
+                </span>
+                <span class="text-primary text-xs tracking-widest uppercase">
+                  {{ t('nav').brandLine }}
+                </span>
+              </div>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8">
+              <a
+                v-for="item in navItems"
+                :key="item.href"
+                :href="item.href"
+                class="text-gray-500 hover:text-primary text-sm font-medium transition-colors duration-200"
+              >
+                {{ item.label }}
+              </a>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <!-- Language switcher -->
+              <div
+                class="flex items-center bg-white/70 border border-gray-200 rounded-full p-0.5 gap-0.5"
+              >
+                <button
+                  @click="setLang('pt')"
+                  :class="lang === 'pt' ? 'bg-primary text-white' : 'text-gray-500 hover:text-gray-800'"
+                  class="px-1.5 sm:px-2 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold transition"
+                >
+                  PT
+                </button>
+                <button
+                  @click="setLang('en')"
+                  :class="lang === 'en' ? 'bg-primary text-white' : 'text-gray-500 hover:text-gray-800'"
+                  class="px-1.5 sm:px-2 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold transition"
+                >
+                  EN
+                </button>
+                <button
+                  @click="setLang('es')"
+                  :class="lang === 'es' ? 'bg-primary text-white' : 'text-gray-500 hover:text-gray-800'"
+                  class="px-1.5 sm:px-2 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold transition"
+                >
+                  ES
+                </button>
+              </div>
+              <a
+                :href="whatsappLink"
+                target="_blank"
+                class="hidden sm:inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+                  />
+                  <path
+                    d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.913.913l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.597-.826-6.332-2.207l-.393-.312-2.646.887.887-2.646-.312-.393A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"
+                  />
+                </svg>
+                WhatsApp
+              </a>
+
+              <button
+                @click="mobileMenu = !mobileMenu"
+                class="md:hidden text-gray-500 hover:text-gray-800 p-2"
+              >
+                <svg
+                  v-if="!mobileMenu"
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+                <svg
+                  v-else
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <transition
+          enter-active-class="transition duration-200 ease-out"
+          enter-from-class="opacity-0 -translate-y-2"
+          enter-to-class="opacity-100 translate-y-0"
+          leave-active-class="transition duration-150 ease-in"
+          leave-from-class="opacity-100 translate-y-0"
+          leave-to-class="opacity-0 -translate-y-2"
+        >
+          <div
+            v-if="mobileMenu"
+            class="md:hidden bg-cream/95 nav-blur border-t border-gray-200 px-4 py-4 space-y-3"
+          >
+            <a
+              v-for="item in navItems"
+              :key="item.href"
+              :href="item.href"
+              @click="mobileMenu = false"
+              class="block text-gray-600 hover:text-primary py-2 text-sm font-medium transition-colors"
+            >
+              {{ item.label }}
+            </a>
+            <a
+              :href="whatsappLink"
+              target="_blank"
+              class="flex items-center justify-center gap-2 bg-green-600 text-white px-5 py-3 rounded-full text-sm font-semibold mt-3"
+            >
+              WhatsApp
+            </a>
+            <div class="flex items-center justify-center gap-2 mt-3">
+              <button
+                @click="setLang('pt')"
+                :class="lang === 'pt' ? 'bg-primary text-white' : 'bg-white/70 text-gray-500'"
+                class="px-3 py-1.5 rounded-full text-xs font-semibold transition"
+              >
+                PT
+              </button>
+              <button
+                @click="setLang('en')"
+                :class="lang === 'en' ? 'bg-primary text-white' : 'bg-white/70 text-gray-500'"
+                class="px-3 py-1.5 rounded-full text-xs font-semibold transition"
+              >
+                EN
+              </button>
+              <button
+                @click="setLang('es')"
+                :class="lang === 'es' ? 'bg-primary text-white' : 'bg-white/70 text-gray-500'"
+                class="px-3 py-1.5 rounded-full text-xs font-semibold transition"
+              >
+                ES
+              </button>
+            </div>
+          </div>
+        </transition>
+      </nav>
+
+      <!-- Hero Section -->
+      <section id="hero"
+        class="relative flex items-center justify-center pt-20 pb-24"
+        style="min-height: 94vh"
+      >
+        <div class="hero-columns pointer-events-none">
+          <div class="hero-col" v-for="(col, ci) in heroColumns" :key="ci">
+            <div class="hero-col-inner">
+              <img
+                v-for="(img, ii) in col"
+                :key="ii"
+                :src="img"
+                alt="Imóvel"
+                loading="lazy"
+              />
+              <img
+                v-for="(img, ii) in col"
+                :key="'dup-'+ii"
+                :src="img"
+                alt="Imóvel"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="absolute inset-0 hero-gradient pointer-events-none"></div>
+
+        <div
+          class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative text-center"
+        >
+          <h1
+            data-aos="fade-up"
+            data-aos-delay="100"
+            class="font-display text-white text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.05] mb-6 hero-text-shadow"
+          >
+            {{ t('hero').title1 }}
+            <span class="gradient-text" style="text-shadow: none"
+              >{{ t('hero').title2 }}</span
+            >
+            {{ t('hero').title3 }}
+          </h1>
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            class="text-white/90 text-base sm:text-xl lg:text-2xl max-w-3xl mx-auto mb-8 leading-relaxed hero-text-shadow"
+          >
+            {{ t('hero').subtitle }}
+          </p>
+          <div
+            data-aos="fade-up"
+            data-aos-delay="400"
+            class="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <a
+              :href="whatsappLink"
+              target="_blank"
+              class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary/25"
+            >
+              {{ t('hero').cta1 }}
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </a>
+            <a
+              href="#imoveis"
+              class="inline-flex items-center justify-center gap-2 border border-white/30 hover:border-white/60 text-white px-8 py-4 rounded-full text-sm font-semibold transition-all duration-200 hover:bg-white/10"
+            >
+              {{ t('hero').cta2 }}
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="absolute bottom-0 left-0 right-0 border-y border-gray-200 bg-white/60 nav-blur py-4 overflow-hidden"
+        >
+          <div class="marquee-track">
+            <span
+              v-for="i in 8"
+              :key="i"
+              class="flex items-center gap-3 px-8 text-sm font-semibold text-gray-500 whitespace-nowrap"
+            >
+              <span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+              {{ t('hero').marqueeCities }}
+              <span class="text-primary">·</span>
+              {{ t('hero').marqueeLand }}
+              <span class="text-primary">·</span>
+              {{ t('hero').marqueeInvest }}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Busca rápida: leva o visitante direto ao imóvel certo -->
+      <section id="busca" class="relative z-20 pt-8 pb-5 px-4" :aria-label="t('search').ariaLabel">
+        <div class="max-w-6xl mx-auto bg-white rounded-3xl border border-gray-200 shadow-xl shadow-gray-300/30 p-5 sm:p-7">
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+            <div>
+              <span class="text-primary text-xs font-bold tracking-widest uppercase">{{ t('search').eyebrow }}</span>
+              <h2 class="font-display text-2xl font-bold text-gray-800 mt-1">{{ t('search').title }}</h2>
+            </div>
+            <button @click="submitSearch" class="inline-flex justify-center bg-navy hover:bg-primary text-white px-6 py-3 rounded-xl text-sm font-bold transition">{{ searchCta }}</button>
+          </div>
+          <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 mt-6">
+            <button v-for="option in filterOptions" :key="option.value" @click="activeFilter = option.value"
+              class="filter-chip border border-gray-200 bg-gray-50 text-gray-600 px-3 sm:px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold transition"
+              :class="{ active: activeFilter === option.value }">
+              {{ option.label }}
+            </button>
+          </div>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-3 mt-6 pt-6 border-t border-gray-100">
+            <label class="text-xs font-semibold text-gray-600">{{ t('search').city }}
+              <select v-model="qualification.city" class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none">
+                <option value="">{{ t('search').anyCity }}</option>
+                <option v-for="city in cityOptions" :key="city" :value="city">{{ city }}</option>
+              </select>
+            </label>
+            <label class="text-xs font-semibold text-gray-600">{{ t('search').budget }}
+              <select v-model="qualification.maxPrice" class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none">
+                <option value="">{{ t('search').anyBudget }}</option>
+                <option value="500000">{{ t('search').upTo500 }}</option>
+                <option value="800000">{{ t('search').upTo800 }}</option>
+                <option value="1200000">{{ t('search').upTo1200 }}</option>
+                <option value="2000000">{{ t('search').upTo2000 }}</option>
+                <option value="999999999">{{ t('search').above2000 }}</option>
+              </select>
+            </label>
+            <label class="text-xs font-semibold text-gray-600">{{ t('search').entry }}
+              <select v-model="qualification.entry" class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none">
+                <option value="">{{ t('search').notInformed }}</option>
+                <option value="50000">{{ t('search').upTo50 }}</option>
+                <option value="100000">{{ t('search').upTo100 }}</option>
+                <option value="200000">{{ t('search').upTo200 }}</option>
+                <option value="200001">{{ t('search').above200 }}</option>
+              </select>
+            </label>
+            <label class="text-xs font-semibold text-gray-600">{{ t('search').bedrooms }}
+              <select v-model="qualification.bedrooms" class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none">
+                <option value="">{{ t('search').anyBedrooms }}</option>
+                <option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option>
+              </select>
+            </label>
+            <label class="text-xs font-semibold text-gray-600">{{ t('search').timeline }}
+              <select v-model="qualification.timeline" class="mt-2 w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm font-normal text-gray-700 focus:border-primary outline-none">
+                <option value="">{{ t('search').notInformed }}</option>
+                <option :value="t('search').now">{{ t('search').now }}</option>
+                <option :value="t('search').threeMonths">{{ t('search').threeMonths }}</option>
+                <option :value="t('search').sixMonths">{{ t('search').sixMonths }}</option>
+                <option :value="t('search').planning">{{ t('search').planning }}</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section class="py-16 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div
+              v-for="(stat, i) in stats"
+              :key="i"
+              data-aos="fade-up"
+              :data-aos-delay="i * 100"
+              class="text-center"
+            >
+              <div
+                class="text-3xl sm:text-4xl lg:text-5xl font-bold gradient-text mb-2"
+              >
+                {{ stat.value }}
+              </div>
+              <div class="text-gray-500 text-sm">{{ stat.label }}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sobre -->
+      <section id="sobre" class="py-24 lg:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <!-- Logo - lado esquerdo, maior -->
+            <div
+              data-aos="fade-right"
+              data-aos-delay="100"
+              class="lg:col-span-5 relative flex justify-center"
+            >
+              <div class="relative w-full max-w-[540px]">
+                <div
+                  class="absolute -inset-8 bg-gradient-to-br from-primary/10 to-gray-300/20 rounded-[2rem] blur-2xl"
+                ></div>
+                <div
+                  class="relative rounded-2xl p-4 sm:p-6 lg:p-3"
+                >
+                  <img
+                    src="assets/carneiro-chiaradia-logo-transparent.png"
+                    alt="Carneiro & Chiaradia"
+                    class="w-full max-h-[520px] object-contain drop-shadow-[0_18px_28px_rgba(13,38,68,0.16)]"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Texto - lado direito, mais compacto -->
+            <div class="lg:col-span-7">
+              <span
+                data-aos="fade-up"
+                class="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block"
+                >{{ t('about').tag }}</span
+              >
+              <h2
+                data-aos="fade-up"
+                data-aos-delay="100"
+                class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-tight"
+              >
+                {{ t('about').title1 }}
+                <span class="gradient-text">{{ t('about').title2 }}</span>
+              </h2>
+              <div
+                data-aos="fade-up"
+                data-aos-delay="200"
+                class="space-y-4 text-gray-600 text-base leading-relaxed"
+              >
+                <p v-html="t('about').p1"></p>
+                <p v-html="t('about').p2"></p>
+                <p v-html="t('about').p3"></p>
+              </div>
+              <div
+                data-aos="fade-up"
+                data-aos-delay="400"
+                class="mt-5 flex flex-wrap gap-3"
+              >
+                <a
+                  :href="whatsappLink"
+                  target="_blank"
+                  class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-full font-semibold text-sm transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary/25"
+                >
+                  {{ t('about').cta }}
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://instagram.com/othiagocarneiro"
+                  target="_blank"
+                  class="inline-flex items-center gap-2 border border-gray-300 hover:border-primary text-gray-600 hover:text-primary px-6 py-3 rounded-full font-semibold text-sm transition-all duration-200 hover:scale-105"
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+                    />
+                  </svg>
+                  @othiagocarneiro
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Serviços -->
+      <section id="servicos" class="py-24 lg:py-32 bg-white/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto mb-16">
+            <span
+              data-aos="fade-up"
+              class="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block"
+              >{{ t('services').tag }}</span
+            >
+            <h2
+              data-aos="fade-up"
+              data-aos-delay="100"
+              class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+            >
+              {{ t('services').title1 }}
+              <span class="gradient-text">{{ t('services').title2 }}</span>
+            </h2>
+            <p data-aos="fade-up" data-aos-delay="200" class="text-gray-500">
+              {{ t('services').subtitle }}
+            </p>
+          </div>
+
+          <div v-if="searchSubmitted" class="max-w-4xl mx-auto mb-8 rounded-2xl border p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4"
+            :class="filteredProperties.length ? 'bg-green-50 border-green-200' : 'bg-amber-50 border-amber-200'">
+            <div class="flex-1">
+              <strong class="text-gray-900 block mb-1">{{ resultTitle }}</strong>
+              <p class="text-sm text-gray-600">{{ filteredProperties.length ? t('search').matchText : t('search').noMatchText }}</p>
+            </div>
+            <a v-if="!filteredProperties.length" :href="qualifiedWhatsappLink" target="_blank" class="inline-flex justify-center bg-green-600 hover:bg-green-700 text-white rounded-xl px-5 py-3 text-sm font-bold whitespace-nowrap">{{ t('search').sendProfile }}</a>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-6">
+            <div
+              v-for="(service, i) in services"
+              :key="i"
+              data-aos="fade-up"
+              :data-aos-delay="i * 150"
+              class="group bg-cream/90 border border-gray-200 rounded-2xl p-8 hover:border-primary/30 transition-all duration-500 card-glow relative overflow-hidden"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/10 transition-all duration-500"
+              ></div>
+              <div class="relative">
+                <div
+                  class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300"
+                >
+                  <span v-html="service.icon" class="text-primary"></span>
+                </div>
+                <h3 class="text-gray-800 font-semibold text-xl mb-3">
+                  {{ service.title }}
+                </h3>
+                <p class="text-gray-500 leading-relaxed text-sm">
+                  {{ service.desc }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Como Funciona -->
+      <section id="processo" class="py-24 lg:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto mb-16">
+            <span
+              data-aos="fade-up"
+              class="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block"
+              >{{ t('steps').tag }}</span
+            >
+            <h2
+              data-aos="fade-up"
+              data-aos-delay="100"
+              class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+            >
+              {{ t('steps').title1 }}
+              <span class="gradient-text">{{ t('steps').title2 }}</span>
+            </h2>
+            <p data-aos="fade-up" data-aos-delay="200" class="text-gray-500">
+              {{ t('steps').subtitle }}
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div
+              v-for="(step, i) in steps"
+              :key="i"
+              data-aos="fade-up"
+              :data-aos-delay="i * 120"
+              class="relative bg-white/80 border border-gray-200 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300 card-glow"
+            >
+              <div
+                class="text-6xl font-bold text-primary/10 absolute top-4 right-4"
+              >
+                {{ String(i + 1).padStart(2, '0') }}
+              </div>
+              <div class="relative">
+                <div
+                  class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4"
+                >
+                  <span v-html="step.icon" class="text-primary"></span>
+                </div>
+                <h3 class="text-gray-800 font-semibold mb-2">{{ step.title }}</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">
+                  {{ step.desc }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Imóveis em Destaque -->
+      <section id="imoveis" class="py-24 lg:py-32 bg-white/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto mb-16">
+            <span
+              data-aos="fade-up"
+              class="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block"
+              >{{ t('properties').tag }}</span
+            >
+            <h2
+              data-aos="fade-up"
+              data-aos-delay="100"
+              class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+            >
+              {{ t('properties').title1 }}
+              <span class="gradient-text">{{ t('properties').title2 }}</span>
+            </h2>
+            <p data-aos="fade-up" data-aos-delay="200" class="text-gray-500">
+              {{ t('properties').subtitle }}
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <button
+              v-for="(property, i) in filteredProperties"
+              :key="property.id || i"
+              @click="openProperty(property)"
+              data-aos="fade-up"
+              :data-aos-delay="i * 100"
+              class="group text-left relative bg-white border border-gray-200 rounded-3xl overflow-hidden hover:border-primary/40 transition-all duration-500 card-glow flex flex-col shadow-sm"
+            >
+              <!-- Image -->
+              <div class="relative h-60 overflow-hidden">
+                <img
+                  :src="property.image"
+                  :alt="property.title"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"
+                ></div>
+                <!-- Tag -->
+                <div class="absolute top-4 left-4 flex items-center gap-2">
+                  <span
+                    class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full bg-primary/90 backdrop-blur-sm text-white shadow-lg shadow-primary/20"
+                  >
+                    {{ property.tag }}
+                  </span>
+                  <span
+                    v-if="property.type"
+                    class="text-[10px] font-medium tracking-wider uppercase px-2.5 py-1.5 rounded-full bg-black/30 backdrop-blur-sm text-white"
+                  >
+                    {{ property.type }}
+                  </span>
+                </div>
+                <!-- Specs overlay on image bottom -->
+                <div
+                  class="absolute bottom-0 left-0 right-0 px-5 pb-4 flex items-center gap-3 text-gray-600 text-xs"
+                >
+                  <span
+                    class="flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-2.5 py-1.5 rounded-lg"
+                    v-if="property.bedrooms"
+                  >
+                    <svg
+                      class="w-3.5 h-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                    {{ property.bedrooms }}
+                  </span>
+                  <span
+                    class="flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-2.5 py-1.5 rounded-lg"
+                    v-if="property.area"
+                  >
+                    <svg
+                      class="w-3.5 h-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                      />
+                    </svg>
+                    {{ property.area }}
+                  </span>
+                  <span
+                    class="flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-2.5 py-1.5 rounded-lg"
+                    v-if="property.parking"
+                  >
+                    <svg
+                      class="w-3.5 h-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                      />
+                    </svg>
+                    {{ property.parking }}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Content -->
+              <div class="p-5 flex-1 flex flex-col">
+                <!-- Location -->
+                <div
+                  class="flex items-center gap-1.5 text-primary/80 text-xs font-medium tracking-wide mb-2"
+                >
+                  <svg
+                    class="w-3.5 h-3.5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  {{ property.location }}
+                </div>
+
+                <!-- Title -->
+                <h3
+                  class="text-gray-800 font-bold text-lg mb-2 group-hover:text-primary transition-colors"
+                >
+                  {{ property.title }}
+                </h3>
+
+                <!-- Description -->
+                <p class="text-gray-500 text-sm leading-relaxed mb-5 flex-1">
+                  {{ property.desc }}
+                </p>
+
+                <!-- Price Box -->
+                <div
+                  class="bg-gray-50 border border-gray-200 rounded-2xl p-4 mb-4"
+                >
+                  <div class="flex items-baseline justify-between mb-1">
+                    <span
+                      class="text-gray-500 text-xs font-medium uppercase tracking-wider"
+                      >{{ t('properties').value }}</span
+                    >
+                    <span
+                      v-if="property.entrance"
+                      class="text-[10px] text-green-400/80 font-medium bg-green-400/10 px-2 py-0.5 rounded-full"
+                      >{{ t('properties').financing }}</span
+                    >
+                  </div>
+                  <div class="text-2xl font-bold gradient-text mb-3">
+                    {{ property.price }}
+                  </div>
+
+                  <div
+                    v-if="property.entrance || property.installments"
+                    class="space-y-2 pt-3 border-t border-gray-200"
+                  >
+                    <div
+                      v-if="property.entrance"
+                      class="flex items-center justify-between"
+                    >
+                      <span
+                        class="text-gray-500 text-xs flex items-center gap-1.5"
+                      >
+                        <svg
+                          class="w-3.5 h-3.5 text-primary/60"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                        {{ t('properties').entrance }}
+                      </span>
+                      <span class="text-gray-600 text-sm font-semibold"
+                        >{{ property.entrance }}</span
+                      >
+                    </div>
+                    <div
+                      v-if="property.installments"
+                      class="flex items-center justify-between"
+                    >
+                      <span
+                        class="text-gray-500 text-xs flex items-center gap-1.5"
+                      >
+                        <svg
+                          class="w-3.5 h-3.5 text-primary/60"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                          />
+                        </svg>
+                        {{ t('properties').installments }}
+                      </span>
+                      <span class="text-gray-600 text-sm font-semibold"
+                        >{{ property.installments }}</span
+                      >
+                    </div>
+                  </div>
+
+                  <div
+                    v-else-if="property.tag === 'Permuta'"
+                    class="pt-3 border-t border-gray-200"
+                  >
+                    <div
+                      class="flex items-center gap-2 text-primary/70 text-xs"
+                    >
+                      <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+                        />
+                      </svg>
+                      {{ t('properties').swap }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CTA -->
+              <div class="px-5 pb-5">
+                <span
+                  class="flex items-center justify-center gap-2.5 w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white text-sm font-bold px-5 py-3.5 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-green-500/20"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+                    />
+                    <path
+                      d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.913.913l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.597-.826-6.332-2.207l-.393-.312-2.646.887.887-2.646-.312-.393A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"
+                    />
+                  </svg>
+                  {{ t('properties').details }}
+                </span>
+              </div>
+            </button>
+          </div>
+          <div v-if="filteredProperties.length === 0" class="text-center bg-white border border-gray-200 rounded-3xl p-8 sm:p-12">
+            <div class="w-14 h-14 mx-auto mb-5 rounded-full bg-primary/10 text-primary flex items-center justify-center text-2xl">⌕</div>
+            <h3 class="font-display text-2xl font-bold text-gray-900 mb-3">{{ t('search').noMatchTitle }}</h3>
+            <p class="text-gray-600 max-w-2xl mx-auto mb-6">{{ t('search').noMatchText }}</p>
+            <a :href="qualifiedWhatsappLink" target="_blank" class="inline-flex justify-center bg-green-600 hover:bg-green-700 text-white rounded-xl px-6 py-4 text-sm font-bold">{{ t('search').sendProfile }}</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Detalhes do imóvel -->
+      <transition enter-active-class="transition duration-200" enter-from-class="opacity-0" leave-active-class="transition duration-150" leave-to-class="opacity-0">
+        <div v-if="selectedProperty" @click.self="closeProperty" class="property-modal fixed inset-0 z-[100] bg-gray-950/75 p-3 sm:p-8 overflow-y-auto" role="dialog" aria-modal="true" :aria-label="selectedProperty.title">
+          <div class="max-w-5xl mx-auto bg-white rounded-3xl overflow-hidden shadow-2xl relative">
+            <button @click="closeProperty" class="absolute top-4 right-4 z-10 w-11 h-11 rounded-full bg-black/65 text-white text-2xl" :aria-label="t('properties').close">&times;</button>
+            <div class="grid lg:grid-cols-5">
+              <div class="lg:col-span-3 bg-gray-100">
+                <div class="relative aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[570px]">
+                  <img :src="propertyGallery[activeImage]" :alt="selectedProperty.title" class="w-full h-full object-cover" />
+                  <button v-if="propertyGallery.length > 1" @click="activeImage = (activeImage - 1 + propertyGallery.length) % propertyGallery.length" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/55 text-white rounded-full" :aria-label="t('properties').previous">‹</button>
+                  <button v-if="propertyGallery.length > 1" @click="activeImage = (activeImage + 1) % propertyGallery.length" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/55 text-white rounded-full" :aria-label="t('properties').next">›</button>
+                  <span class="absolute bottom-3 right-3 bg-black/60 text-white px-3 py-1.5 rounded-full text-xs">{{ activeImage + 1 }} / {{ propertyGallery.length }}</span>
+                </div>
+              </div>
+              <div class="lg:col-span-2 p-6 sm:p-8">
+                <span class="text-primary text-xs font-bold tracking-widest uppercase">{{ selectedProperty.tag }}</span>
+                <h2 class="font-display text-3xl font-bold text-gray-900 mt-2 mb-2">{{ selectedProperty.title }}</h2>
+                <p class="text-gray-500 text-sm mb-5">{{ selectedProperty.location }}</p>
+                <div class="text-3xl font-bold text-primary mb-5">{{ selectedProperty.price }}</div>
+                <div class="grid grid-cols-3 gap-2 mb-6">
+                  <div v-if="selectedProperty.bedrooms" class="bg-gray-50 rounded-xl p-3 text-center"><strong class="block">{{ selectedProperty.bedrooms }}</strong><span class="text-xs text-gray-500">{{ t('properties').bedrooms }}</span></div>
+                  <div v-if="selectedProperty.area" class="bg-gray-50 rounded-xl p-3 text-center"><strong class="block">{{ selectedProperty.area }}</strong><span class="text-xs text-gray-500">{{ t('properties').area }}</span></div>
+                  <div v-if="selectedProperty.parking" class="bg-gray-50 rounded-xl p-3 text-center"><strong class="block">{{ selectedProperty.parking }}</strong><span class="text-xs text-gray-500">{{ t('properties').parking }}</span></div>
+                </div>
+                <h3 class="font-bold text-gray-900 mb-2">{{ t('properties').about }}</h3>
+                <p class="text-gray-600 text-sm leading-relaxed mb-5">{{ selectedProperty.details || selectedProperty.desc }}</p>
+                <ul class="space-y-2 text-sm text-gray-600 mb-7">
+                  <li v-for="item in selectedProperty.features || []" :key="item" class="flex gap-2"><span class="text-primary">✓</span>{{ item }}</li>
+                </ul>
+                <div class="grid gap-3">
+                  <a :href="propertyWhatsappLink" target="_blank" class="flex justify-center bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl px-5 py-4">{{ t('properties').whatsapp }}</a>
+                  <button @click="copyPropertyLink" class="flex justify-center border border-gray-200 hover:border-primary text-gray-700 font-semibold rounded-xl px-5 py-3 text-sm">{{ shareCopied ? t('properties').copied : t('properties').share }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+
+      <!-- Jornada para sair do aluguel -->
+      <section id="primeiro-imovel" class="py-16 lg:py-24 bg-navy text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_85%_20%,rgba(201,151,46,.24),transparent_32%)]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div data-aos="fade-right">
+              <span class="text-primary-light text-xs font-bold tracking-[.22em] uppercase">{{ t('firstHome').tag }}</span>
+              <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-5 leading-tight">{{ t('firstHome').title }}</h2>
+              <p class="text-white/70 text-lg leading-relaxed mb-7">{{ t('firstHome').subtitle }}</p>
+              <a href="#busca" @click="activeFilter = 'first-home'" class="inline-flex bg-primary hover:bg-primary-light text-white rounded-xl px-6 py-4 font-bold">{{ t('firstHome').cta }}</a>
+            </div>
+            <div class="grid gap-4">
+              <div v-for="(step, i) in t('firstHome').steps" :key="step.title" data-aos="fade-up" :data-aos-delay="i * 100" class="bg-white/10 border border-white/10 backdrop-blur-sm rounded-2xl p-5 flex gap-4">
+                <span class="w-10 h-10 flex-shrink-0 rounded-full bg-primary text-white font-bold flex items-center justify-center">{{ i + 1 }}</span>
+                <div><h3 class="font-bold mb-1">{{ step.title }}</h3><p class="text-white/65 text-sm leading-relaxed">{{ step.text }}</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Depoimento / Quote -->
+      <section class="py-24 lg:py-32 relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+          <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl"
+          ></div>
+        </div>
+        <div
+          class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative"
+        >
+          <div data-aos="zoom-in">
+            <svg
+              class="w-12 h-12 text-primary/30 mx-auto mb-8"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
+              />
+            </svg>
+          </div>
+          <h2
+            data-aos="fade-up"
+            data-aos-delay="100"
+            class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-relaxed"
+          >
+            {{ t('quote').title1 }}
+            <span class="gradient-text">{{ t('quote').title2 }}</span>
+          </h2>
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            class="text-gray-500 text-lg mb-8 max-w-2xl mx-auto"
+          >
+            {{ t('quote').text }}
+          </p>
+          <div class="grid sm:grid-cols-3 gap-3 my-8 text-left">
+            <a href="https://www.ibge.gov.br/cidades-e-estados/sc/itapoa.html" target="_blank" class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition">
+              <strong class="text-2xl text-primary block">+108%</strong><span class="text-sm text-gray-600">{{ t('quote').metricPopulation }}</span>
+            </a>
+            <a href="https://siteinstitucional.sc.senai.br/pt-br/imprensa/porto-itapoa-inaugura-expansao-com-investimento-de-r-815-milhoes" target="_blank" class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition">
+              <strong class="text-2xl text-primary block">R$ 2,5 bi</strong><span class="text-sm text-gray-600">{{ t('quote').metricPort }}</span>
+            </a>
+            <a href="https://www2.ielsc.org.br/pt-br/imprensa/cooperativa-paranaense-coamo-anuncia-novo-porto-em-itapoa" target="_blank" class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition">
+              <strong class="text-2xl text-primary block">R$ 3 bi</strong><span class="text-sm text-gray-600">{{ t('quote').metricCoamo }}</span>
+            </a>
+          </div>
+          <p class="text-xs text-gray-400 mb-8">{{ t('quote').sources }}</p>
+          <div
+            data-aos="fade-up"
+            data-aos-delay="300"
+            class="flex items-center justify-center gap-4"
+          >
+            <div
+              class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center"
+            >
+              <span class="text-primary font-bold text-lg">CC</span>
+            </div>
+            <div class="text-left">
+              <span class="text-gray-800 font-semibold text-sm block"
+                >Carneiro & Chiaradia</span
+              >
+              <span class="text-gray-500 text-xs"
+                >{{ t('quote').company }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testemunhos -->
+      <section id="depoimentos" class="py-24 lg:py-32 bg-white/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto mb-16">
+            <span
+              data-aos="fade-up"
+              class="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block"
+              >{{ t('testimonials').tag }}</span
+            >
+            <h2
+              data-aos="fade-up"
+              data-aos-delay="100"
+              class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+            >
+              {{ t('testimonials').title1 }}
+              <span class="gradient-text">{{ t('testimonials').title2 }}</span>
+            </h2>
+            <p data-aos="fade-up" data-aos-delay="200" class="text-gray-500">
+              {{ t('testimonials').subtitle }}
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div
+              v-for="(tt, i) in testimonials"
+              :key="i"
+              data-aos="fade-up"
+              :data-aos-delay="i * 150"
+              class="bg-cream/90 border border-gray-200 rounded-2xl p-6 hover:border-primary/20 transition-all duration-300 card-glow flex flex-col"
+            >
+              <div class="flex items-center gap-1 mb-4">
+                <svg
+                  v-for="s in 5"
+                  :key="s"
+                  class="w-4 h-4 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  />
+                </svg>
+              </div>
+              <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">
+                {{ tt.text }}
+              </p>
+              <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
+                <div
+                  class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center"
+                >
+                  <span class="text-primary font-semibold text-sm"
+                    >{{ tt.initials }}</span
+                  >
+                </div>
+                <div>
+                  <span class="text-gray-800 font-medium text-sm block"
+                    >{{ tt.name }}</span
+                  >
+                  <span class="text-gray-500 text-xs">{{ tt.location }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="py-24 lg:py-32">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-16">
+            <span
+              data-aos="fade-up"
+              class="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block"
+              >{{ t('faq').tag }}</span
+            >
+            <h2
+              data-aos="fade-up"
+              data-aos-delay="100"
+              class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+            >
+              {{ t('faq').title1 }}
+              <span class="gradient-text">{{ t('faq').title2 }}</span>
+            </h2>
+          </div>
+
+          <div class="space-y-3">
+            <div
+              v-for="(faq, i) in faqs"
+              :key="i"
+              data-aos="fade-up"
+              :data-aos-delay="i * 80"
+              class="bg-white/80 border border-gray-200 rounded-2xl overflow-hidden hover:border-primary/20 transition-colors"
+            >
+              <button
+                @click="activeFaq = activeFaq === i ? null : i"
+                class="w-full px-6 py-5 flex items-center justify-between text-left"
+              >
+                <span class="text-gray-800 font-medium text-sm pr-4"
+                  >{{ faq.q }}</span
+                >
+                <svg
+                  class="w-5 h-5 text-primary flex-shrink-0 transition-transform duration-300"
+                  :class="{ 'rotate-180': activeFaq === i }"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <div class="faq-content" :class="{ open: activeFaq === i }">
+                <p class="px-6 pb-5 text-gray-500 text-sm leading-relaxed">
+                  {{ faq.a }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Final -->
+      <section class="py-24 lg:py-32 bg-white/60 relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+          <div
+            class="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
+          ></div>
+          <div
+            class="absolute bottom-0 right-1/4 w-96 h-96 bg-navy/20 rounded-full blur-3xl"
+          ></div>
+        </div>
+        <div
+          class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative"
+        >
+          <span
+            data-aos="fade-up"
+            class="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block"
+            >{{ t('cta').tag }}</span
+          >
+          <h2
+            data-aos="fade-up"
+            data-aos-delay="100"
+            class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+          >
+            {{ t('cta').title1 }}
+            <span class="gradient-text">{{ t('cta').title2 }}</span>?
+          </h2>
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            class="text-gray-500 text-lg mb-10 max-w-2xl mx-auto"
+          >
+            {{ t('cta').subtitle }}
+          </p>
+          <div
+            data-aos="fade-up"
+            data-aos-delay="300"
+            class="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <a
+              :href="whatsappLink"
+              target="_blank"
+              class="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-green-500/25"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+                />
+                <path
+                  d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.913.913l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.597-.826-6.332-2.207l-.393-.312-2.646.887.887-2.646-.312-.393A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"
+                />
+              </svg>
+              {{ t('cta').btn1 }}
+            </a>
+            <a
+              href="tel:+5500000000000"
+              class="inline-flex items-center justify-center gap-2 border border-gray-300 hover:border-primary/50 text-gray-700 px-8 py-4 rounded-full text-sm font-semibold transition-all duration-200 hover:bg-gray-100"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                />
+              </svg>
+              {{ t('cta').btn2 }}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="border-t border-gray-200 bg-darker">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div class="grid md:grid-cols-3 gap-12">
+            <div>
+              <div class="flex items-center gap-3 mb-4">
+                <img
+                  src="assets/carneiro-chiaradia-logo-transparent.png"
+                  alt="Carneiro & Chiaradia"
+                  class="h-12 w-auto"
+                />
+                <div>
+                  <span class="text-gray-800 font-semibold text-lg block"
+                    >Carneiro & Chiaradia</span
+                  >
+                  <span class="text-gray-500 text-xs tracking-widest uppercase"
+                    >{{ t('footer').company }}</span
+                  >
+                </div>
+              </div>
+              <p class="text-gray-500 text-sm leading-relaxed">
+                {{ t('footer').desc }}
+              </p>
+              <div class="flex items-center gap-3 mt-4">
+                <a
+                  href="https://instagram.com/othiagocarneiro"
+                  target="_blank"
+                  class="text-gray-500 hover:text-primary transition-colors"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-gray-800 font-semibold mb-4">
+                {{ t('footer').links }}
+              </h4>
+              <div class="space-y-2">
+                <a
+                  v-for="item in navItems"
+                  :key="item.href"
+                  :href="item.href"
+                  class="block text-gray-500 hover:text-primary text-sm transition-colors"
+                >
+                  {{ item.label }}
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-gray-800 font-semibold mb-4">
+                {{ t('footer').contact }}
+              </h4>
+              <div class="space-y-3 text-gray-500 text-sm">
+                <a
+                  :href="whatsappLink"
+                  target="_blank"
+                  class="flex items-center gap-2 hover:text-primary transition-colors"
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+                    />
+                    <path
+                      d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.913.913l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.597-.826-6.332-2.207l-.393-.312-2.646.887.887-2.646-.312-.393A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"
+                    />
+                  </svg>
+                  (00) 00000-0000
+                </a>
+                <a
+                  href="mailto:contato@chiaradiaecarneiro.com.br"
+                  class="flex items-center gap-2 hover:text-primary transition-colors"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  contato@chiaradiaecarneiro.com.br
+                </a>
+                <a
+                  href="https://instagram.com/othiagocarneiro"
+                  target="_blank"
+                  class="flex items-center gap-2 hover:text-primary transition-colors"
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+                    />
+                  </svg>
+                  @othiagocarneiro
+                </a>
+                <div class="flex items-start gap-2">
+                  <svg
+                    class="w-4 h-4 mt-0.5 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                  <span>{{ t('footer').location }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="gold-line mt-12 mb-8"></div>
+
+          <div
+            class="flex flex-col sm:flex-row items-center justify-between gap-4 text-gray-500 text-xs"
+          >
+            <span
+              >&copy; {{ new Date().getFullYear() }} Carneiro & Chiaradia. {{
+              t('footer').rights }}</span
+            >
+            <div class="flex items-center gap-4">
+              <a href="#" class="hover:text-primary transition-colors"
+                >{{ t('footer').privacy }}</a
+              >
+              <a href="#" class="hover:text-primary transition-colors"
+                >{{ t('footer').terms }}</a
+              >
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <!-- WhatsApp FAB -->
+      <a
+        :href="whatsappLink"
+        target="_blank"
+        class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 transition-all hover:scale-110"
+        :title="t('footer').whatsappTitle"
+      >
+        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+          />
+          <path
+            d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.913.913l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.597-.826-6.332-2.207l-.393-.312-2.646.887.887-2.646-.312-.393A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"
+          />
+        </svg>
+      </a>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      const { createApp, ref, reactive, computed, onMounted, onUnmounted } =
+        Vue;
+
+      createApp({
+        setup() {
+          const scrolled = ref(false);
+          const mobileMenu = ref(false);
+          const activeFaq = ref(null);
+          const lang = ref(localStorage.getItem("sc_lang") || "pt");
+          const activeFilter = ref("all");
+          const selectedProperty = ref(null);
+          const activeImage = ref(0);
+          const searchSubmitted = ref(false);
+          const shareCopied = ref(false);
+          const qualification = reactive({ city: "", maxPrice: "", entry: "", bedrooms: "", timeline: "" });
+
+          function setLang(l) {
+            lang.value = l;
+            localStorage.setItem("sc_lang", l);
+          }
+
+          const whatsappLink = "https://wa.me/5500000000000";
+
+          const i18n = {
+            pt: {
+              nav: {
+                inicio: "Início",
+                sobre: "Sobre",
+                servicos: "Serviços",
+                imoveis: "Imóveis",
+                depoimentos: "Depoimentos",
+                faq: "FAQ",
+                brandLine: "Investimentos Imobiliários",
+              },
+              hero: {
+                title1: "Seu novo lar ou investimento no",
+                title2: "litoral catarinense",
+                title3: "começa aqui",
+                subtitle:
+                  "Seja para morar, sair do aluguel ou investir com segurança. Encontramos o imóvel ideal para você em Itapoá, Balneário Camboriú, Itajaí e todo o litoral de SC.",
+                cta1: "Fale Conosco",
+                cta2: "Ver Imóveis",
+                marqueeCities: "Itapoá · Balneário Camboriú · Itajaí", marqueeLand: "Terrenos & Permutas", marqueeInvest: "Investimentos Estratégicos",
+              },
+              search: {
+                ariaLabel: "Busca de imóveis", eyebrow: "Encontre seu imóvel", title: "Qual é o seu objetivo?", show: "Ver opções",
+                filters: { all: "Todos", firstHome: "Primeiro imóvel", live: "Comprar para morar", launch: "Comprar na planta", invest: "Investir", swap: "Terreno para permuta" },
+                city: "Cidade", anyCity: "Qualquer cidade", budget: "Valor máximo", anyBudget: "Qualquer valor", entry: "Entrada disponível", bedrooms: "Quartos", anyBedrooms: "Qualquer quantidade", timeline: "Quando pretende comprar?", notInformed: "Prefiro não informar",
+                upTo500: "Até R$ 500 mil", upTo800: "Até R$ 800 mil", upTo1200: "Até R$ 1,2 milhão", upTo2000: "Até R$ 2 milhões", above2000: "Acima de R$ 2 milhões", upTo50: "Até R$ 50 mil", upTo100: "Até R$ 100 mil", upTo200: "Até R$ 200 mil", above200: "Acima de R$ 200 mil",
+                now: "O quanto antes", threeMonths: "Nos próximos 3 meses", sixMonths: "De 3 a 6 meses", planning: "Ainda estou planejando", refine: "Buscar imóveis", matchText: "Estas opções do catálogo combinam com os critérios informados.", matchOne: "Encontramos 1 imóvel para você.", matchMany: "Encontramos {count} imóveis para você.",
+                noMatchTitle: "Ainda não encontramos esse imóvel no catálogo", noMatchText: "Nosso catálogo é exclusivo e tem poucas opções publicadas. Envie seu perfil pelo WhatsApp e o corretor fará o possível para encontrar um imóvel com as características que você procura, inclusive fora do catálogo.", sendProfile: "Enviar perfil pelo WhatsApp",
+                profileMessage: "Olá! Não encontrei no catálogo e gostaria que o corretor buscasse um imóvel com este perfil:", profileGoal: "Objetivo",
+              },
+              firstHome: {
+                tag: "Saia do aluguel", title: "A parcela da sua casa própria pode estar mais próxima do que você imagina.", subtitle: "Conte um pouco sobre seu momento. Vamos buscar opções compatíveis com sua renda, sua entrada e as necessidades da sua família.", cta: "Quero buscar meu primeiro imóvel",
+                steps: [{ title: "Conte seu perfil", text: "Informe cidade, orçamento, entrada e o prazo em que pretende comprar." }, { title: "Receba opções realistas", text: "Selecionamos imóveis compatíveis, dentro e fora do catálogo público." }, { title: "Conquiste suas chaves", text: "Acompanhamos negociação, financiamento e documentação até a entrega." }],
+              },
+              about: {
+                tag: "Quem Somos",
+                title1: "Realizamos o sonho da",
+                title2: "casa própria e do bom investimento",
+                p1: '<strong class="text-gray-600">Thiago Carneiro</strong> atua no mercado imobiliário com olhar atento para novos negócios. Está aberto a oportunidades e ajuda famílias a conquistar o primeiro imóvel, além de conectar investidores a oportunidades estratégicas no litoral catarinense.',
+                p2: '<strong class="text-gray-600">Giordano Chiaradia</strong> atua no mercado desde 2010. Morador de Florianópolis desde 1984, atuou como piloto de helicóptero em uma das maiores loteadoras de SC, com contato direto com grandes empreendimentos.',
+                p3: 'Juntos, atendem quem quer <strong class="text-gray-600">comprar para morar, sair do aluguel ou investir</strong> em Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha e Navegantes.',
+                cta: "Entre em contato",
+              },
+              services: {
+                tag: "Nossos Serviços",
+                title1: "Para morar ou investir no",
+                title2: "litoral catarinense",
+                subtitle:
+                  "Ajudamos você a encontrar o imóvel ideal para morar ou investir. Conectamos famílias, investidores e construtoras às melhores oportunidades do litoral de SC.",
+                items: [
+                  {
+                    title: "Compra para Morar",
+                    desc: "Encontramos o imóvel perfeito para você e sua família. Casas, apartamentos e coberturas no litoral catarinense para realizar o sonho da casa própria.",
+                  },
+                  {
+                    title: "Saia do Aluguel",
+                    desc: "Assessoria completa para quem quer sair do aluguel. Analisamos seu perfil, encontramos opções acessíveis e acompanhamos todo o processo de compra.",
+                  },
+                  {
+                    title: "Investimentos Estratégicos",
+                    desc: "Conectamos investidores a oportunidades de alta valorização no litoral catarinense, especialmente em Itapoá e região.",
+                  },
+                  {
+                    title: "Terrenos para Permuta",
+                    desc: "Identificamos terrenos estratégicos com potencial construtivo e negociamos permutas vantajosas entre proprietários e construtoras.",
+                  },
+                  {
+                    title: "Intermediação de Negócios",
+                    desc: "Facilitamos negociações entre construtoras, incorporadoras e proprietários de terrenos com segurança e agilidade.",
+                  },
+                  {
+                    title: "Consultoria Personalizada",
+                    desc: "Orientação sob medida para quem quer morar no litoral ou investir com segurança, com análise de mercado e projeções de crescimento.",
+                  },
+                ],
+              },
+              steps: {
+                tag: "Como Funciona",
+                title1: "Do primeiro contato à",
+                title2: "conquista das chaves",
+                subtitle:
+                  "Um processo simples, transparente e seguro do início ao fim.",
+                items: [
+                  {
+                    title: "Converse Conosco",
+                    desc: "Fale com o Thiago ou o Giordano pelo WhatsApp. Entenderemos se você busca morar, sair do aluguel ou investir.",
+                  },
+                  {
+                    title: "Seleção Personalizada",
+                    desc: "Buscamos imóveis, terrenos e oportunidades que se encaixam no seu perfil, orçamento e objetivos.",
+                  },
+                  {
+                    title: "Negociação e Documentação",
+                    desc: "Cuidamos de toda a negociação, documentação e aspectos legais com segurança e transparência.",
+                  },
+                  {
+                    title: "Chaves na Mão",
+                    desc: "Acompanhamos até a entrega das chaves do seu novo lar ou a conclusão do seu investimento.",
+                  },
+                ],
+              },
+              properties: {
+                tag: "Portfólio",
+                title1: "Imóveis em",
+                title2: "destaque",
+                subtitle:
+                  "Confira nossas melhores oportunidades selecionadas especialmente para você.",
+                value: "Valor",
+                financing: "Aceita financiamento",
+                entrance: "Entrada",
+                installments: "Parcelas",
+                swap: "Aceita permuta por unidades",
+                interest: "Tenho interesse",
+                details: "Ver detalhes e fotos", empty: "Ainda não há imóveis publicados com esse perfil. Fale conosco para receber opções exclusivas.",
+                close: "Fechar detalhes", previous: "Foto anterior", next: "Próxima foto", bedrooms: "quartos", area: "área", parking: "vagas",
+                about: "Sobre este imóvel", whatsapp: "Quero saber mais pelo WhatsApp",
+                whatsappMessage: "Olá! Quero mais informações sobre",
+                share: "Compartilhar este imóvel", copied: "Link copiado!",
+              },
+              quote: {
+                title1: "Itapoá reúne qualidade de vida e",
+                title2: "um novo ciclo de crescimento",
+                text: "O avanço populacional e os investimentos portuários ajudam a explicar por que incorporadoras e compradores estão olhando para Itapoá. É uma cidade para morar bem hoje e acompanhar de perto para o futuro.",
+                company: "Investimentos e Negócios Imobiliários",
+                sources: "Dados públicos e anúncios institucionais.",
+                metricPopulation: "de crescimento populacional entre 2010 e 2022", metricPort: "já investidos pelo Porto Itapoá, com novas expansões planejadas", metricCoamo: "previstos para um novo terminal portuário da Coamo",
+              },
+              testimonials: {
+                tag: "Depoimentos",
+                title1: "O que nossos clientes",
+                title2: "dizem",
+                subtitle:
+                  "A confiança dos nossos clientes é o nosso maior reconhecimento.",
+                items: [
+                  {
+                    name: "Marcos Oliveira",
+                    initials: "MO",
+                    location: "Curitiba, PR",
+                    text: "Investimos em um terreno em Itapoá com a assessoria do Thiago e do Giordano. A valorização em dois anos superou todas as expectativas. Profissionais sérios e que conhecem a região como ninguém.",
+                  },
+                  {
+                    name: "Fernanda Keller",
+                    initials: "FK",
+                    location: "Joinville, SC",
+                    text: "Fechamos uma permuta de terreno em Barra Velha com acompanhamento impecável. Eles cuidaram de toda a negociação e documentação. Resultado: saímos ganhando dos dois lados.",
+                  },
+                  {
+                    name: "Roberto Andrade",
+                    initials: "RA",
+                    location: "São Paulo, SP",
+                    text: "Queria investir no litoral catarinense mas não conhecia a região. O Giordano me apresentou oportunidades que eu jamais encontraria sozinho. Hoje tenho 3 terrenos e uma rentabilidade excelente.",
+                  },
+                ],
+              },
+              faq: {
+                tag: "FAQ",
+                title1: "Perguntas",
+                title2: "frequentes",
+                items: [
+                  {
+                    q: "Qual a área de atuação de vocês?",
+                    a: "Atuamos em todo o litoral catarinense com foco especial em Itapoá, Balneário Camboriú, Camboriú, Itajaí, Barra Velha, Piçarras, Penha e Navegantes.",
+                  },
+                  {
+                    q: "O que é permuta de terreno?",
+                    a: "É quando o proprietário de um terreno negocia com uma construtora, cedendo o terreno em troca de unidades no futuro empreendimento. É uma forma de investir sem desembolso financeiro direto.",
+                  },
+                  {
+                    q: "Vocês ajudam quem quer comprar o primeiro imóvel e sair do aluguel?",
+                    a: "Sim. Entendemos sua renda, valor disponível para entrada, necessidade da família e possibilidade de financiamento para buscar opções realistas. Acompanhamos a escolha, a negociação e a documentação até a entrega das chaves.",
+                  },
+                  {
+                    q: "Como saber se consigo financiar meu primeiro imóvel?",
+                    a: "Fazemos uma triagem inicial do seu perfil e indicamos imóveis compatíveis com seu orçamento. A aprovação e as condições finais dependem da análise de crédito da instituição financeira.",
+                  },
+                  {
+                    q: "Por que investir em Itapoá?",
+                    a: "Itapoá é uma das cidades que mais cresce no litoral de SC, com valorização expressiva, natureza preservada, infraestrutura em expansão e preços ainda acessíveis comparados a BC e região.",
+                  },
+                  {
+                    q: "Vocês trabalham com incorporadoras?",
+                    a: "Sim! Conectamos proprietários de terrenos a incorporadoras e construtoras, facilitando permutas e negociações que beneficiam ambas as partes.",
+                  },
+                  {
+                    q: "Preciso estar presencialmente para fechar negócio?",
+                    a: "Não necessariamente. Muitas etapas podem ser feitas remotamente. Trabalhamos com investidores de todo o Brasil que querem oportunidades no litoral catarinense.",
+                  },
+                  {
+                    q: "Como entro em contato com vocês?",
+                    a: "Pelo WhatsApp é o jeito mais rápido! Também estamos no Instagram @othiagocarneiro. Respondemos com agilidade e sem burocracia.",
+                  },
+                ],
+              },
+              cta: {
+                tag: "Comece Agora",
+                title1: "Pronto para conquistar seu espaço no",
+                title2: "litoral catarinense",
+                subtitle:
+                  "Fale com o Thiago ou o Giordano para encontrar seu primeiro imóvel, uma nova casa para a família ou uma oportunidade em terrenos e permutas.",
+                btn1: "Falar pelo WhatsApp",
+                btn2: "Ligar Agora",
+              },
+              footer: {
+                company: "Investimentos e Negócios",
+                desc: "Investimentos e Negócios Imobiliários no litoral catarinense. Terrenos, permutas e oportunidades de alto potencial.",
+                links: "Links Rápidos",
+                contact: "Contato",
+                location: "Litoral Catarinense, Itapoá, BC, Camboriú e região",
+                rights: "Todos os direitos reservados.",
+                privacy: "Política de Privacidade",
+                terms: "Termos de Uso",
+                whatsappTitle: "Fale conosco pelo WhatsApp",
+              },
+              stats: [
+                { value: "10+", label: "Negócios realizados" },
+                { value: "3", label: "Perfis de compra atendidos" },
+                { value: "8", label: "Cidades atendidas" },
+                { value: "100%", label: "Foco no litoral SC" },
+              ],
+            },
+            en: {
+              nav: {
+                inicio: "Home",
+                sobre: "About",
+                servicos: "Services",
+                imoveis: "Properties",
+                depoimentos: "Testimonials",
+                faq: "FAQ",
+                brandLine: "Real Estate Investments",
+              },
+              hero: {
+                title1: "Your new home or investment on the",
+                title2: "coast of Santa Catarina",
+                title3: "starts here",
+                subtitle:
+                  "Whether to live, leave renting behind or invest with confidence. We find the perfect property for you in Itapoá, Balneário Camboriú, Itajaí and all across SC's coast.",
+                cta1: "Contact Us",
+                cta2: "See Properties",
+                marqueeCities: "Itapoá · Balneário Camboriú · Itajaí", marqueeLand: "Land & Swaps", marqueeInvest: "Strategic Investments",
+              },
+              search: {
+                ariaLabel: "Property search", eyebrow: "Find your property", title: "What is your goal?", show: "View options",
+                filters: { all: "All", firstHome: "First home", live: "Buy to live", launch: "Buy off-plan", invest: "Invest", swap: "Land swap" },
+                city: "City", anyCity: "Any city", budget: "Maximum budget", anyBudget: "Any budget", entry: "Available down payment", bedrooms: "Bedrooms", anyBedrooms: "Any number", timeline: "When do you plan to buy?", notInformed: "Prefer not to say",
+                upTo500: "Up to R$ 500k", upTo800: "Up to R$ 800k", upTo1200: "Up to R$ 1.2m", upTo2000: "Up to R$ 2m", above2000: "Above R$ 2m", upTo50: "Up to R$ 50k", upTo100: "Up to R$ 100k", upTo200: "Up to R$ 200k", above200: "Above R$ 200k",
+                now: "As soon as possible", threeMonths: "Within 3 months", sixMonths: "In 3 to 6 months", planning: "Still planning", refine: "Search properties", matchText: "These catalog options match the criteria you provided.", matchOne: "We found 1 property for you.", matchMany: "We found {count} properties for you.",
+                noMatchTitle: "We have not found this property in the catalog yet", noMatchText: "Our catalog is exclusive and only shows a few properties. Send your profile on WhatsApp and the agent will do their best to find a property with the characteristics you need, including options outside the catalog.", sendProfile: "Send profile on WhatsApp",
+                profileMessage: "Hello! I did not find it in the catalog and would like the agent to search for a property with this profile:", profileGoal: "Goal",
+              },
+              firstHome: {
+                tag: "Stop renting", title: "Your own-home payment may be closer than you think.", subtitle: "Tell us about your situation. We will look for options that match your income, down payment and family needs.", cta: "Find my first home",
+                steps: [{ title: "Tell us your profile", text: "Share your preferred city, budget, down payment and buying timeline." }, { title: "Receive realistic options", text: "We select compatible properties both inside and outside the public catalog." }, { title: "Get your keys", text: "We guide negotiation, financing and documentation through completion." }],
+              },
+              about: {
+                tag: "About Us",
+                title1: "We make the dream of",
+                title2: "homeownership and smart investing real",
+                p1: '<strong class="text-gray-600">Thiago Carneiro</strong> works in real estate with an eye for new business. He is open to opportunities, helps families buy their first home and connects investors to strategic opportunities on the coast of Santa Catarina.',
+                p2: '<strong class="text-gray-600">Giordano Chiaradia</strong> has been in the market since 2010. A resident of Florianópolis since 1984, he worked as a helicopter pilot for one of SC\'s largest land developers, with direct contact with major projects.',
+                p3: 'Together, they serve those who want to <strong class="text-gray-600">buy a home, stop renting or invest</strong> in Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha and Navegantes.',
+                cta: "Get in touch",
+              },
+              services: {
+                tag: "Our Services",
+                title1: "To live or invest on the",
+                title2: "coast of Santa Catarina",
+                subtitle:
+                  "We help you find the ideal property to live in or invest. We connect families, investors and developers to the best opportunities on SC's coast.",
+                items: [
+                  {
+                    title: "Buy to Live",
+                    desc: "We find the perfect property for you and your family. Houses, apartments and penthouses on SC's coast to make your dream of homeownership come true.",
+                  },
+                  {
+                    title: "Stop Renting",
+                    desc: "Full advisory for those who want to stop renting. We analyze your profile, find affordable options and guide you through the entire purchase process.",
+                  },
+                  {
+                    title: "Strategic Investments",
+                    desc: "We connect investors to high-appreciation opportunities on the coast of Santa Catarina, especially in Itapoá and the region.",
+                  },
+                  {
+                    title: "Land for Swap",
+                    desc: "We identify strategic land with building potential and negotiate advantageous swaps between owners and developers.",
+                  },
+                  {
+                    title: "Business Intermediation",
+                    desc: "We facilitate negotiations between developers, builders and landowners with security and agility.",
+                  },
+                  {
+                    title: "Personalized Consulting",
+                    desc: "Tailored guidance for those who want to live on the coast or invest with confidence, with market analysis and growth projections.",
+                  },
+                ],
+              },
+              steps: {
+                tag: "How It Works",
+                title1: "From first contact to",
+                title2: "getting the keys",
+                subtitle:
+                  "A simple, transparent and secure process from start to finish.",
+                items: [
+                  {
+                    title: "Talk to Us",
+                    desc: "Reach out to Thiago or Giordano via WhatsApp. We'll understand if you're looking to live, stop renting or invest.",
+                  },
+                  {
+                    title: "Personalized Selection",
+                    desc: "We search for properties, land and opportunities that match your profile, budget and goals.",
+                  },
+                  {
+                    title: "Negotiation and Documentation",
+                    desc: "We handle all negotiation, documentation and legal aspects with security and transparency.",
+                  },
+                  {
+                    title: "Keys in Hand",
+                    desc: "We follow through until you get the keys to your new home or your investment is complete.",
+                  },
+                ],
+              },
+              properties: {
+                tag: "Portfolio",
+                title1: "Featured",
+                title2: "properties",
+                subtitle:
+                  "Check out our best opportunities specially selected for you.",
+                value: "Price",
+                financing: "Financing available",
+                entrance: "Down payment",
+                installments: "Installments",
+                swap: "Accepts swap for units",
+                interest: "I'm interested",
+                details: "View details and photos", empty: "No properties with this profile are currently published. Contact us for exclusive options.",
+                close: "Close details", previous: "Previous photo", next: "Next photo", bedrooms: "bedrooms", area: "area", parking: "spaces",
+                about: "About this property", whatsapp: "Learn more on WhatsApp",
+                whatsappMessage: "Hello! I would like more information about",
+                share: "Share this property", copied: "Link copied!",
+              },
+              quote: {
+                title1: "Itapoá combines quality of life with",
+                title2: "a new growth cycle",
+                text: "Population growth and port investments help explain why developers and buyers are looking at Itapoá. It is a place to live well today and watch closely for the future.",
+                company: "Real Estate Investments and Business",
+                sources: "Public data and institutional announcements.",
+                metricPopulation: "population growth between 2010 and 2022", metricPort: "already invested by Porto Itapoá, with further expansions planned", metricCoamo: "planned for a new Coamo port terminal",
+              },
+              testimonials: {
+                tag: "Testimonials",
+                title1: "What our clients",
+                title2: "say",
+                subtitle: "Our clients' trust is our greatest recognition.",
+                items: [
+                  {
+                    name: "Marcos Oliveira",
+                    initials: "MO",
+                    location: "Curitiba, PR",
+                    text: "We invested in land in Itapoá with Thiago and Giordano's advice. The appreciation in two years exceeded all expectations. Serious professionals who know the region like no one else.",
+                  },
+                  {
+                    name: "Fernanda Keller",
+                    initials: "FK",
+                    location: "Joinville, SC",
+                    text: "We closed a land swap in Barra Velha with impeccable support. They handled all the negotiation and documentation. Result: we came out winning on both sides.",
+                  },
+                  {
+                    name: "Roberto Andrade",
+                    initials: "RA",
+                    location: "São Paulo, SP",
+                    text: "I wanted to invest on the coast of Santa Catarina but didn't know the region. Giordano showed me opportunities I would never find on my own. Today I have 3 plots and excellent returns.",
+                  },
+                ],
+              },
+              faq: {
+                tag: "FAQ",
+                title1: "Frequently asked",
+                title2: "questions",
+                items: [
+                  {
+                    q: "What is your area of operation?",
+                    a: "We operate across the coast of Santa Catarina with a special focus on Itapoá, Balneário Camboriú, Camboriú, Itajaí, Barra Velha, Piçarras, Penha and Navegantes.",
+                  },
+                  {
+                    q: "What is a land swap?",
+                    a: "It's when a landowner negotiates with a developer, exchanging the land for units in the future project. It's a way to invest without direct financial outlay.",
+                  },
+                  {
+                    q: "Why invest in Itapoá?",
+                    a: "Itapoá is one of the fastest-growing cities on the coast of SC, with strong appreciation, preserved nature, expanding infrastructure and prices still accessible compared to BC and the region.",
+                  },
+                  { q: "Do you help first-time buyers stop renting?", a: "Yes. We assess income, available down payment, family needs and financing possibilities to find realistic options, guiding you through negotiation and documentation." },
+                  { q: "How do I know if I can finance my first home?", a: "We make an initial assessment and suggest properties within your budget. Final approval and terms depend on the financial institution's credit analysis." },
+                  {
+                    q: "Do you work with developers?",
+                    a: "Yes! We connect landowners to developers and builders, facilitating swaps and negotiations that benefit both parties.",
+                  },
+                  {
+                    q: "Do I need to be there in person to close a deal?",
+                    a: "Not necessarily. Many steps can be done remotely. We work with investors from all over Brazil who want opportunities on the coast of Santa Catarina.",
+                  },
+                  {
+                    q: "How do I contact you?",
+                    a: "WhatsApp is the fastest way! We're also on Instagram @othiagocarneiro. We respond quickly and without bureaucracy.",
+                  },
+                ],
+              },
+              cta: {
+                tag: "Start Now",
+                title1: "Ready to find your place on the",
+                title2: "coast of Santa Catarina",
+                subtitle:
+                  "Talk to Thiago or Giordano to find your first home, a new home for your family or an opportunity in land and swaps.",
+                btn1: "Chat on WhatsApp",
+                btn2: "Call Now",
+              },
+              footer: {
+                company: "Investments & Business",
+                desc: "Real Estate Investments and Business on the coast of Santa Catarina. Land, swaps and high-potential opportunities.",
+                links: "Quick Links",
+                contact: "Contact",
+                location:
+                  "Coast of Santa Catarina, Itapoá, BC, Camboriú and region",
+                rights: "All rights reserved.",
+                privacy: "Privacy Policy",
+                terms: "Terms of Use",
+                whatsappTitle: "Contact us on WhatsApp",
+              },
+              stats: [
+                { value: "10+", label: "Deals completed" },
+                { value: "3", label: "Buyer profiles served" },
+                { value: "8", label: "Cities served" },
+                { value: "100%", label: "SC coast focus" },
+              ],
+            },
+            es: {
+              nav: {
+                inicio: "Inicio",
+                sobre: "Nosotros",
+                servicos: "Servicios",
+                imoveis: "Inmuebles",
+                depoimentos: "Testimonios",
+                faq: "FAQ",
+                brandLine: "Inversiones Inmobiliarias",
+              },
+              hero: {
+                title1: "Tu nuevo hogar o inversión en el",
+                title2: "litoral catarinense",
+                title3: "comienza aquí",
+                subtitle:
+                  "Ya sea para vivir, dejar el alquiler o invertir con seguridad. Encontramos el inmueble ideal para ti en Itapoá, Balneário Camboriú, Itajaí y todo el litoral de SC.",
+                cta1: "Contáctanos",
+                cta2: "Ver Inmuebles",
+                marqueeCities: "Itapoá · Balneário Camboriú · Itajaí", marqueeLand: "Terrenos y Permutas", marqueeInvest: "Inversiones Estratégicas",
+              },
+              search: {
+                ariaLabel: "Búsqueda de inmuebles", eyebrow: "Encuentra tu inmueble", title: "¿Cuál es tu objetivo?", show: "Ver opciones",
+                filters: { all: "Todos", firstHome: "Primera vivienda", live: "Comprar para vivir", launch: "Comprar sobre plano", invest: "Invertir", swap: "Terreno para permuta" },
+                city: "Ciudad", anyCity: "Cualquier ciudad", budget: "Valor máximo", anyBudget: "Cualquier valor", entry: "Entrada disponible", bedrooms: "Habitaciones", anyBedrooms: "Cualquier cantidad", timeline: "¿Cuándo quieres comprar?", notInformed: "Prefiero no informar",
+                upTo500: "Hasta R$ 500 mil", upTo800: "Hasta R$ 800 mil", upTo1200: "Hasta R$ 1,2 millones", upTo2000: "Hasta R$ 2 millones", above2000: "Más de R$ 2 millones", upTo50: "Hasta R$ 50 mil", upTo100: "Hasta R$ 100 mil", upTo200: "Hasta R$ 200 mil", above200: "Más de R$ 200 mil",
+                now: "Lo antes posible", threeMonths: "En los próximos 3 meses", sixMonths: "De 3 a 6 meses", planning: "Todavía estoy planificando", refine: "Buscar inmuebles", matchText: "Estas opciones del catálogo coinciden con los criterios informados.", matchOne: "Encontramos 1 inmueble para ti.", matchMany: "Encontramos {count} inmuebles para ti.",
+                noMatchTitle: "Todavía no encontramos este inmueble en el catálogo", noMatchText: "Nuestro catálogo es exclusivo y muestra pocas opciones. Envía tu perfil por WhatsApp y el agente hará todo lo posible por encontrar un inmueble con las características que buscas, incluso fuera del catálogo.", sendProfile: "Enviar perfil por WhatsApp",
+                profileMessage: "¡Hola! No lo encontré en el catálogo y quisiera que el agente buscara un inmueble con este perfil:", profileGoal: "Objetivo",
+              },
+              firstHome: {
+                tag: "Deja el alquiler", title: "La cuota de tu vivienda propia puede estar más cerca de lo que imaginas.", subtitle: "Cuéntanos sobre tu situación. Buscaremos opciones compatibles con tus ingresos, entrada y necesidades familiares.", cta: "Buscar mi primera vivienda",
+                steps: [{ title: "Cuéntanos tu perfil", text: "Indica ciudad, presupuesto, entrada y plazo de compra." }, { title: "Recibe opciones realistas", text: "Seleccionamos inmuebles compatibles dentro y fuera del catálogo público." }, { title: "Recibe tus llaves", text: "Acompañamos negociación, financiación y documentación hasta la entrega." }],
+              },
+              about: {
+                tag: "Quiénes Somos",
+                title1: "Realizamos el sueño de la",
+                title2: "casa propia y la buena inversión",
+                p1: '<strong class="text-gray-600">Thiago Carneiro</strong> trabaja en el mercado inmobiliario con atención a nuevos negocios. Está abierto a oportunidades, ayuda a familias a comprar su primera vivienda y conecta inversores con oportunidades estratégicas en el litoral catarinense.',
+                p2: '<strong class="text-gray-600">Giordano Chiaradia</strong> actúa en el mercado desde 2010. Residente de Florianópolis desde 1984, trabajó como piloto de helicóptero en una de las mayores loteadoras de SC, con contacto directo con grandes emprendimientos.',
+                p3: 'Juntos, atienden a quienes quieren <strong class="text-gray-600">comprar para vivir, dejar el alquiler o invertir</strong> en Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha y Navegantes.',
+                cta: "Contáctanos",
+              },
+              services: {
+                tag: "Nuestros Servicios",
+                title1: "Para vivir o invertir en el",
+                title2: "litoral catarinense",
+                subtitle:
+                  "Te ayudamos a encontrar el inmueble ideal para vivir o invertir. Conectamos familias, inversores y constructoras con las mejores oportunidades del litoral de SC.",
+                items: [
+                  {
+                    title: "Compra para Vivir",
+                    desc: "Encontramos el inmueble perfecto para ti y tu familia. Casas, departamentos y áticos en el litoral catarinense para realizar el sueño de la casa propia.",
+                  },
+                  {
+                    title: "Deja el Alquiler",
+                    desc: "Asesoría completa para quienes quieren dejar de alquilar. Analizamos tu perfil, encontramos opciones accesibles y te acompañamos en todo el proceso de compra.",
+                  },
+                  {
+                    title: "Inversiones Estratégicas",
+                    desc: "Conectamos inversores con oportunidades de alta valorización en el litoral catarinense, especialmente en Itapoá y la región.",
+                  },
+                  {
+                    title: "Terrenos para Permuta",
+                    desc: "Identificamos terrenos estratégicos con potencial constructivo y negociamos permutas ventajosas entre propietarios y constructoras.",
+                  },
+                  {
+                    title: "Intermediación de Negocios",
+                    desc: "Facilitamos negociaciones entre constructoras, desarrolladoras y propietarios de terrenos con seguridad y agilidad.",
+                  },
+                  {
+                    title: "Consultoría Personalizada",
+                    desc: "Orientación a medida para quienes quieren vivir en el litoral o invertir con seguridad, con análisis de mercado y proyecciones de crecimiento.",
+                  },
+                ],
+              },
+              steps: {
+                tag: "Cómo Funciona",
+                title1: "Del primer contacto a la",
+                title2: "entrega de las llaves",
+                subtitle:
+                  "Un proceso simple, transparente y seguro de principio a fin.",
+                items: [
+                  {
+                    title: "Conversa con Nosotros",
+                    desc: "Habla con Thiago o Giordano por WhatsApp. Entenderemos si buscas vivir, dejar el alquiler o invertir.",
+                  },
+                  {
+                    title: "Selección Personalizada",
+                    desc: "Buscamos inmuebles, terrenos y oportunidades que se ajusten a tu perfil, presupuesto y objetivos.",
+                  },
+                  {
+                    title: "Negociación y Documentación",
+                    desc: "Nos encargamos de toda la negociación, documentación y aspectos legales con seguridad y transparencia.",
+                  },
+                  {
+                    title: "Llaves en Mano",
+                    desc: "Acompañamos hasta la entrega de las llaves de tu nuevo hogar o la conclusión de tu inversión.",
+                  },
+                ],
+              },
+              properties: {
+                tag: "Portafolio",
+                title1: "Inmuebles",
+                title2: "destacados",
+                subtitle:
+                  "Conoce nuestras mejores oportunidades seleccionadas especialmente para ti.",
+                value: "Precio",
+                financing: "Acepta financiamiento",
+                entrance: "Entrada",
+                installments: "Cuotas",
+                swap: "Acepta permuta por unidades",
+                interest: "Me interesa",
+                details: "Ver detalles y fotos", empty: "Todavía no hay inmuebles publicados con este perfil. Contáctanos para recibir opciones exclusivas.",
+                close: "Cerrar detalles", previous: "Foto anterior", next: "Foto siguiente", bedrooms: "habitaciones", area: "área", parking: "plazas",
+                about: "Sobre este inmueble", whatsapp: "Quiero saber más por WhatsApp",
+                whatsappMessage: "¡Hola! Quiero más información sobre",
+                share: "Compartir este inmueble", copied: "¡Enlace copiado!",
+              },
+              quote: {
+                title1: "Itapoá reúne calidad de vida y",
+                title2: "un nuevo ciclo de crecimiento",
+                text: "El crecimiento poblacional y las inversiones portuarias ayudan a explicar por qué constructoras y compradores miran hacia Itapoá. Es una ciudad para vivir bien hoy y seguir de cerca hacia el futuro.",
+                company: "Inversiones y Negocios Inmobiliarios",
+                sources: "Datos públicos y anuncios institucionales.",
+                metricPopulation: "de crecimiento poblacional entre 2010 y 2022", metricPort: "ya invertidos por Porto Itapoá, con nuevas expansiones planificadas", metricCoamo: "previstos para una nueva terminal portuaria de Coamo",
+              },
+              testimonials: {
+                tag: "Testimonios",
+                title1: "Lo que nuestros clientes",
+                title2: "dicen",
+                subtitle:
+                  "La confianza de nuestros clientes es nuestro mayor reconocimiento.",
+                items: [
+                  {
+                    name: "Marcos Oliveira",
+                    initials: "MO",
+                    location: "Curitiba, PR",
+                    text: "Invertimos en un terreno en Itapoá con la asesoría de Thiago y Giordano. La valorización en dos años superó todas las expectativas. Profesionales serios que conocen la región como nadie.",
+                  },
+                  {
+                    name: "Fernanda Keller",
+                    initials: "FK",
+                    location: "Joinville, SC",
+                    text: "Cerramos una permuta de terreno en Barra Velha con un acompañamiento impecable. Ellos se encargaron de toda la negociación y documentación. Resultado: salimos ganando por ambos lados.",
+                  },
+                  {
+                    name: "Roberto Andrade",
+                    initials: "RA",
+                    location: "São Paulo, SP",
+                    text: "Quería invertir en el litoral catarinense pero no conocía la región. Giordano me presentó oportunidades que jamás encontraría solo. Hoy tengo 3 terrenos y una rentabilidad excelente.",
+                  },
+                ],
+              },
+              faq: {
+                tag: "FAQ",
+                title1: "Preguntas",
+                title2: "frecuentes",
+                items: [
+                  {
+                    q: "¿Cuál es su área de actuación?",
+                    a: "Actuamos en todo el litoral catarinense con enfoque especial en Itapoá, Balneário Camboriú, Camboriú, Itajaí, Barra Velha, Piçarras, Penha y Navegantes.",
+                  },
+                  {
+                    q: "¿Qué es una permuta de terreno?",
+                    a: "Es cuando el propietario de un terreno negocia con una constructora, cediendo el terreno a cambio de unidades en el futuro emprendimiento. Es una forma de invertir sin desembolso financiero directo.",
+                  },
+                  {
+                    q: "¿Por qué invertir en Itapoá?",
+                    a: "Itapoá es una de las ciudades que más crece en el litoral de SC, con valorización expresiva, naturaleza preservada, infraestructura en expansión y precios aún accesibles comparados con BC y la región.",
+                  },
+                  { q: "¿Ayudan a quienes quieren comprar su primera vivienda y dejar el alquiler?", a: "Sí. Analizamos ingresos, entrada disponible, necesidades familiares y posibilidades de financiación para encontrar opciones realistas y acompañar la negociación y la documentación." },
+                  { q: "¿Cómo sé si puedo financiar mi primera vivienda?", a: "Hacemos una evaluación inicial y sugerimos inmuebles compatibles con tu presupuesto. La aprobación y las condiciones finales dependen del análisis de crédito de la entidad financiera." },
+                  {
+                    q: "¿Trabajan con desarrolladoras?",
+                    a: "¡Sí! Conectamos propietarios de terrenos con desarrolladoras y constructoras, facilitando permutas y negociaciones que benefician a ambas partes.",
+                  },
+                  {
+                    q: "¿Necesito estar presencialmente para cerrar un negocio?",
+                    a: "No necesariamente. Muchas etapas pueden hacerse de forma remota. Trabajamos con inversores de todo Brasil que buscan oportunidades en el litoral catarinense.",
+                  },
+                  {
+                    q: "¿Cómo los contacto?",
+                    a: "¡Por WhatsApp es la forma más rápida! También estamos en Instagram @othiagocarneiro. Respondemos con agilidad y sin burocracia.",
+                  },
+                ],
+              },
+              cta: {
+                tag: "Empieza Ahora",
+                title1: "¿Listo para encontrar tu espacio en el",
+                title2: "litoral catarinense",
+                subtitle:
+                  "Habla con Thiago o Giordano para encontrar tu primera vivienda, un nuevo hogar para la familia o una oportunidad en terrenos y permutas.",
+                btn1: "Hablar por WhatsApp",
+                btn2: "Llamar Ahora",
+              },
+              footer: {
+                company: "Inversiones y Negocios",
+                desc: "Inversiones y Negocios Inmobiliarios en el litoral catarinense. Terrenos, permutas y oportunidades de alto potencial.",
+                links: "Enlaces Rápidos",
+                contact: "Contacto",
+                location: "Litoral Catarinense, Itapoá, BC, Camboriú y región",
+                rights: "Todos los derechos reservados.",
+                privacy: "Política de Privacidad",
+                terms: "Términos de Uso",
+                whatsappTitle: "Contáctanos por WhatsApp",
+              },
+              stats: [
+                { value: "10+", label: "Negocios realizados" },
+                { value: "3", label: "Perfiles de compra atendidos" },
+                { value: "8", label: "Ciudades atendidas" },
+                { value: "100%", label: "Foco en litoral SC" },
+              ],
+            },
+          };
+
+          function t(section) {
+            return i18n[lang.value]?.[section] || i18n.pt[section];
+          }
+
+          const filterOptions = computed(() => {
+            const f = t("search").filters;
+            return [
+              { value: "all", label: f.all },
+              { value: "first-home", label: f.firstHome },
+              { value: "live", label: f.live },
+              { value: "launch", label: f.launch },
+              { value: "invest", label: f.invest },
+              { value: "swap", label: f.swap },
+            ];
+          });
+
+          const navItems = computed(() => {
+            const n = t("nav");
+            return [
+              { label: n.inicio, href: "#" },
+              { label: n.sobre, href: "#sobre" },
+              { label: n.servicos, href: "#servicos" },
+              { label: n.imoveis, href: "#imoveis" },
+              { label: n.depoimentos, href: "#depoimentos" },
+              { label: n.faq, href: "#faq" },
+            ];
+          });
+
+          const heroColumns = [
+            [
+              "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=600&fit=crop",
+              "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=600&fit=crop",
+              "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=600&fit=crop",
+              "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=600&fit=crop",
+            ],
+            [
+              "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=600&fit=crop",
+              "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400&h=600&fit=crop",
+              "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=400&h=600&fit=crop",
+              "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&h=600&fit=crop",
+            ],
+            [
+              "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=400&h=600&fit=crop",
+              "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&h=600&fit=crop",
+              "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=400&h=600&fit=crop",
+              "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&h=600&fit=crop",
+            ],
+            [
+              "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=400&h=600&fit=crop",
+              "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=400&h=600&fit=crop",
+              "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&h=600&fit=crop",
+              "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&h=600&fit=crop",
+            ],
+          ];
+
+          const stats = computed(() => t("stats"));
+
+          const serviceIcons = [
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>',
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>',
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>',
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>',
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>',
+          ];
+
+          const services = computed(() =>
+            t("services").items.map((s, i) => ({
+              ...s,
+              icon: serviceIcons[i],
+            })),
+          );
+
+          const stepIcons = [
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>',
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>',
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>',
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>',
+          ];
+
+          const steps = computed(() =>
+            t("steps").items.map((s, i) => ({ ...s, icon: stepIcons[i] })),
+          );
+
+          const propertyData = [
+            {
+              location: "Itapoá, SC",
+              intent: ["invest", "launch"],
+              price: "R$ 950.000",
+              entrance: "R$ 190.000",
+              installments: "60x de R$ 12.666",
+              bedrooms: null,
+              area: "600m²",
+              parking: null,
+              image:
+                "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=400&fit=crop",
+            },
+            {
+              location: "Camboriú, SC",
+              intent: ["invest", "launch"],
+              price: "R$ 2.800.000",
+              entrance: "R$ 560.000",
+              installments: null,
+              bedrooms: null,
+              area: "2.500m²",
+              parking: null,
+              image:
+                "https://images.unsplash.com/photo-1448630360428-65456885c650?w=600&h=400&fit=crop",
+            },
+            {
+              location: "Balneário Camboriú, SC",
+              intent: ["live", "invest"],
+              price: "R$ 1.650.000",
+              entrance: "R$ 330.000",
+              installments: "48x de R$ 27.500",
+              bedrooms: 3,
+              area: "140m²",
+              parking: 2,
+              image:
+                "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop",
+            },
+            {
+              location: "Barra Velha, SC",
+              intent: ["swap", "invest"],
+              price: "R$ 480.000",
+              entrance: null,
+              installments: null,
+              bedrooms: null,
+              area: "800m²",
+              parking: null,
+              image:
+                "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=400&fit=crop",
+            },
+            {
+              location: "Itapoá, SC",
+              intent: ["first-home", "live"],
+              price: "R$ 720.000",
+              entrance: "R$ 144.000",
+              installments: "60x de R$ 9.600",
+              bedrooms: 3,
+              area: "180m²",
+              parking: 2,
+              image:
+                "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop",
+            },
+            {
+              location: "Piçarras, SC",
+              intent: ["first-home", "invest"],
+              price: "R$ 350.000",
+              entrance: "R$ 70.000",
+              installments: "48x de R$ 5.833",
+              bedrooms: null,
+              area: "450m²",
+              parking: null,
+              image:
+                "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop",
+            },
+          ];
+
+          const propertyTexts = {
+            pt: [
+              {
+                title: "Terreno Frente Mar",
+                tag: "Destaque",
+                desc: "Terreno de esquina com frente para o mar, ideal para incorporação residencial de alto padrão.",
+                type: "Terreno",
+              },
+              {
+                title: "Área para Incorporação",
+                tag: "Investimento",
+                desc: "Área com potencial construtivo para empreendimento residencial multifamiliar. Documentação em dia.",
+                type: "Área",
+              },
+              {
+                title: "Apartamento Vista Mar",
+                tag: "Premium",
+                desc: "Apartamento de alto padrão com vista permanente para o mar, lazer completo e acabamento diferenciado.",
+                type: "Apartamento",
+              },
+              {
+                title: "Terreno para Permuta",
+                tag: "Permuta",
+                desc: "Terreno plano em região de alta valorização, proprietário aceita permuta por unidades no empreendimento.",
+                type: "Terreno",
+              },
+              {
+                title: "Casa em Itapoá",
+                tag: "Novo",
+                desc: "Casa nova com 3 suítes a 200m da praia, projeto moderno e excelente padrão de acabamento.",
+                type: "Casa",
+              },
+              {
+                title: "Lote Comercial",
+                tag: "Oportunidade",
+                desc: "Lote comercial em avenida principal, excelente fluxo e visibilidade. Ideal para comércio ou serviços.",
+                type: "Lote",
+              },
+            ],
+            en: [
+              {
+                title: "Beachfront Land",
+                tag: "Featured",
+                desc: "Corner lot facing the sea, ideal for high-end residential development.",
+                type: "Land",
+              },
+              {
+                title: "Development Area",
+                tag: "Investment",
+                desc: "Area with building potential for multifamily residential project. Documentation up to date.",
+                type: "Area",
+              },
+              {
+                title: "Ocean View Apartment",
+                tag: "Premium",
+                desc: "High-end apartment with permanent ocean view, full amenities and premium finishes.",
+                type: "Apartment",
+              },
+              {
+                title: "Land for Swap",
+                tag: "Swap",
+                desc: "Flat land in a high-appreciation area, owner accepts swap for units in the development.",
+                type: "Land",
+              },
+              {
+                title: "House in Itapoá",
+                tag: "New",
+                desc: "New house with 3 suites 200m from the beach, modern design and excellent finishing.",
+                type: "House",
+              },
+              {
+                title: "Commercial Lot",
+                tag: "Opportunity",
+                desc: "Commercial lot on main avenue, excellent foot traffic and visibility. Ideal for retail or services.",
+                type: "Lot",
+              },
+            ],
+            es: [
+              {
+                title: "Terreno Frente al Mar",
+                tag: "Destacado",
+                desc: "Terreno de esquina frente al mar, ideal para desarrollo residencial de alto nivel.",
+                type: "Terreno",
+              },
+              {
+                title: "Área para Desarrollo",
+                tag: "Inversión",
+                desc: "Área con potencial constructivo para emprendimiento residencial multifamiliar. Documentación al día.",
+                type: "Área",
+              },
+              {
+                title: "Apartamento Vista al Mar",
+                tag: "Premium",
+                desc: "Apartamento de alto nivel con vista permanente al mar, amenidades completas y acabados diferenciados.",
+                type: "Apartamento",
+              },
+              {
+                title: "Terreno para Permuta",
+                tag: "Permuta",
+                desc: "Terreno plano en zona de alta valorización, propietario acepta permuta por unidades en el emprendimiento.",
+                type: "Terreno",
+              },
+              {
+                title: "Casa en Itapoá",
+                tag: "Nuevo",
+                desc: "Casa nueva con 3 suites a 200m de la playa, diseño moderno y excelente nivel de acabados.",
+                type: "Casa",
+              },
+              {
+                title: "Lote Comercial",
+                tag: "Oportunidad",
+                desc: "Lote comercial en avenida principal, excelente flujo y visibilidad. Ideal para comercio o servicios.",
+                type: "Lote",
+              },
+            ],
+          };
+
+          const fallbackProperties = computed(() => {
+            const texts = propertyTexts[lang.value] || propertyTexts.pt;
+            return propertyData.map((p, i) => ({ id: `catalogo-${i + 1}`, slug: `catalogo-${i + 1}`, ...p, ...texts[i] }));
+          });
+
+          const apiPropertiesLoaded = ref(false);
+          const properties = ref([]);
+
+          const cityOptions = computed(() => [...new Set(properties.value.map((p) => (p.location || "").split(",")[0].trim()).filter(Boolean))].sort());
+
+          function currencyNumber(value) {
+            if (typeof value === "number") return value;
+            return Number(String(value || "").replace(/[^\d]/g, "")) || 0;
+          }
+
+          const filteredProperties = computed(() => {
+            return properties.value.filter((property) => {
+              const intentMatch = activeFilter.value === "all" || (property.intent || inferIntent(property)).includes(activeFilter.value);
+              const cityMatch = !qualification.city || (property.location || "").startsWith(qualification.city);
+              const priceMatch = !qualification.maxPrice || currencyNumber(property.price) <= Number(qualification.maxPrice);
+              const bedroomMatch = !qualification.bedrooms || Number(property.bedrooms || 0) >= Number(qualification.bedrooms);
+              return intentMatch && cityMatch && priceMatch && bedroomMatch;
+            });
+          });
+
+          const searchCta = computed(() => searchSubmitted.value ? t("search").refine : t("search").show);
+          const resultTitle = computed(() => filteredProperties.value.length === 0 ? t("search").noMatchTitle : filteredProperties.value.length === 1 ? t("search").matchOne : t("search").matchMany.replace("{count}", filteredProperties.value.length));
+
+          const qualifiedWhatsappLink = computed(() => {
+            const f = t("search").filters;
+            const intents = { all: f.all, "first-home": f.firstHome, live: f.live, launch: f.launch, invest: f.invest, swap: f.swap };
+            const lines = [t("search").profileMessage, `${t("search").profileGoal}: ${intents[activeFilter.value]}`, `${t("search").city}: ${qualification.city || t("search").notInformed}`, `${t("search").budget}: ${qualification.maxPrice ? `R$ ${Number(qualification.maxPrice).toLocaleString("pt-BR")}` : t("search").notInformed}`, `${t("search").entry}: ${qualification.entry ? `R$ ${Number(qualification.entry).toLocaleString("pt-BR")}` : t("search").notInformed}`, `${t("search").bedrooms}: ${qualification.bedrooms || t("search").notInformed}`, `${t("search").timeline}: ${qualification.timeline || t("search").notInformed}`];
+            return `${whatsappLink}?text=${encodeURIComponent(lines.join("\n"))}`;
+          });
+
+          function submitSearch() {
+            searchSubmitted.value = true;
+            scrollToProperties();
+          }
+
+          function inferIntent(property) {
+            const content = `${property.type || ""} ${property.tag || ""} ${property.title || ""}`.toLowerCase();
+            const intents = [];
+            if (/casa|apart|resid/.test(content)) intents.push("live", "first-home");
+            if (/lançamento|planta|incorp|área/.test(content)) intents.push("launch", "invest");
+            if (/terreno|lote|invest/.test(content)) intents.push("invest");
+            if (/permuta/.test(content)) intents.push("swap");
+            return [...new Set(intents.length ? intents : ["live"])];
+          }
+
+          const propertyGallery = computed(() => {
+            if (!selectedProperty.value) return [];
+            const images = selectedProperty.value.images || [];
+            const gallery = [...new Set([selectedProperty.value.image, ...images].filter(Boolean))];
+            if (gallery.length === 1) {
+              gallery.push(
+                "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1000&h=750&fit=crop",
+                "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1000&h=750&fit=crop",
+              );
+            }
+            return gallery;
+          });
+
+          const propertyWhatsappLink = computed(() => {
+            const title = selectedProperty.value?.title || "um imóvel";
+            return `${whatsappLink}?text=${encodeURIComponent(`${t("properties").whatsappMessage} ${title}.`)}`;
+          });
+
+          function openProperty(property) {
+            selectedProperty.value = property;
+            activeImage.value = 0;
+            shareCopied.value = false;
+            const id = property.id || property.slug;
+            if (id && new URLSearchParams(location.search).get("imovel") !== String(id)) history.pushState({ property: id }, "", `?imovel=${encodeURIComponent(id)}`);
+            document.body.style.overflow = "hidden";
+          }
+
+          function closeProperty() {
+            selectedProperty.value = null;
+            document.body.style.overflow = "";
+            if (new URLSearchParams(location.search).has("imovel")) history.replaceState({}, "", location.pathname);
+          }
+
+          async function copyPropertyLink() {
+            try {
+              await navigator.clipboard.writeText(location.href);
+              shareCopied.value = true;
+              setTimeout(() => (shareCopied.value = false), 2200);
+            } catch (e) {
+              shareCopied.value = false;
+            }
+          }
+
+          function openPropertyFromUrl() {
+            const id = new URLSearchParams(location.search).get("imovel");
+            if (!id) {
+              selectedProperty.value = null;
+              document.body.style.overflow = "";
+              return;
+            }
+            const property = properties.value.find((p) => String(p.id || p.slug) === id);
+            if (property) openProperty(property);
+          }
+
+          const handlePopState = () => openPropertyFromUrl();
+
+          function scrollToProperties() {
+            setTimeout(() => document.querySelector("#imoveis")?.scrollIntoView({ behavior: "smooth" }), 80);
+          }
+
+          Vue.watch(
+            fallbackProperties,
+            (val) => {
+              if (!apiPropertiesLoaded.value) properties.value = val;
+            },
+            { immediate: true },
+          );
+
+          async function loadPropertiesFromAPI() {
+            try {
+              const res = await fetch("/api/properties/public");
+              if (!res.ok) return;
+              const data = await res.json();
+              if (data.length > 0) {
+                apiPropertiesLoaded.value = true;
+                properties.value = data.map((p) => ({
+                  id: p.id,
+                  slug: p.id,
+                  title: p.title,
+                  location:
+                    [p.neighborhood, p.city].filter(Boolean).join(", ") ||
+                    p.city ||
+                    "",
+                  price: "R$ " + Number(p.price).toLocaleString("pt-BR"),
+                  entrance: p.entrance
+                    ? "R$ " + Number(p.entrance).toLocaleString("pt-BR")
+                    : null,
+                  installments: p.installments || null,
+                  tag: p.tag || "",
+                  type: p.property_type || null,
+                  desc: p.description || "",
+                  bedrooms: p.bedrooms || null,
+                  area: p.area ? p.area + "m²" : null,
+                  parking: p.parking || null,
+                  image:
+                    p.image ||
+                    (p.images && p.images[0]) ||
+                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop",
+                  images: p.images || [],
+                  details: p.description || "",
+                  features: p.features || [],
+                  intent: p.intent || null,
+                }));
+                openPropertyFromUrl();
+              }
+            } catch (e) {
+              // API offline, keep fallback data
+            }
+          }
+
+          const testimonials = computed(() => t("testimonials").items);
+          const faqs = computed(() => t("faq").items);
+
+          const handleScroll = () => {
+            scrolled.value = window.scrollY > 50;
+          };
+
+          onMounted(() => {
+            window.addEventListener("scroll", handleScroll);
+            window.addEventListener("popstate", handlePopState);
+            AOS.init({
+              duration: 800,
+              easing: "ease-out-cubic",
+              once: true,
+              offset: 80,
+            });
+            loadPropertiesFromAPI();
+            setTimeout(openPropertyFromUrl, 120);
+          });
+
+          onUnmounted(() => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("popstate", handlePopState);
+          });
+
+          return {
+            scrolled,
+            mobileMenu,
+            activeFaq,
+            whatsappLink,
+            lang,
+            setLang,
+            t,
+            navItems,
+            heroColumns,
+            stats,
+            services,
+            steps,
+            properties,
+            filteredProperties,
+            activeFilter,
+            filterOptions,
+            qualification,
+            cityOptions,
+            searchSubmitted,
+            searchCta,
+            resultTitle,
+            qualifiedWhatsappLink,
+            submitSearch,
+            scrollToProperties,
+            selectedProperty,
+            activeImage,
+            propertyGallery,
+            propertyWhatsappLink,
+            shareCopied,
+            copyPropertyLink,
+            openProperty,
+            closeProperty,
+            testimonials,
+            faqs,
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

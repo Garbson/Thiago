@@ -1,0 +1,2320 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | Chiaradia & Carneiro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#B8932F",
+              "primary-light": "#D4AF5B",
+              "primary-dark": "#9A7A24",
+              navy: "#1B2A4A",
+              "navy-light": "#253A5E",
+              dark: "#0C1526",
+              darker: "#070D1A",
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .fade-in {
+        animation: fadeIn 0.3s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .modal-overlay {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+      }
+    </style>
+  </head>
+  <body class="bg-darker text-white min-h-screen">
+    <div id="app">
+      <!-- Login -->
+      <div
+        v-if="!token"
+        class="min-h-screen flex items-center justify-center px-4"
+      >
+        <div
+          class="bg-dark border border-white/10 rounded-2xl p-8 w-full max-w-md fade-in"
+        >
+          <div class="text-center mb-8">
+            <div
+              class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4"
+            >
+              <span class="text-primary font-bold text-2xl">SC</span>
+            </div>
+            <h1 class="text-2xl font-bold">Painel Administrativo</h1>
+            <p class="text-white/40 text-sm mt-1">Chiaradia & Carneiro</p>
+          </div>
+          <div
+            v-if="loginError"
+            class="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-lg px-4 py-3 mb-4"
+          >
+            {{ loginError }}
+          </div>
+          <div class="space-y-4">
+            <div>
+              <label class="text-white/60 text-sm mb-1 block">E-mail</label>
+              <input
+                v-model="loginEmail"
+                type="email"
+                placeholder="admin@email.com"
+                class="w-full bg-darker border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary focus:outline-none transition"
+              />
+            </div>
+            <div>
+              <label class="text-white/60 text-sm mb-1 block">Senha</label>
+              <input
+                v-model="loginPassword"
+                type="password"
+                placeholder="••••••••"
+                @keyup.enter="login"
+                class="w-full bg-darker border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary focus:outline-none transition"
+              />
+            </div>
+            <button
+              @click="login"
+              :disabled="logging"
+              class="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 rounded-xl transition disabled:opacity-50"
+            >
+              {{ logging ? 'Entrando...' : 'Entrar' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <div v-else class="min-h-screen">
+        <!-- Top bar -->
+        <header
+          class="bg-dark/80 border-b border-white/5 sticky top-0 z-40"
+          style="backdrop-filter: blur(20px)"
+        >
+          <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+          >
+            <div class="flex items-center gap-3">
+              <div
+                class="w-9 h-9 bg-primary/10 rounded-lg flex items-center justify-center"
+              >
+                <span class="text-primary font-bold text-sm">SC</span>
+              </div>
+              <span class="font-semibold hidden sm:inline">Painel Admin</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="text-white/40 text-sm hidden sm:inline"
+                >{{ userName }}</span
+              >
+              <a
+                href="/"
+                target="_blank"
+                class="text-white/40 hover:text-primary text-sm transition"
+                >Ver Site</a
+              >
+              <button
+                @click="logout"
+                class="text-white/40 hover:text-red-400 text-sm transition"
+              >
+                Sair
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <!-- Navigation Tabs -->
+          <div
+            class="flex gap-1 mb-8 bg-dark border border-white/5 rounded-xl p-1 w-fit"
+          >
+            <button
+              @click="activeTab = 'properties'"
+              :class="activeTab === 'properties' ? 'bg-primary text-white shadow-lg' : 'text-white/50 hover:text-white'"
+              class="px-5 py-2.5 rounded-lg text-sm font-semibold transition flex items-center gap-2"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
+              Imóveis
+            </button>
+            <button
+              @click="activeTab = 'crm'; if(!leadsLoaded) loadLeads()"
+              :class="activeTab === 'crm' ? 'bg-primary text-white shadow-lg' : 'text-white/50 hover:text-white'"
+              class="px-5 py-2.5 rounded-lg text-sm font-semibold transition flex items-center gap-2"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+              CRM
+              <span
+                v-if="leadStats.pendingFollowups"
+                class="bg-red-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold"
+                >{{ leadStats.pendingFollowups }}</span
+              >
+            </button>
+          </div>
+
+          <!-- ===== IMÓVEIS TAB ===== -->
+          <div v-show="activeTab === 'properties'">
+            <!-- Stats cards -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <div class="bg-dark border border-white/5 rounded-xl p-5">
+                <div
+                  class="text-white/40 text-xs uppercase tracking-wider mb-1"
+                >
+                  Total Imóveis
+                </div>
+                <div class="text-2xl font-bold">
+                  {{ properties.length }}<span
+                    class="text-white/30 text-sm font-normal"
+                    >/{{ maxProperties }}</span
+                  >
+                </div>
+              </div>
+              <div class="bg-dark border border-white/5 rounded-xl p-5">
+                <div
+                  class="text-white/40 text-xs uppercase tracking-wider mb-1"
+                >
+                  Ativos
+                </div>
+                <div class="text-2xl font-bold text-green-400">
+                  {{ properties.filter(p => p.active).length }}
+                </div>
+              </div>
+              <div class="bg-dark border border-white/5 rounded-xl p-5">
+                <div
+                  class="text-white/40 text-xs uppercase tracking-wider mb-1"
+                >
+                  Publicados
+                </div>
+                <div class="text-2xl font-bold text-primary">
+                  {{ properties.filter(p => p.published_olx ||
+                  p.published_zapimoveis || p.published_chavenasmao).length }}
+                </div>
+              </div>
+              <div class="bg-dark border border-white/5 rounded-xl p-5">
+                <div
+                  class="text-white/40 text-xs uppercase tracking-wider mb-1"
+                >
+                  Destaques
+                </div>
+                <div class="text-2xl font-bold text-yellow-400">
+                  {{ properties.filter(p => p.featured).length }}
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center justify-between mb-6">
+              <h2 class="text-xl font-bold">Imóveis</h2>
+              <button
+                @click="openForm()"
+                :disabled="properties.length >= maxProperties"
+                class="bg-primary hover:bg-primary-dark text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+                Novo Imóvel
+              </button>
+            </div>
+
+            <!-- Properties list -->
+            <div v-if="loading" class="text-center py-20 text-white/40">
+              Carregando...
+            </div>
+
+            <div v-else-if="properties.length === 0" class="text-center py-20">
+              <div
+                class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4"
+              >
+                <svg
+                  class="w-8 h-8 text-white/20"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  />
+                </svg>
+              </div>
+              <p class="text-white/40 mb-4">Nenhum imóvel cadastrado</p>
+              <button
+                @click="openForm()"
+                class="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition"
+              >
+                Cadastrar primeiro imóvel
+              </button>
+            </div>
+
+            <div v-else class="space-y-4">
+              <div
+                v-for="prop in properties"
+                :key="prop.id"
+                class="bg-dark border border-white/5 rounded-xl p-4 sm:p-5 hover:border-white/10 transition fade-in"
+              >
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <!-- Thumbnail -->
+                  <div
+                    class="w-full sm:w-40 h-32 rounded-lg overflow-hidden bg-white/5 flex-shrink-0"
+                  >
+                    <img
+                      v-if="prop.images && prop.images.length"
+                      :src="prop.images[0].url"
+                      class="w-full h-full object-cover"
+                    />
+                    <div
+                      v-else
+                      class="w-full h-full flex items-center justify-center text-white/20 text-xs"
+                    >
+                      Sem foto
+                    </div>
+                  </div>
+
+                  <!-- Info -->
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                      <div>
+                        <h3 class="font-semibold text-lg truncate">
+                          {{ prop.title }}
+                        </h3>
+                        <p class="text-white/40 text-sm">
+                          {{ prop.city }} - {{ prop.state }} · {{
+                          prop.neighborhood }}
+                        </p>
+                      </div>
+                      <span
+                        class="text-primary font-semibold text-sm whitespace-nowrap"
+                      >
+                        R$ {{ Number(prop.price).toLocaleString('pt-BR') }}
+                      </span>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 mb-3">
+                      <span
+                        class="text-xs px-2 py-1 rounded-md"
+                        :class="prop.active ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400'"
+                      >
+                        {{ prop.active ? 'Ativo' : 'Inativo' }}
+                      </span>
+                      <span
+                        v-if="prop.tag"
+                        class="text-xs px-2 py-1 rounded-md bg-primary/10 text-primary"
+                        >{{ prop.tag }}</span
+                      >
+                      <span
+                        v-if="prop.featured"
+                        class="text-xs px-2 py-1 rounded-md bg-yellow-500/10 text-yellow-400"
+                        >Destaque</span
+                      >
+                      <span
+                        class="text-xs px-2 py-1 rounded-md bg-white/5 text-white/40"
+                        >{{ prop.property_type }}</span
+                      >
+                      <span
+                        class="text-xs px-2 py-1 rounded-md bg-white/5 text-white/40"
+                        >{{ prop.transaction_type === 'venda' ? 'Venda' :
+                        prop.transaction_type === 'aluguel' ? 'Aluguel' :
+                        'Venda/Aluguel' }}</span
+                      >
+                    </div>
+
+                    <!-- Portal status -->
+                    <div class="flex flex-wrap gap-1.5 mb-3">
+                      <span
+                        v-for="portal in portals"
+                        :key="portal.id"
+                        class="text-[10px] px-2 py-0.5 rounded-full font-medium"
+                        :class="prop['published_' + portal.id] ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-white/5 text-white/20 border border-white/5'"
+                      >
+                        {{ portal.name }}
+                      </span>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-wrap gap-2">
+                      <button
+                        @click="openForm(prop)"
+                        class="text-xs bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg transition"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        @click="openPortals(prop)"
+                        class="text-xs bg-navy/50 hover:bg-navy px-3 py-1.5 rounded-lg transition"
+                      >
+                        Portais
+                      </button>
+                      <button
+                        @click="toggleActive(prop)"
+                        class="text-xs px-3 py-1.5 rounded-lg transition"
+                        :class="prop.active ? 'bg-red-500/10 hover:bg-red-500/20 text-red-400' : 'bg-green-500/10 hover:bg-green-500/20 text-green-400'"
+                      >
+                        {{ prop.active ? 'Desativar' : 'Ativar' }}
+                      </button>
+                      <button
+                        @click="deleteProperty(prop)"
+                        class="text-xs bg-red-500/10 hover:bg-red-500/20 text-red-400 px-3 py-1.5 rounded-lg transition"
+                      >
+                        Excluir
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end properties tab -->
+
+          <!-- ===== CRM TAB ===== -->
+          <div v-show="activeTab === 'crm'">
+            <!-- CRM Stats -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <div class="bg-dark border border-white/5 rounded-xl p-5">
+                <div
+                  class="text-white/40 text-xs uppercase tracking-wider mb-1"
+                >
+                  Total Leads
+                </div>
+                <div class="text-2xl font-bold">{{ leadStats.total || 0 }}</div>
+              </div>
+              <div class="bg-dark border border-white/5 rounded-xl p-5">
+                <div
+                  class="text-white/40 text-xs uppercase tracking-wider mb-1"
+                >
+                  Novos este mês
+                </div>
+                <div class="text-2xl font-bold text-blue-400">
+                  {{ leadStats.thisMonth || 0 }}
+                </div>
+              </div>
+              <div class="bg-dark border border-white/5 rounded-xl p-5">
+                <div
+                  class="text-white/40 text-xs uppercase tracking-wider mb-1"
+                >
+                  Negociando
+                </div>
+                <div class="text-2xl font-bold text-primary">
+                  {{ leadStats.byStatus?.negociando || 0 }}
+                </div>
+              </div>
+              <div class="bg-dark border border-white/5 rounded-xl p-5">
+                <div
+                  class="text-white/40 text-xs uppercase tracking-wider mb-1"
+                >
+                  Follow-ups pendentes
+                </div>
+                <div
+                  class="text-2xl font-bold"
+                  :class="leadStats.pendingFollowups ? 'text-red-400' : 'text-green-400'"
+                >
+                  {{ leadStats.pendingFollowups || 0 }}
+                </div>
+              </div>
+            </div>
+
+            <!-- CRM Pipeline -->
+            <div class="mb-8">
+              <h3 class="text-lg font-bold mb-4">Pipeline</h3>
+              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                <button
+                  v-for="stage in pipelineStages"
+                  :key="stage.value"
+                  @click="crmFilter = crmFilter === stage.value ? '' : stage.value"
+                  :class="crmFilter === stage.value ? 'border-primary bg-primary/10' : 'border-white/5 hover:border-white/10'"
+                  class="bg-dark border rounded-xl p-4 text-center transition cursor-pointer"
+                >
+                  <div class="text-2xl mb-1">{{ stage.icon }}</div>
+                  <div class="text-xs text-white/50 mb-1">
+                    {{ stage.label }}
+                  </div>
+                  <div class="text-lg font-bold" :style="{color: stage.color}">
+                    {{ leadsByStatus(stage.value).length }}
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- CRM Actions -->
+            <div
+              class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6"
+            >
+              <div class="flex items-center gap-3">
+                <h2 class="text-xl font-bold">Leads</h2>
+                <span
+                  v-if="crmFilter"
+                  class="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center gap-1"
+                >
+                  {{ pipelineStages.find(s => s.value === crmFilter)?.label }}
+                  <button @click="crmFilter = ''" class="ml-1 hover:text-white">
+                    &times;
+                  </button>
+                </span>
+              </div>
+              <div class="flex gap-3 w-full sm:w-auto">
+                <input
+                  v-model="crmSearch"
+                  placeholder="Buscar lead..."
+                  class="flex-1 sm:w-64 bg-darker border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:border-primary focus:outline-none"
+                />
+                <button
+                  @click="openLeadForm()"
+                  class="bg-primary hover:bg-primary-dark text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 whitespace-nowrap"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4v16m8-8H4"
+                    />
+                  </svg>
+                  Novo Lead
+                </button>
+              </div>
+            </div>
+
+            <!-- Leads List -->
+            <div v-if="leadsLoading" class="text-center py-20 text-white/40">
+              Carregando...
+            </div>
+
+            <div
+              v-else-if="filteredLeads.length === 0"
+              class="text-center py-20"
+            >
+              <div
+                class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4"
+              >
+                <svg
+                  class="w-8 h-8 text-white/20"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </div>
+              <p class="text-white/40 mb-4">
+                {{ crmFilter || crmSearch ? 'Nenhum lead encontrado' : 'Nenhum
+                lead cadastrado' }}
+              </p>
+              <button
+                v-if="!crmFilter && !crmSearch"
+                @click="openLeadForm()"
+                class="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition"
+              >
+                Cadastrar primeiro lead
+              </button>
+            </div>
+
+            <div v-else class="space-y-3">
+              <div
+                v-for="lead in filteredLeads"
+                :key="lead.id"
+                class="bg-dark border border-white/5 rounded-xl p-4 sm:p-5 hover:border-white/10 transition fade-in cursor-pointer"
+                @click="openLeadDetail(lead)"
+              >
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-3 mb-1">
+                      <div
+                        class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
+                        :style="{backgroundColor: statusColor(lead.status) + '20', color: statusColor(lead.status)}"
+                      >
+                        {{ lead.name.charAt(0).toUpperCase() }}
+                      </div>
+                      <div class="min-w-0">
+                        <h3 class="font-semibold truncate">{{ lead.name }}</h3>
+                        <div
+                          class="flex items-center gap-2 text-white/40 text-xs"
+                        >
+                          <span v-if="lead.phone">{{ lead.phone }}</span>
+                          <span v-if="lead.phone && lead.email">·</span>
+                          <span v-if="lead.email">{{ lead.email }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span
+                      class="text-[10px] px-2.5 py-1 rounded-full font-medium border"
+                      :style="{backgroundColor: statusColor(lead.status) + '15', color: statusColor(lead.status), borderColor: statusColor(lead.status) + '30'}"
+                    >
+                      {{ pipelineStages.find(s => s.value ===
+                      lead.status)?.label || lead.status }}
+                    </span>
+                    <span
+                      class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-white/40 border border-white/5"
+                    >
+                      {{ sourceLabel(lead.source) }}
+                    </span>
+                    <span
+                      v-if="lead.property_title"
+                      class="text-[10px] px-2 py-1 rounded-full bg-navy/30 text-blue-300 border border-navy/40 truncate max-w-[150px]"
+                    >
+                      {{ lead.property_title }}
+                    </span>
+                    <span
+                      v-if="lead.next_followup && isOverdue(lead.next_followup) && lead.status !== 'fechado' && lead.status !== 'perdido'"
+                      class="text-[10px] px-2 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20 font-medium"
+                    >
+                      Follow-up atrasado
+                    </span>
+                  </div>
+
+                  <div class="flex gap-2 flex-shrink-0">
+                    <button
+                      @click.stop="openLeadForm(lead)"
+                      class="text-xs bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg transition"
+                    >
+                      Editar
+                    </button>
+                    <a
+                      v-if="lead.phone"
+                      :href="'https://wa.me/55' + lead.phone.replace(/\D/g,'')"
+                      target="_blank"
+                      @click.stop
+                      class="text-xs bg-green-600/10 hover:bg-green-600/20 text-green-400 px-3 py-1.5 rounded-lg transition"
+                      >WhatsApp</a
+                    >
+                    <button
+                      @click.stop="deleteLead(lead)"
+                      class="text-xs bg-red-500/10 hover:bg-red-500/20 text-red-400 px-3 py-1.5 rounded-lg transition"
+                    >
+                      Excluir
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end crm tab -->
+        </div>
+      </div>
+
+      <!-- Property Form Modal -->
+      <div
+        v-if="showForm"
+        class="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto py-8 px-4 modal-overlay"
+        @click.self="showForm = false"
+      >
+        <div
+          class="bg-dark border border-white/10 rounded-2xl w-full max-w-3xl fade-in"
+        >
+          <div
+            class="flex items-center justify-between p-6 border-b border-white/5"
+          >
+            <h3 class="text-lg font-bold">
+              {{ editingId ? 'Editar Imóvel' : 'Novo Imóvel' }}
+            </h3>
+            <button
+              @click="showForm = false"
+              class="text-white/40 hover:text-white transition"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+            <!-- Basic -->
+            <div>
+              <h4 class="text-sm font-semibold text-primary mb-3">
+                Informações Básicas
+              </h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="sm:col-span-2">
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Título *</label
+                  >
+                  <input
+                    v-model="form.title"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Tipo de Imóvel</label
+                  >
+                  <select
+                    v-model="form.property_type"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  >
+                    <option value="apartamento">Apartamento</option>
+                    <option value="casa">Casa</option>
+                    <option value="terreno">Terreno</option>
+                    <option value="comercial">Comercial</option>
+                    <option value="cobertura">Cobertura</option>
+                    <option value="studio">Studio</option>
+                    <option value="rural">Rural</option>
+                    <option value="galpao">Galpão</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Tipo de Transação</label
+                  >
+                  <select
+                    v-model="form.transaction_type"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  >
+                    <option value="venda">Venda</option>
+                    <option value="aluguel">Aluguel</option>
+                    <option value="venda_aluguel">Venda e Aluguel</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Preço (R$)</label
+                  >
+                  <input
+                    v-model="form.price"
+                    type="number"
+                    step="0.01"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block">Tag</label>
+                  <input
+                    v-model="form.tag"
+                    placeholder="Ex: Destaque, Novo, Oportunidade"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Descrição</label
+                  >
+                  <textarea
+                    v-model="form.description"
+                    rows="3"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none resize-none"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Location -->
+            <div>
+              <h4 class="text-sm font-semibold text-primary mb-3">
+                Localização
+              </h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="sm:col-span-2">
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Endereço</label
+                  >
+                  <input
+                    v-model="form.address"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block">Bairro</label>
+                  <input
+                    v-model="form.neighborhood"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block">Cidade</label>
+                  <input
+                    v-model="form.city"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block">Estado</label>
+                  <input
+                    v-model="form.state"
+                    maxlength="2"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block">CEP</label>
+                  <input
+                    v-model="form.zip_code"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Details -->
+            <div>
+              <h4 class="text-sm font-semibold text-primary mb-3">Detalhes</h4>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Área (m²)</label
+                  >
+                  <input
+                    v-model="form.area"
+                    type="number"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Quartos</label
+                  >
+                  <input
+                    v-model="form.bedrooms"
+                    type="number"
+                    min="0"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Banheiros</label
+                  >
+                  <input
+                    v-model="form.bathrooms"
+                    type="number"
+                    min="0"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block">Suítes</label>
+                  <input
+                    v-model="form.suites"
+                    type="number"
+                    min="0"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block">Vagas</label>
+                  <input
+                    v-model="form.parking"
+                    type="number"
+                    min="0"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Condomínio</label
+                  >
+                  <input
+                    v-model="form.condominium_fee"
+                    type="number"
+                    step="0.01"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block">IPTU</label>
+                  <input
+                    v-model="form.iptu"
+                    type="number"
+                    step="0.01"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div class="flex items-end gap-4">
+                  <label class="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      v-model="form.furnished"
+                      class="accent-primary w-4 h-4"
+                    />
+                    <span class="text-white/60 text-xs">Mobiliado</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Options -->
+            <div class="flex gap-6">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  v-model="form.featured"
+                  class="accent-primary w-4 h-4"
+                />
+                <span class="text-white/60 text-sm">Imóvel em destaque</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  v-model="form.active"
+                  class="accent-primary w-4 h-4"
+                />
+                <span class="text-white/60 text-sm">Ativo no site</span>
+              </label>
+            </div>
+
+            <!-- Images -->
+            <div>
+              <h4 class="text-sm font-semibold text-primary mb-3">Fotos</h4>
+              <div
+                v-if="editingId && form.existingImages && form.existingImages.length"
+                class="flex flex-wrap gap-3 mb-4"
+              >
+                <div
+                  v-for="img in form.existingImages"
+                  :key="img.id"
+                  class="relative w-24 h-24 rounded-lg overflow-hidden border border-white/10"
+                >
+                  <img :src="img.url" class="w-full h-full object-cover" />
+                  <button
+                    @click="removeExistingImage(img.id)"
+                    class="absolute top-1 right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs hover:bg-red-600"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+              <label
+                class="flex items-center justify-center w-full h-32 border-2 border-dashed border-white/10 hover:border-primary/40 rounded-xl cursor-pointer transition"
+              >
+                <div class="text-center">
+                  <svg
+                    class="w-8 h-8 text-white/20 mx-auto mb-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span class="text-white/30 text-xs"
+                    >{{ newImages.length ? newImages.length + ' arquivo(s)
+                    selecionado(s)' : 'Clique para adicionar fotos' }}</span
+                  >
+                </div>
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  @change="onFilesChange"
+                  class="hidden"
+                />
+              </label>
+            </div>
+          </div>
+
+          <div class="p-6 border-t border-white/5 flex justify-end gap-3">
+            <button
+              @click="showForm = false"
+              class="px-5 py-2.5 rounded-xl text-sm text-white/60 hover:text-white transition"
+            >
+              Cancelar
+            </button>
+            <button
+              @click="saveProperty"
+              :disabled="saving"
+              class="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition disabled:opacity-50"
+            >
+              {{ saving ? 'Salvando...' : (editingId ? 'Salvar' : 'Cadastrar')
+              }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portals Modal -->
+      <div
+        v-if="showPortalModal"
+        class="fixed inset-0 z-50 flex items-center justify-center px-4 modal-overlay"
+        @click.self="showPortalModal = false"
+      >
+        <div
+          class="bg-dark border border-white/10 rounded-2xl w-full max-w-lg fade-in"
+        >
+          <div
+            class="flex items-center justify-between p-6 border-b border-white/5"
+          >
+            <h3 class="text-lg font-bold">Publicar nos Portais</h3>
+            <button
+              @click="showPortalModal = false"
+              class="text-white/40 hover:text-white transition"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="p-6">
+            <p class="text-white/40 text-sm mb-4">
+              Imóvel:
+              <span class="text-white font-medium"
+                >{{ portalProperty?.title }}</span
+              >
+            </p>
+
+            <button
+              @click="publishAll"
+              :disabled="portalLoading"
+              class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl text-sm transition mb-4 disabled:opacity-50"
+            >
+              Publicar em Todos os Portais
+            </button>
+
+            <div class="space-y-3">
+              <div
+                v-for="portal in portals"
+                :key="portal.id"
+                class="flex items-center justify-between bg-darker border border-white/5 rounded-xl px-4 py-3"
+              >
+                <div>
+                  <span class="text-sm font-medium">{{ portal.name }}</span>
+                  <span
+                    v-if="portalProperty && portalProperty['published_' + portal.id]"
+                    class="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20"
+                    >Publicado</span
+                  >
+                </div>
+                <div class="flex gap-2">
+                  <button
+                    v-if="!portalProperty || !portalProperty['published_' + portal.id]"
+                    @click="publishToPortal(portal.id)"
+                    :disabled="portalLoading"
+                    class="text-xs bg-primary/10 hover:bg-primary/20 text-primary px-3 py-1.5 rounded-lg transition disabled:opacity-50"
+                  >
+                    Publicar
+                  </button>
+                  <button
+                    v-else
+                    @click="unpublishFromPortal(portal.id)"
+                    :disabled="portalLoading"
+                    class="text-xs bg-red-500/10 hover:bg-red-500/20 text-red-400 px-3 py-1.5 rounded-lg transition disabled:opacity-50"
+                  >
+                    Remover
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-navy/20 border border-navy/30 rounded-lg">
+              <p class="text-white/40 text-xs leading-relaxed">
+                <strong class="text-white/60">Como funciona:</strong> Ao
+                publicar, um feed XML é gerado para cada portal. Os portais
+                podem consumir automaticamente este feed pela URL:
+                <code class="text-primary text-[10px]"
+                  >/api/portals/feed/{portal}</code
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lead Form Modal -->
+      <div
+        v-if="showLeadForm"
+        class="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto py-8 px-4 modal-overlay"
+        @click.self="showLeadForm = false"
+      >
+        <div
+          class="bg-dark border border-white/10 rounded-2xl w-full max-w-2xl fade-in"
+        >
+          <div
+            class="flex items-center justify-between p-6 border-b border-white/5"
+          >
+            <h3 class="text-lg font-bold">
+              {{ editingLeadId ? 'Editar Lead' : 'Novo Lead' }}
+            </h3>
+            <button
+              @click="showLeadForm = false"
+              class="text-white/40 hover:text-white transition"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+            <div>
+              <h4 class="text-sm font-semibold text-primary mb-3">
+                Dados do Contato
+              </h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="sm:col-span-2">
+                  <label class="text-white/60 text-xs mb-1 block">Nome *</label>
+                  <input
+                    v-model="leadForm.name"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Telefone</label
+                  >
+                  <input
+                    v-model="leadForm.phone"
+                    placeholder="(47) 99999-9999"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block">E-mail</label>
+                  <input
+                    v-model="leadForm.email"
+                    type="email"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block">Origem</label>
+                  <select
+                    v-model="leadForm.source"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  >
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="site">Site</option>
+                    <option value="indicacao">Indicação</option>
+                    <option value="portal">Portal Imobiliário</option>
+                    <option value="telefone">Telefone</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="outro">Outro</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block">Status</label>
+                  <select
+                    v-model="leadForm.status"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  >
+                    <option
+                      v-for="s in pipelineStages"
+                      :key="s.value"
+                      :value="s.value"
+                    >
+                      {{ s.label }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-primary mb-3">Interesse</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="sm:col-span-2">
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Interesse / Tipo de imóvel</label
+                  >
+                  <input
+                    v-model="leadForm.property_interest"
+                    placeholder="Ex: Terreno em Itapoá, Apartamento litoral..."
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Imóvel vinculado</label
+                  >
+                  <select
+                    v-model="leadForm.property_id"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  >
+                    <option :value="null">Nenhum</option>
+                    <option v-for="p in properties" :key="p.id" :value="p.id">
+                      {{ p.title }}
+                    </option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Responsável</label
+                  >
+                  <input
+                    v-model="leadForm.assigned_to"
+                    placeholder="Nome do corretor"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Orçamento mín. (R$)</label
+                  >
+                  <input
+                    v-model="leadForm.budget_min"
+                    type="number"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Orçamento máx. (R$)</label
+                  >
+                  <input
+                    v-model="leadForm.budget_max"
+                    type="number"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Próximo follow-up</label
+                  >
+                  <input
+                    v-model="leadForm.next_followup"
+                    type="date"
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+                <div v-if="leadForm.status === 'perdido'">
+                  <label class="text-white/60 text-xs mb-1 block"
+                    >Motivo da perda</label
+                  >
+                  <input
+                    v-model="leadForm.lost_reason"
+                    placeholder="Ex: Preço alto, comprou em outro lugar..."
+                    class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <label class="text-white/60 text-xs mb-1 block"
+                >Observações</label
+              >
+              <textarea
+                v-model="leadForm.notes"
+                rows="3"
+                placeholder="Anotações sobre o lead..."
+                class="w-full bg-darker border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none resize-none"
+              ></textarea>
+            </div>
+          </div>
+          <div class="p-6 border-t border-white/5 flex justify-end gap-3">
+            <button
+              @click="showLeadForm = false"
+              class="px-5 py-2.5 rounded-xl text-sm text-white/60 hover:text-white transition"
+            >
+              Cancelar
+            </button>
+            <button
+              @click="saveLead"
+              :disabled="savingLead"
+              class="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition disabled:opacity-50"
+            >
+              {{ savingLead ? 'Salvando...' : (editingLeadId ? 'Salvar' :
+              'Cadastrar') }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lead Detail Modal -->
+      <div
+        v-if="showLeadDetail"
+        class="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto py-8 px-4 modal-overlay"
+        @click.self="showLeadDetail = false"
+      >
+        <div
+          class="bg-dark border border-white/10 rounded-2xl w-full max-w-2xl fade-in"
+        >
+          <div
+            class="flex items-center justify-between p-6 border-b border-white/5"
+          >
+            <div class="flex items-center gap-3">
+              <div
+                class="w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold"
+                :style="{backgroundColor: statusColor(detailLead.status) + '20', color: statusColor(detailLead.status)}"
+              >
+                {{ detailLead.name?.charAt(0).toUpperCase() }}
+              </div>
+              <div class="flex-1 min-w-0">
+                <input
+                  v-model="detailLead.name"
+                  @input="autoSaveLead()"
+                  class="text-lg font-bold bg-transparent focus:outline-none w-full"
+                />
+                <div class="flex items-center gap-2 text-xs">
+                  <input
+                    v-model="detailLead.phone"
+                    @input="autoSaveLead()"
+                    placeholder="Telefone"
+                    class="bg-transparent text-white/40 focus:outline-none w-24"
+                  />
+                  <input
+                    v-model="detailLead.email"
+                    @input="autoSaveLead()"
+                    placeholder="Email"
+                    class="bg-transparent text-white/40 focus:outline-none flex-1"
+                  />
+                </div>
+              </div>
+            </div>
+            <button
+              @click="showLeadDetail = false"
+              class="text-white/40 hover:text-white transition"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="p-6 max-h-[70vh] overflow-y-auto">
+            <!-- Lead Info Cards (editáveis) -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+              <div class="bg-darker rounded-lg p-3 text-center">
+                <div class="text-white/40 text-[10px] uppercase mb-1">
+                  Status
+                </div>
+                <span
+                  class="text-xs font-semibold"
+                  :style="{color: statusColor(detailLead.status)}"
+                >
+                  {{ pipelineStages.find(s => s.value ===
+                  detailLead.status)?.label }}
+                </span>
+              </div>
+              <div class="bg-darker rounded-lg p-3">
+                <div class="text-white/40 text-[10px] uppercase mb-1">
+                  Origem
+                </div>
+                <select
+                  v-model="detailLead.source"
+                  @change="autoSaveLead()"
+                  class="w-full bg-transparent text-xs text-white/70 focus:outline-none cursor-pointer text-center"
+                >
+                  <option value="whatsapp">WhatsApp</option>
+                  <option value="site">Site</option>
+                  <option value="indicacao">Indicação</option>
+                  <option value="portal">Portal</option>
+                  <option value="telefone">Telefone</option>
+                  <option value="instagram">Instagram</option>
+                  <option value="outro">Outro</option>
+                </select>
+              </div>
+              <div class="bg-darker rounded-lg p-3">
+                <div class="text-white/40 text-[10px] uppercase mb-1">
+                  Responsável
+                </div>
+                <input
+                  v-model="detailLead.assigned_to"
+                  @input="autoSaveLead()"
+                  placeholder="—"
+                  class="w-full bg-transparent text-xs text-white/70 focus:outline-none text-center"
+                />
+              </div>
+              <div class="bg-darker rounded-lg p-3">
+                <div class="text-white/40 text-[10px] uppercase mb-1">
+                  Follow-up
+                </div>
+                <input
+                  type="date"
+                  v-model="detailLead.next_followup"
+                  @change="autoSaveLead()"
+                  class="w-full bg-transparent text-xs focus:outline-none text-center"
+                  :class="detailLead.next_followup && isOverdue(detailLead.next_followup) ? 'text-red-400' : 'text-white/70'"
+                />
+              </div>
+            </div>
+
+            <div class="bg-darker rounded-lg p-4 mb-6">
+              <div class="text-white/40 text-xs mb-1">Interesse</div>
+              <input
+                v-model="detailLead.property_interest"
+                @input="autoSaveLead()"
+                placeholder="Descreva o interesse..."
+                class="w-full bg-transparent text-sm text-white/80 focus:outline-none"
+              />
+              <div
+                v-if="detailLead.property_title"
+                class="text-xs text-primary mt-1"
+              >
+                Imóvel: {{ detailLead.property_title }}
+              </div>
+              <div class="flex gap-2 mt-2">
+                <div class="flex-1">
+                  <div class="text-white/30 text-[10px] mb-0.5">
+                    Orçamento mín.
+                  </div>
+                  <input
+                    v-model="detailLead.budget_min"
+                    @input="autoSaveLead()"
+                    type="number"
+                    placeholder="0"
+                    class="w-full bg-dark border border-white/10 rounded px-2 py-1 text-xs text-white/70 focus:outline-none focus:border-primary"
+                  />
+                </div>
+                <div class="flex-1">
+                  <div class="text-white/30 text-[10px] mb-0.5">
+                    Orçamento máx.
+                  </div>
+                  <input
+                    v-model="detailLead.budget_max"
+                    @input="autoSaveLead()"
+                    type="number"
+                    placeholder="0"
+                    class="w-full bg-dark border border-white/10 rounded px-2 py-1 text-xs text-white/70 focus:outline-none focus:border-primary"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-darker rounded-lg p-4 mb-6">
+              <div class="text-white/40 text-xs mb-1">Observações</div>
+              <textarea
+                v-model="detailLead.notes"
+                @input="autoSaveLead()"
+                rows="3"
+                placeholder="Adicione observações..."
+                class="w-full bg-transparent text-sm text-white/70 focus:outline-none resize-none"
+              ></textarea>
+            </div>
+
+            <!-- Quick Status Change -->
+            <div class="mb-6">
+              <div class="text-white/40 text-xs mb-2">
+                Alterar status rapidamente:
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <button
+                  v-for="s in pipelineStages"
+                  :key="s.value"
+                  @click="quickChangeStatus(detailLead, s.value)"
+                  :disabled="detailLead.status === s.value"
+                  class="text-[11px] px-3 py-1.5 rounded-lg border transition disabled:opacity-30"
+                  :style="detailLead.status === s.value ? {backgroundColor: s.color + '20', borderColor: s.color + '40', color: s.color} : {}"
+                  :class="detailLead.status !== s.value ? 'border-white/10 text-white/50 hover:border-white/20' : ''"
+                >
+                  {{ s.icon }} {{ s.label }}
+                </button>
+              </div>
+            </div>
+
+            <!-- Activity Log -->
+            <div class="border-t border-white/5 pt-6">
+              <h4 class="text-sm font-semibold mb-4">
+                Histórico de Atividades
+              </h4>
+
+              <!-- New Activity Form -->
+              <div class="bg-darker rounded-xl p-4 mb-4">
+                <div class="flex gap-3 mb-3">
+                  <select
+                    v-model="newActivity.type"
+                    class="bg-dark border border-white/10 rounded-lg px-3 py-2 text-xs focus:border-primary focus:outline-none"
+                  >
+                    <option value="nota">📝 Nota</option>
+                    <option value="ligacao">📞 Ligação</option>
+                    <option value="whatsapp">💬 WhatsApp</option>
+                    <option value="email">📧 E-mail</option>
+                    <option value="visita">🏠 Visita</option>
+                    <option value="proposta">📋 Proposta</option>
+                    <option value="outro">📌 Outro</option>
+                  </select>
+                </div>
+                <textarea
+                  v-model="newActivity.description"
+                  rows="2"
+                  placeholder="Descreva a atividade..."
+                  class="w-full bg-dark border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:border-primary focus:outline-none resize-none mb-3"
+                ></textarea>
+                <button
+                  @click="addActivity"
+                  :disabled="!newActivity.description || addingActivity"
+                  class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg text-xs font-semibold transition disabled:opacity-50"
+                >
+                  {{ addingActivity ? 'Salvando...' : 'Registrar Atividade' }}
+                </button>
+              </div>
+
+              <!-- Activities Timeline -->
+              <div
+                v-if="detailLead.activities && detailLead.activities.length"
+                class="space-y-3"
+              >
+                <div
+                  v-for="act in detailLead.activities"
+                  :key="act.id"
+                  class="flex gap-3 p-3 bg-darker/50 rounded-lg"
+                >
+                  <div class="text-lg flex-shrink-0">
+                    {{ activityIcon(act.type) }}
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="text-sm text-white/80">
+                      {{ act.description }}
+                    </div>
+                    <div class="text-[10px] text-white/30 mt-1">
+                      {{ formatDate(act.created_at) }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-else class="text-center py-8 text-white/30 text-sm">
+                Nenhuma atividade registrada
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6 border-t border-white/5 flex justify-between">
+            <div class="flex gap-2">
+              <button
+                @click="openLeadForm(detailLead); showLeadDetail = false"
+                class="text-xs bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg transition"
+              >
+                Editar Lead
+              </button>
+              <a
+                v-if="detailLead.phone"
+                :href="'https://wa.me/55' + detailLead.phone.replace(/\D/g,'')"
+                target="_blank"
+                class="text-xs bg-green-600/10 hover:bg-green-600/20 text-green-400 px-4 py-2 rounded-lg transition"
+                >WhatsApp</a
+              >
+            </div>
+            <button
+              @click="showLeadDetail = false"
+              class="px-5 py-2 rounded-xl text-sm text-white/60 hover:text-white transition"
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toast -->
+      <div v-if="toast" class="fixed bottom-6 right-6 z-50 fade-in">
+        <div
+          class="px-5 py-3 rounded-xl text-sm font-medium shadow-lg"
+          :class="toast.type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'"
+        >
+          {{ toast.message }}
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script>
+      const { createApp, ref, onMounted } = Vue;
+
+      const API = window.location.origin + "/api";
+
+      createApp({
+        setup() {
+          const token = ref(localStorage.getItem("sc_token") || "");
+          const userName = ref(localStorage.getItem("sc_userName") || "");
+          const loginEmail = ref("");
+          const loginPassword = ref("");
+          const loginError = ref("");
+          const logging = ref(false);
+
+          const properties = ref([]);
+          const loading = ref(false);
+          const maxProperties = ref(10);
+
+          const showForm = ref(false);
+          const editingId = ref(null);
+          const saving = ref(false);
+          const newImages = ref([]);
+
+          const portals = ref([
+            { id: "olx", name: "OLX" },
+            { id: "zapimoveis", name: "ZAP Imóveis" },
+            { id: "vivareal", name: "Viva Real" },
+            { id: "chavenasmao", name: "Chaves na Mão" },
+            { id: "imovelweb", name: "Imóvel Web" },
+          ]);
+          const showPortalModal = ref(false);
+          const portalProperty = ref(null);
+          const portalLoading = ref(false);
+
+          const toast = ref(null);
+          const activeTab = ref("crm");
+
+          // CRM State
+          const leads = ref([]);
+          const leadsLoaded = ref(false);
+          const leadsLoading = ref(false);
+          const showLeadForm = ref(false);
+          const showLeadDetail = ref(false);
+          const editingLeadId = ref(null);
+          const savingLead = ref(false);
+          const crmFilter = ref("");
+          const crmSearch = ref("");
+          const detailLead = ref({});
+          const addingActivity = ref(false);
+          const newActivity = ref({ type: "nota", description: "" });
+          const leadStats = ref({
+            total: 0,
+            thisMonth: 0,
+            pendingFollowups: 0,
+            byStatus: {},
+          });
+
+          const pipelineStages = [
+            { value: "novo", label: "Novo", icon: "🆕", color: "#60A5FA" },
+            {
+              value: "em_contato",
+              label: "Em Contato",
+              icon: "📞",
+              color: "#A78BFA",
+            },
+            {
+              value: "visitou",
+              label: "Visitou",
+              icon: "🏠",
+              color: "#FBBF24",
+            },
+            {
+              value: "negociando",
+              label: "Negociando",
+              icon: "🤝",
+              color: "#F97316",
+            },
+            {
+              value: "fechado",
+              label: "Fechado",
+              icon: "✅",
+              color: "#34D399",
+            },
+            {
+              value: "perdido",
+              label: "Perdido",
+              icon: "❌",
+              color: "#F87171",
+            },
+          ];
+
+          const defaultLeadForm = () => ({
+            name: "",
+            phone: "",
+            email: "",
+            source: "whatsapp",
+            status: "novo",
+            property_interest: "",
+            property_id: null,
+            budget_min: "",
+            budget_max: "",
+            notes: "",
+            assigned_to: "",
+            next_followup: "",
+            lost_reason: "",
+          });
+
+          const leadForm = ref(defaultLeadForm());
+
+          function leadsByStatus(status) {
+            return leads.value.filter((l) => l.status === status);
+          }
+
+          const filteredLeads = Vue.computed(() => {
+            let list = leads.value;
+            if (crmFilter.value)
+              list = list.filter((l) => l.status === crmFilter.value);
+            if (crmSearch.value) {
+              const q = crmSearch.value.toLowerCase();
+              list = list.filter(
+                (l) =>
+                  l.name.toLowerCase().includes(q) ||
+                  (l.phone && l.phone.includes(q)) ||
+                  (l.email && l.email.toLowerCase().includes(q)) ||
+                  (l.property_interest &&
+                    l.property_interest.toLowerCase().includes(q)),
+              );
+            }
+            return list;
+          });
+
+          function statusColor(status) {
+            return (
+              pipelineStages.find((s) => s.value === status)?.color || "#fff"
+            );
+          }
+
+          function sourceLabel(source) {
+            const labels = {
+              whatsapp: "WhatsApp",
+              site: "Site",
+              indicacao: "Indicação",
+              portal: "Portal",
+              telefone: "Telefone",
+              instagram: "Instagram",
+              outro: "Outro",
+            };
+            return labels[source] || source;
+          }
+
+          function isOverdue(date) {
+            return new Date(date) < new Date(new Date().toDateString());
+          }
+
+          function formatDate(d) {
+            if (!d) return "";
+            const dt = new Date(d);
+            return (
+              dt.toLocaleDateString("pt-BR") +
+              " " +
+              dt.toLocaleTimeString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            );
+          }
+
+          function activityIcon(type) {
+            const icons = {
+              nota: "📝",
+              ligacao: "📞",
+              whatsapp: "💬",
+              email: "📧",
+              visita: "🏠",
+              proposta: "📋",
+              outro: "📌",
+            };
+            return icons[type] || "📌";
+          }
+
+          async function loadLeads() {
+            leadsLoading.value = true;
+            try {
+              const [leadsRes, statsRes] = await Promise.all([
+                fetch(API + "/leads", { headers: headers() }),
+                fetch(API + "/leads/stats", { headers: headers() }),
+              ]);
+              if (leadsRes.status === 401) {
+                logout();
+                return;
+              }
+              leads.value = await leadsRes.json();
+              leadStats.value = await statsRes.json();
+              leadsLoaded.value = true;
+            } catch (err) {
+              showToast("Erro ao carregar leads", "error");
+            }
+            leadsLoading.value = false;
+          }
+
+          function openLeadForm(lead = null) {
+            if (lead) {
+              editingLeadId.value = lead.id;
+              leadForm.value = {
+                ...defaultLeadForm(),
+                ...lead,
+                property_id: lead.property_id || null,
+                next_followup: lead.next_followup
+                  ? lead.next_followup.split("T")[0]
+                  : "",
+              };
+            } else {
+              editingLeadId.value = null;
+              leadForm.value = defaultLeadForm();
+            }
+            showLeadForm.value = true;
+          }
+
+          async function saveLead() {
+            if (!leadForm.value.name) {
+              showToast("Nome é obrigatório", "error");
+              return;
+            }
+            savingLead.value = true;
+            try {
+              const url = editingLeadId.value
+                ? API + "/leads/" + editingLeadId.value
+                : API + "/leads";
+              const method = editingLeadId.value ? "PUT" : "POST";
+              const res = await fetch(url, {
+                method,
+                headers: { ...headers(), "Content-Type": "application/json" },
+                body: JSON.stringify(leadForm.value),
+              });
+              const data = await res.json();
+              if (!res.ok) throw new Error(data.error);
+              showToast(
+                editingLeadId.value ? "Lead atualizado" : "Lead cadastrado",
+              );
+              showLeadForm.value = false;
+              loadLeads();
+            } catch (err) {
+              showToast(err.message || "Erro ao salvar", "error");
+            }
+            savingLead.value = false;
+          }
+
+          async function deleteLead(lead) {
+            if (!confirm('Excluir o lead "' + lead.name + '"?')) return;
+            try {
+              await fetch(API + "/leads/" + lead.id, {
+                method: "DELETE",
+                headers: headers(),
+              });
+              showToast("Lead excluído");
+              loadLeads();
+            } catch {
+              showToast("Erro ao excluir", "error");
+            }
+          }
+
+          async function openLeadDetail(lead) {
+            try {
+              const res = await fetch(API + "/leads/" + lead.id, {
+                headers: headers(),
+              });
+              detailLead.value = await res.json();
+              showLeadDetail.value = true;
+            } catch {
+              showToast("Erro ao carregar detalhes", "error");
+            }
+          }
+
+          let autoSaveTimer = null;
+          async function autoSaveLead() {
+            if (!detailLead.value.id) return;
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(async () => {
+              try {
+                await fetch(API + "/leads/" + detailLead.value.id, {
+                  method: "PUT",
+                  headers: { ...headers(), "Content-Type": "application/json" },
+                  body: JSON.stringify(detailLead.value),
+                });
+                showToast("Salvo automaticamente");
+                loadLeads();
+              } catch {
+                showToast("Erro ao salvar", "error");
+              }
+            }, 600);
+          }
+
+          async function quickChangeStatus(lead, newStatus) {
+            detailLead.value.status = newStatus;
+            clearTimeout(autoSaveTimer);
+            try {
+              await fetch(API + "/leads/" + lead.id, {
+                method: "PUT",
+                headers: { ...headers(), "Content-Type": "application/json" },
+                body: JSON.stringify({ ...lead, status: newStatus }),
+              });
+              showToast("Status atualizado");
+              loadLeads();
+            } catch {
+              showToast("Erro", "error");
+            }
+          }
+
+          async function addActivity() {
+            if (!newActivity.value.description) return;
+            addingActivity.value = true;
+            try {
+              await fetch(
+                API + "/leads/" + detailLead.value.id + "/activities",
+                {
+                  method: "POST",
+                  headers: { ...headers(), "Content-Type": "application/json" },
+                  body: JSON.stringify(newActivity.value),
+                },
+              );
+              showToast("Atividade registrada");
+              newActivity.value = { type: "nota", description: "" };
+              const res = await fetch(API + "/leads/" + detailLead.value.id, {
+                headers: headers(),
+              });
+              detailLead.value = await res.json();
+            } catch {
+              showToast("Erro", "error");
+            }
+            addingActivity.value = false;
+          }
+
+          const defaultForm = () => ({
+            title: "",
+            description: "",
+            price: "",
+            property_type: "apartamento",
+            transaction_type: "venda",
+            address: "",
+            neighborhood: "",
+            city: "",
+            state: "SP",
+            zip_code: "",
+            area: "",
+            bedrooms: 0,
+            bathrooms: 0,
+            parking: 0,
+            suites: 0,
+            furnished: false,
+            condominium_fee: "",
+            iptu: "",
+            tag: "",
+            featured: false,
+            active: true,
+            existingImages: [],
+          });
+
+          const form = ref(defaultForm());
+
+          function showToast(message, type = "success") {
+            toast.value = { message, type };
+            setTimeout(() => (toast.value = null), 3000);
+          }
+
+          function headers() {
+            return { Authorization: "Bearer " + token.value };
+          }
+
+          async function login() {
+            logging.value = true;
+            loginError.value = "";
+            try {
+              const res = await fetch(API + "/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  email: loginEmail.value,
+                  password: loginPassword.value,
+                }),
+              });
+              const data = await res.json();
+              if (!res.ok) throw new Error(data.error);
+              token.value = data.token;
+              userName.value = data.user.name;
+              localStorage.setItem("sc_token", data.token);
+              localStorage.setItem("sc_userName", data.user.name);
+              loadProperties();
+            } catch (err) {
+              loginError.value = err.message || "Erro ao fazer login";
+            }
+            logging.value = false;
+          }
+
+          function logout() {
+            token.value = "";
+            userName.value = "";
+            localStorage.removeItem("sc_token");
+            localStorage.removeItem("sc_userName");
+          }
+
+          async function loadProperties() {
+            loading.value = true;
+            try {
+              const res = await fetch(API + "/properties", {
+                headers: headers(),
+              });
+              if (res.status === 401) {
+                logout();
+                return;
+              }
+              properties.value = await res.json();
+            } catch (err) {
+              showToast("Erro ao carregar imóveis", "error");
+            }
+            loading.value = false;
+          }
+
+          function openForm(prop = null) {
+            if (prop) {
+              editingId.value = prop.id;
+              form.value = {
+                ...defaultForm(),
+                ...prop,
+                furnished: !!prop.furnished,
+                featured: !!prop.featured,
+                active: !!prop.active,
+                existingImages: prop.images || [],
+              };
+            } else {
+              editingId.value = null;
+              form.value = defaultForm();
+            }
+            newImages.value = [];
+            showForm.value = true;
+          }
+
+          function onFilesChange(e) {
+            newImages.value = Array.from(e.target.files);
+          }
+
+          async function removeExistingImage(imgId) {
+            try {
+              await fetch(API + "/properties/images/" + imgId, {
+                method: "DELETE",
+                headers: headers(),
+              });
+              form.value.existingImages = form.value.existingImages.filter(
+                (i) => i.id !== imgId,
+              );
+              showToast("Imagem removida");
+            } catch {
+              showToast("Erro ao remover imagem", "error");
+            }
+          }
+
+          async function saveProperty() {
+            if (!form.value.title) {
+              showToast("Título é obrigatório", "error");
+              return;
+            }
+            saving.value = true;
+            try {
+              const fd = new FormData();
+              const fields = [
+                "title",
+                "description",
+                "price",
+                "property_type",
+                "transaction_type",
+                "address",
+                "neighborhood",
+                "city",
+                "state",
+                "zip_code",
+                "area",
+                "bedrooms",
+                "bathrooms",
+                "parking",
+                "suites",
+                "condominium_fee",
+                "iptu",
+                "tag",
+              ];
+              fields.forEach((f) => fd.append(f, form.value[f] || ""));
+              fd.append("furnished", form.value.furnished ? "1" : "0");
+              fd.append("featured", form.value.featured ? "1" : "0");
+              fd.append("active", form.value.active ? "1" : "0");
+
+              for (const file of newImages.value) {
+                fd.append("images", file);
+              }
+
+              const url = editingId.value
+                ? API + "/properties/" + editingId.value
+                : API + "/properties";
+              const method = editingId.value ? "PUT" : "POST";
+
+              const res = await fetch(url, {
+                method,
+                headers: headers(),
+                body: fd,
+              });
+              const data = await res.json();
+              if (!res.ok) throw new Error(data.error);
+
+              showToast(
+                editingId.value ? "Imóvel atualizado" : "Imóvel cadastrado",
+              );
+              showForm.value = false;
+              loadProperties();
+            } catch (err) {
+              showToast(err.message || "Erro ao salvar", "error");
+            }
+            saving.value = false;
+          }
+
+          async function deleteProperty(prop) {
+            if (
+              !confirm('Tem certeza que deseja excluir "' + prop.title + '"?')
+            )
+              return;
+            try {
+              await fetch(API + "/properties/" + prop.id, {
+                method: "DELETE",
+                headers: headers(),
+              });
+              showToast("Imóvel excluído");
+              loadProperties();
+            } catch {
+              showToast("Erro ao excluir", "error");
+            }
+          }
+
+          async function toggleActive(prop) {
+            try {
+              const fd = new FormData();
+              const fields = [
+                "title",
+                "description",
+                "price",
+                "property_type",
+                "transaction_type",
+                "address",
+                "neighborhood",
+                "city",
+                "state",
+                "zip_code",
+                "area",
+                "bedrooms",
+                "bathrooms",
+                "parking",
+                "suites",
+                "condominium_fee",
+                "iptu",
+                "tag",
+              ];
+              fields.forEach((f) => fd.append(f, prop[f] || ""));
+              fd.append("furnished", prop.furnished ? "1" : "0");
+              fd.append("featured", prop.featured ? "1" : "0");
+              fd.append("active", prop.active ? "0" : "1");
+
+              await fetch(API + "/properties/" + prop.id, {
+                method: "PUT",
+                headers: headers(),
+                body: fd,
+              });
+              showToast(prop.active ? "Imóvel desativado" : "Imóvel ativado");
+              loadProperties();
+            } catch {
+              showToast("Erro ao atualizar", "error");
+            }
+          }
+
+          function openPortals(prop) {
+            portalProperty.value = prop;
+            showPortalModal.value = true;
+          }
+
+          async function publishToPortal(portalId) {
+            portalLoading.value = true;
+            try {
+              const res = await fetch(
+                API + "/portals/publish/" + portalProperty.value.id,
+                {
+                  method: "POST",
+                  headers: { ...headers(), "Content-Type": "application/json" },
+                  body: JSON.stringify({ portalId }),
+                },
+              );
+              const data = await res.json();
+              if (!res.ok) throw new Error(data.error);
+              showToast(data.message);
+              loadProperties();
+              portalProperty.value["published_" + portalId] = 1;
+            } catch (err) {
+              showToast(err.message || "Erro", "error");
+            }
+            portalLoading.value = false;
+          }
+
+          async function unpublishFromPortal(portalId) {
+            portalLoading.value = true;
+            try {
+              await fetch(
+                API + "/portals/unpublish/" + portalProperty.value.id,
+                {
+                  method: "POST",
+                  headers: { ...headers(), "Content-Type": "application/json" },
+                  body: JSON.stringify({ portalId }),
+                },
+              );
+              showToast("Removido do portal");
+              loadProperties();
+              portalProperty.value["published_" + portalId] = 0;
+            } catch (err) {
+              showToast("Erro", "error");
+            }
+            portalLoading.value = false;
+          }
+
+          async function publishAll() {
+            portalLoading.value = true;
+            try {
+              await fetch(
+                API + "/portals/publish-all/" + portalProperty.value.id,
+                {
+                  method: "POST",
+                  headers: headers(),
+                },
+              );
+              showToast("Publicado em todos os portais!");
+              loadProperties();
+              portals.value.forEach(
+                (p) => (portalProperty.value["published_" + p.id] = 1),
+              );
+            } catch {
+              showToast("Erro", "error");
+            }
+            portalLoading.value = false;
+          }
+
+          onMounted(() => {
+            if (token.value) {
+              loadProperties();
+              loadLeads();
+            }
+          });
+
+          return {
+            token,
+            userName,
+            loginEmail,
+            loginPassword,
+            loginError,
+            logging,
+            login,
+            logout,
+            activeTab,
+            properties,
+            loading,
+            maxProperties,
+            showForm,
+            editingId,
+            form,
+            saving,
+            newImages,
+            openForm,
+            onFilesChange,
+            removeExistingImage,
+            saveProperty,
+            deleteProperty,
+            toggleActive,
+            portals,
+            showPortalModal,
+            portalProperty,
+            portalLoading,
+            openPortals,
+            publishToPortal,
+            unpublishFromPortal,
+            publishAll,
+            toast,
+            // CRM
+            leads,
+            leadsLoaded,
+            leadsLoading,
+            showLeadForm,
+            showLeadDetail,
+            editingLeadId,
+            leadForm,
+            savingLead,
+            crmFilter,
+            crmSearch,
+            detailLead,
+            newActivity,
+            addingActivity,
+            leadStats,
+            pipelineStages,
+            filteredLeads,
+            leadsByStatus,
+            statusColor,
+            sourceLabel,
+            isOverdue,
+            formatDate,
+            activityIcon,
+            loadLeads,
+            openLeadForm,
+            saveLead,
+            deleteLead,
+            openLeadDetail,
+            quickChangeStatus,
+            addActivity,
+            autoSaveLead,
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
