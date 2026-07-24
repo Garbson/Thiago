@@ -846,7 +846,7 @@
               <div
                 data-aos="fade-up"
                 data-aos-delay="200"
-                class="space-y-4 text-gray-600 text-base leading-relaxed"
+                class="space-y-2 text-gray-600 text-base leading-relaxed"
               >
                 <p v-html="t('about').p1"></p>
                 <p v-html="t('about').p2"></p>
@@ -1334,8 +1334,12 @@
           <div
             class="min-h-full bg-[radial-gradient(circle_at_85%_8%,rgba(201,151,46,.12),transparent_28%)]"
           >
-            <header class="sticky top-0 z-20 border-b border-gray-100 bg-white/95 backdrop-blur-xl">
-              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <header
+              class="sticky top-0 z-20 border-b border-gray-100 bg-white/95 backdrop-blur-xl"
+            >
+              <div
+                class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4"
+              >
                 <button
                   @click="closeProperty"
                   class="inline-flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2.5 text-sm font-semibold text-gray-700 hover:border-primary hover:text-primary transition-colors"
@@ -1345,8 +1349,13 @@
                 </button>
                 <div class="flex items-center gap-3">
                   <span class="hidden sm:block text-right">
-                    <strong class="block text-sm text-navy">Carneiro & Chiaradia</strong>
-                    <small class="text-[10px] uppercase tracking-[.2em] text-primary">Investimentos imobiliários</small>
+                    <strong class="block text-sm text-navy"
+                      >Carneiro & Chiaradia</strong
+                    >
+                    <small
+                      class="text-[10px] uppercase tracking-[.2em] text-primary"
+                      >Investimentos imobiliários</small
+                    >
                   </span>
                   <img
                     src="assets/carneiro-chiaradia-logo-transparent.png"
@@ -1356,7 +1365,9 @@
                 </div>
               </div>
             </header>
-            <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-7 lg:gap-10 px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
+            <div
+              class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-7 lg:gap-10 px-4 sm:px-6 lg:px-8 py-6 lg:py-10"
+            >
               <div class="lg:col-span-7 min-w-0">
                 <div
                   class="relative aspect-[4/3] sm:aspect-[16/10] max-h-[560px] overflow-hidden rounded-2xl lg:rounded-[2rem] bg-gray-200 shadow-[0_24px_70px_rgba(15,34,58,.16)]"
@@ -1366,7 +1377,9 @@
                     :alt="selectedProperty.title"
                     class="w-full h-full object-cover"
                   />
-                  <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/35 to-transparent pointer-events-none"></div>
+                  <div
+                    class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/35 to-transparent pointer-events-none"
+                  ></div>
                   <button
                     v-if="propertyGallery.length > 1"
                     @click="activeImage = (activeImage - 1 + propertyGallery.length) % propertyGallery.length"
@@ -1401,15 +1414,23 @@
                     :class="activeImage === index ? 'border-primary shadow-lg scale-[1.02]' : 'border-transparent opacity-65 hover:opacity-100'"
                     :aria-label="`${index + 1}`"
                   >
-                    <img :src="image" :alt="selectedProperty.title" class="w-full h-full object-cover" />
+                    <img
+                      :src="image"
+                      :alt="selectedProperty.title"
+                      class="w-full h-full object-cover"
+                    />
                   </button>
                 </div>
-                <div class="hidden lg:flex items-center gap-2 mt-2 text-xs text-gray-500">
+                <div
+                  class="hidden lg:flex items-center gap-2 mt-2 text-xs text-gray-500"
+                >
                   <span class="w-2 h-2 rounded-full bg-primary"></span>
                   {{ selectedProperty.location }} · {{ t('properties').share }}
                 </div>
               </div>
-              <div class="lg:col-span-5 lg:sticky lg:top-28 lg:self-start bg-white rounded-2xl lg:rounded-[2rem] border border-white/80 shadow-[0_24px_70px_rgba(15,34,58,.10)] p-6 sm:p-8 lg:p-9">
+              <div
+                class="lg:col-span-5 lg:sticky lg:top-28 lg:self-start bg-white rounded-2xl lg:rounded-[2rem] border border-white/80 shadow-[0_24px_70px_rgba(15,34,58,.10)] p-6 sm:p-8 lg:p-9"
+              >
                 <span
                   class="text-primary text-xs font-bold tracking-widest uppercase"
                   >{{ selectedProperty.tag }}</span
@@ -1419,13 +1440,18 @@
                 >
                   {{ selectedProperty.title }}
                 </h2>
-                <p class="inline-flex items-center gap-2 text-gray-500 text-sm mb-5 rounded-full bg-gray-50 px-3 py-2">
-                  <span class="text-primary">●</span> {{ selectedProperty.location }}
+                <p
+                  class="inline-flex items-center gap-2 text-gray-500 text-sm mb-5 rounded-full bg-gray-50 px-3 py-2"
+                >
+                  <span class="text-primary">●</span> {{
+                  selectedProperty.location }}
                 </p>
                 <div class="text-3xl sm:text-4xl font-bold text-primary mb-2">
                   {{ selectedProperty.price }}
                 </div>
-                <p class="text-xs text-gray-400 mb-6">{{ t('properties').value }}</p>
+                <p class="text-xs text-gray-400 mb-6">
+                  {{ t('properties').value }}
+                </p>
                 <div class="grid grid-cols-3 gap-2 mb-6">
                   <div
                     v-if="selectedProperty.bedrooms"
@@ -2042,7 +2068,7 @@
             localStorage.setItem("sc_lang", l);
           }
 
-          const whatsappLink = "https://wa.me/5500000000000";
+          const whatsappLink = "https://wa.me/5547996634090";
 
           const i18n = {
             pt: {
@@ -2056,11 +2082,11 @@
                 brandLine: "Investimentos Imobiliários",
               },
               hero: {
-                title1: "Seu novo lar ou investimento no",
+                title1: "Morar, investir ou sair do aluguel no",
                 title2: "litoral catarinense",
                 title3: "começa aqui",
                 subtitle:
-                  "Seja para morar, sair do aluguel ou investir com segurança. Encontramos o imóvel ideal para você em Itapoá, Balneário Camboriú, Itajaí e todo o litoral de SC.",
+                  "Encontramos o imóvel ideal para você morar, investir ou sair do aluguel em Itapoá, Balneário Camboriú, Itajaí e todo o litoral de SC.",
                 cta1: "Fale Conosco",
                 cta2: "Ver Imóveis",
                 marqueeCities: "Itapoá · Balneário Camboriú · Itajaí",
@@ -2139,9 +2165,9 @@
               },
               about: {
                 tag: "Quem Somos",
-                title1: "Realizamos o sonho da",
-                title2: "casa própria e do bom investimento",
-                p1: '<strong class="text-gray-600">Thiago Carneiro</strong> atua no mercado imobiliário com olhar atento para novos negócios. Está aberto a oportunidades e ajuda famílias a conquistar o primeiro imóvel, além de conectar investidores a oportunidades estratégicas no litoral catarinense.',
+                title1: "Trazemos oportunidades, fazemos negócios",
+                title2: "e formamos amizades",
+                p1: '<strong class="text-gray-600">Thiago Carneiro</strong><br>O corretor das OPORTUNIDADES.<br>✔ Casado | Pai de 6 filhos<br>✔ Em Balneário Camboriú desde 1988<br>✔ 1° Imóvel de leilão vendido em 2013.<br>Especialista em OPORTUNIDADES: áreas para permuta, imóveis na planta e imóveis abaixo do mercado. Foco estratégico: ITAPOÁ-SC, a próxima grande oportunidade do litoral catarinense.',
                 p2: '<strong class="text-gray-600">Giordano Chiaradia</strong> atua no mercado desde 2010. Morador de Florianópolis desde 1984, atuou como piloto de helicóptero em uma das maiores loteadoras de SC, com contato direto com grandes empreendimentos.',
                 p3: 'Juntos, atendem quem quer <strong class="text-gray-600">comprar para morar, sair do aluguel ou investir</strong> em Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha e Navegantes.',
                 cta: "Entre em contato",
@@ -2233,9 +2259,9 @@
                 copied: "Link copiado!",
               },
               quote: {
-                title1: "Itapoá reúne qualidade de vida e",
-                title2: "um novo ciclo de crescimento",
-                text: "O avanço populacional e os investimentos portuários ajudam a explicar por que incorporadoras e compradores estão olhando para Itapoá. É uma cidade para morar bem hoje e acompanhar de perto para o futuro.",
+                title1: "Itapoá, a nova Pérola do",
+                title2: "Litoral Catarinense",
+                text: "Ela reúne qualidade de vida e um novo ciclo de crescimento. Valorização de 115% nos últimos 5 anos.",
                 company: "Investimentos e Negócios Imobiliários",
                 sources: "Dados públicos e anúncios institucionais.",
                 metricPopulation:
@@ -2316,7 +2342,7 @@
                 title1: "Pronto para conquistar seu espaço no",
                 title2: "litoral catarinense",
                 subtitle:
-                  "Fale com o Thiago ou o Giordano para encontrar seu primeiro imóvel, uma nova casa para a família ou uma oportunidade em terrenos e permutas.",
+                  "Vem fazer sua consultoria de investimentos, através das oportunidades ocultas do mercado imobiliário que nós temos acesso.",
                 btn1: "Falar pelo WhatsApp",
                 btn2: "Ligar Agora",
               },
@@ -2349,11 +2375,11 @@
                 brandLine: "Real Estate Investments",
               },
               hero: {
-                title1: "Your new home or investment on the",
+                title1: "Live, invest or stop renting on the",
                 title2: "coast of Santa Catarina",
                 title3: "starts here",
                 subtitle:
-                  "Whether to live, leave renting behind or invest with confidence. We find the perfect property for you in Itapoá, Balneário Camboriú, Itajaí and all across SC's coast.",
+                  "We find the ideal property for you to live, invest or stop renting in Itapoá, Balneário Camboriú, Itajaí and all across SC's coast.",
                 cta1: "Contact Us",
                 cta2: "See Properties",
                 marqueeCities: "Itapoá · Balneário Camboriú · Itajaí",
@@ -2432,9 +2458,9 @@
               },
               about: {
                 tag: "About Us",
-                title1: "We make the dream of",
-                title2: "homeownership and smart investing real",
-                p1: '<strong class="text-gray-600">Thiago Carneiro</strong> works in real estate with an eye for new business. He is open to opportunities, helps families buy their first home and connects investors to strategic opportunities on the coast of Santa Catarina.',
+                title1: "We bring opportunities, close deals",
+                title2: "and build friendships",
+                p1: '<strong class="text-gray-600">Thiago Carneiro</strong><br>The OPPORTUNITIES broker.<br>✔ Married | Father of 6<br>✔ In Balneário Camboriú since 1988<br>✔ 1st auction property sold in 2013.<br>Specialist in OPPORTUNITIES: land for swap, off-plan properties and below-market properties. Strategic focus: ITAPOÁ-SC, the next big opportunity on the coast of Santa Catarina.',
                 p2: '<strong class="text-gray-600">Giordano Chiaradia</strong> has been in the market since 2010. A resident of Florianópolis since 1984, he worked as a helicopter pilot for one of SC\'s largest land developers, with direct contact with major projects.',
                 p3: 'Together, they serve those who want to <strong class="text-gray-600">buy a home, stop renting or invest</strong> in Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha and Navegantes.',
                 cta: "Get in touch",
@@ -2526,9 +2552,9 @@
                 copied: "Link copied!",
               },
               quote: {
-                title1: "Itapoá combines quality of life with",
-                title2: "a new growth cycle",
-                text: "Population growth and port investments help explain why developers and buyers are looking at Itapoá. It is a place to live well today and watch closely for the future.",
+                title1: "Itapoá, the new Pearl of the",
+                title2: "Coast of Santa Catarina",
+                text: "It combines quality of life with a new growth cycle. 115% appreciation in the last 5 years.",
                 company: "Real Estate Investments and Business",
                 sources: "Public data and institutional announcements.",
                 metricPopulation: "population growth between 2010 and 2022",
@@ -2606,7 +2632,7 @@
                 title1: "Ready to find your place on the",
                 title2: "coast of Santa Catarina",
                 subtitle:
-                  "Talk to Thiago or Giordano to find your first home, a new home for your family or an opportunity in land and swaps.",
+                  "Get your investment consulting through hidden real estate opportunities that we have access to.",
                 btn1: "Chat on WhatsApp",
                 btn2: "Call Now",
               },
@@ -2640,11 +2666,11 @@
                 brandLine: "Inversiones Inmobiliarias",
               },
               hero: {
-                title1: "Tu nuevo hogar o inversión en el",
+                title1: "Vivir, invertir o dejar el alquiler en el",
                 title2: "litoral catarinense",
                 title3: "comienza aquí",
                 subtitle:
-                  "Ya sea para vivir, dejar el alquiler o invertir con seguridad. Encontramos el inmueble ideal para ti en Itapoá, Balneário Camboriú, Itajaí y todo el litoral de SC.",
+                  "Encontramos el inmueble ideal para vivir, invertir o dejar el alquiler en Itapoá, Balneário Camboriú, Itajaí y todo el litoral de SC.",
                 cta1: "Contáctanos",
                 cta2: "Ver Inmuebles",
                 marqueeCities: "Itapoá · Balneário Camboriú · Itajaí",
@@ -2724,9 +2750,9 @@
               },
               about: {
                 tag: "Quiénes Somos",
-                title1: "Realizamos el sueño de la",
-                title2: "casa propia y la buena inversión",
-                p1: '<strong class="text-gray-600">Thiago Carneiro</strong> trabaja en el mercado inmobiliario con atención a nuevos negocios. Está abierto a oportunidades, ayuda a familias a comprar su primera vivienda y conecta inversores con oportunidades estratégicas en el litoral catarinense.',
+                title1: "Traemos oportunidades, hacemos negocios",
+                title2: "y formamos amistades",
+                p1: '<strong class="text-gray-600">Thiago Carneiro</strong><br>El corredor de las OPORTUNIDADES.<br>✔ Casado | Padre de 6 hijos<br>✔ En Balneário Camboriú desde 1988<br>✔ 1° Inmueble de subasta vendido en 2013.<br>Especialista en OPORTUNIDADES: áreas para permuta, inmuebles en planta e inmuebles por debajo del mercado. Foco estratégico: ITAPOÁ-SC, la próxima gran oportunidad del litoral catarinense.',
                 p2: '<strong class="text-gray-600">Giordano Chiaradia</strong> actúa en el mercado desde 2010. Residente de Florianópolis desde 1984, trabajó como piloto de helicóptero en una de las mayores loteadoras de SC, con contacto directo con grandes emprendimientos.',
                 p3: 'Juntos, atienden a quienes quieren <strong class="text-gray-600">comprar para vivir, dejar el alquiler o invertir</strong> en Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha y Navegantes.',
                 cta: "Contáctanos",
@@ -2818,9 +2844,9 @@
                 copied: "¡Enlace copiado!",
               },
               quote: {
-                title1: "Itapoá reúne calidad de vida y",
-                title2: "un nuevo ciclo de crecimiento",
-                text: "El crecimiento poblacional y las inversiones portuarias ayudan a explicar por qué constructoras y compradores miran hacia Itapoá. Es una ciudad para vivir bien hoy y seguir de cerca hacia el futuro.",
+                title1: "Itapoá, la nueva Perla del",
+                title2: "Litoral Catarinense",
+                text: "Reúne calidad de vida y un nuevo ciclo de crecimiento. Valorización de 115% en los últimos 5 años.",
                 company: "Inversiones y Negocios Inmobiliarios",
                 sources: "Datos públicos y anuncios institucionales.",
                 metricPopulation:
@@ -2901,7 +2927,7 @@
                 title1: "¿Listo para encontrar tu espacio en el",
                 title2: "litoral catarinense",
                 subtitle:
-                  "Habla con Thiago o Giordano para encontrar tu primera vivienda, un nuevo hogar para la familia o una oportunidad en terrenos y permutas.",
+                  "Ven a hacer tu consultoría de inversiones, a través de las oportunidades ocultas del mercado inmobiliario a las que tenemos acceso.",
                 btn1: "Hablar por WhatsApp",
                 btn2: "Llamar Ahora",
               },
