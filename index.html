@@ -6,7 +6,7 @@
     <title>Carneiro & Chiaradia | Investimentos e Negócios Imobiliários</title>
     <meta
       name="description"
-      content="Carneiro & Chiaradia - Imóveis para morar, sair do aluguel e investir no litoral catarinense."
+      content="Carneiro & Chiaradia - Imóveis para comprar para morar, investir ou sair do aluguel no litoral catarinense."
     />
     <link
       rel="icon"
@@ -297,9 +297,10 @@
         order: 3;
         padding-top: 2.5rem !important;
       }
-      #primeiro-imovel {
+      #itapoa {
         order: 4;
       }
+
       [data-aos="fade-up"] {
         transform: translate3d(0, 42px, 0) scale(0.975);
         filter: blur(9px);
@@ -1518,62 +1519,8 @@
         </div>
       </transition>
 
-      <!-- Jornada para sair do aluguel -->
-      <section
-        id="primeiro-imovel"
-        class="py-16 lg:py-24 bg-navy text-white relative overflow-hidden"
-      >
-        <div
-          class="absolute inset-0 bg-[radial-gradient(circle_at_85%_20%,rgba(201,151,46,.24),transparent_32%)]"
-        ></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div data-aos="fade-right">
-              <span
-                class="text-primary-light text-xs font-bold tracking-[.22em] uppercase"
-                >{{ t('firstHome').tag }}</span
-              >
-              <h2
-                class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-5 leading-tight"
-              >
-                {{ t('firstHome').title }}
-              </h2>
-              <p class="text-white/70 text-lg leading-relaxed mb-7">
-                {{ t('firstHome').subtitle }}
-              </p>
-              <a
-                href="#busca"
-                @click="activeFilter = 'first-home'"
-                class="inline-flex bg-primary hover:bg-primary-light text-white rounded-xl px-6 py-4 font-bold"
-                >{{ t('firstHome').cta }}</a
-              >
-            </div>
-            <div class="grid gap-4">
-              <div
-                v-for="(step, i) in t('firstHome').steps"
-                :key="step.title"
-                data-aos="fade-up"
-                :data-aos-delay="i * 100"
-                class="bg-white/10 border border-white/10 backdrop-blur-sm rounded-2xl p-5 flex gap-4"
-              >
-                <span
-                  class="w-10 h-10 flex-shrink-0 rounded-full bg-primary text-white font-bold flex items-center justify-center"
-                  >{{ i + 1 }}</span
-                >
-                <div>
-                  <h3 class="font-bold mb-1">{{ step.title }}</h3>
-                  <p class="text-white/65 text-sm leading-relaxed">
-                    {{ step.text }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Depoimento / Quote -->
-      <section class="py-24 lg:py-32 relative overflow-hidden">
+      <!-- Depoimento / Quote — Itapoá -->
+      <section id="itapoa" class="py-24 lg:py-32 relative overflow-hidden">
         <div class="absolute inset-0 pointer-events-none">
           <div
             class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl"
@@ -1658,6 +1605,60 @@
               <span class="text-gray-500 text-xs"
                 >{{ t('quote').company }}</span
               >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Jornada para sair do aluguel -->
+      <section
+        id="primeiro-imovel"
+        class="py-16 lg:py-24 bg-navy text-white relative overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 bg-[radial-gradient(circle_at_85%_20%,rgba(201,151,46,.24),transparent_32%)]"
+        ></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div data-aos="fade-right">
+              <span
+                class="text-primary-light text-xs font-bold tracking-[.22em] uppercase"
+                >{{ t('firstHome').tag }}</span
+              >
+              <h2
+                class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-5 leading-tight"
+              >
+                {{ t('firstHome').title }}
+              </h2>
+              <p class="text-white/70 text-lg leading-relaxed mb-7">
+                {{ t('firstHome').subtitle }}
+              </p>
+              <a
+                href="#busca"
+                @click="activeFilter = 'first-home'"
+                class="inline-flex bg-primary hover:bg-primary-light text-white rounded-xl px-6 py-4 font-bold"
+                >{{ t('firstHome').cta }}</a
+              >
+            </div>
+            <div class="grid gap-4">
+              <div
+                v-for="(step, i) in t('firstHome').steps"
+                :key="step.title"
+                data-aos="fade-up"
+                :data-aos-delay="i * 100"
+                class="bg-white/10 border border-white/10 backdrop-blur-sm rounded-2xl p-5 flex gap-4"
+              >
+                <span
+                  class="w-10 h-10 flex-shrink-0 rounded-full bg-primary text-white font-bold flex items-center justify-center"
+                  >{{ i + 1 }}</span
+                >
+                <div>
+                  <h3 class="font-bold mb-1">{{ step.title }}</h3>
+                  <p class="text-white/65 text-sm leading-relaxed">
+                    {{ step.text }}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2169,7 +2170,7 @@
                 title2: "e formamos amizades",
                 p1: '<strong class="text-gray-600">Thiago Carneiro</strong><br>O corretor das OPORTUNIDADES.<br>✔ Casado | Pai de 6 filhos<br>✔ Em Balneário Camboriú desde 1988<br>✔ 1° Imóvel de leilão vendido em 2013.<br>Especialista em OPORTUNIDADES: áreas para permuta, imóveis na planta e imóveis abaixo do mercado. Foco estratégico: ITAPOÁ-SC, a próxima grande oportunidade do litoral catarinense.',
                 p2: '<strong class="text-gray-600">Giordano Chiaradia</strong> atua no mercado desde 2010. Morador de Florianópolis desde 1984, atuou como piloto de helicóptero em uma das maiores loteadoras de SC, com contato direto com grandes empreendimentos.',
-                p3: 'Juntos, atendem quem quer <strong class="text-gray-600">comprar para morar, sair do aluguel ou investir</strong> em Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha e Navegantes.',
+                p3: 'Juntos, atendem quem quer <strong class="text-gray-600">comprar para morar, investir ou sair do aluguel</strong> em Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha e Navegantes.',
                 cta: "Entre em contato",
               },
               services: {
@@ -2214,7 +2215,7 @@
                 items: [
                   {
                     title: "Converse Conosco",
-                    desc: "Fale com o Thiago ou o Giordano pelo WhatsApp. Entenderemos se você busca morar, sair do aluguel ou investir.",
+                    desc: "Fale com o Thiago ou o Giordano pelo WhatsApp. Entenderemos se você busca comprar para morar, investir ou sair do aluguel.",
                   },
                   {
                     title: "Seleção Personalizada",
@@ -2338,11 +2339,12 @@
                 ],
               },
               cta: {
-                tag: "Comece Agora",
-                title1: "Pronto para conquistar seu espaço no",
-                title2: "litoral catarinense",
+                tag: "Consultoria Imobiliária",
+                title1:
+                  "Vem fazer sua consultoria de investimentos, através das oportunidades ocultas do",
+                title2: "mercado imobiliário",
                 subtitle:
-                  "Vem fazer sua consultoria de investimentos, através das oportunidades ocultas do mercado imobiliário que nós temos acesso.",
+                  "Fale com o Thiago ou o Giordano para encontrar seu primeiro imóvel, uma nova casa para a família ou uma oportunidade em terrenos e permutas.",
                 btn1: "Falar pelo WhatsApp",
                 btn2: "Ligar Agora",
               },
@@ -2462,7 +2464,7 @@
                 title2: "and build friendships",
                 p1: '<strong class="text-gray-600">Thiago Carneiro</strong><br>The OPPORTUNITIES broker.<br>✔ Married | Father of 6<br>✔ In Balneário Camboriú since 1988<br>✔ 1st auction property sold in 2013.<br>Specialist in OPPORTUNITIES: land for swap, off-plan properties and below-market properties. Strategic focus: ITAPOÁ-SC, the next big opportunity on the coast of Santa Catarina.',
                 p2: '<strong class="text-gray-600">Giordano Chiaradia</strong> has been in the market since 2010. A resident of Florianópolis since 1984, he worked as a helicopter pilot for one of SC\'s largest land developers, with direct contact with major projects.',
-                p3: 'Together, they serve those who want to <strong class="text-gray-600">buy a home, stop renting or invest</strong> in Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha and Navegantes.',
+                p3: 'Together, they serve those who want to <strong class="text-gray-600">buy a home, invest or stop renting</strong> in Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha and Navegantes.',
                 cta: "Get in touch",
               },
               services: {
@@ -2507,7 +2509,7 @@
                 items: [
                   {
                     title: "Talk to Us",
-                    desc: "Reach out to Thiago or Giordano via WhatsApp. We'll understand if you're looking to live, stop renting or invest.",
+                    desc: "Reach out to Thiago or Giordano via WhatsApp. We'll understand if you're looking to buy a home, invest or stop renting.",
                   },
                   {
                     title: "Personalized Selection",
@@ -2628,11 +2630,12 @@
                 ],
               },
               cta: {
-                tag: "Start Now",
-                title1: "Ready to find your place on the",
-                title2: "coast of Santa Catarina",
+                tag: "Real Estate Consulting",
+                title1:
+                  "Get your investment consulting through the hidden opportunities in the",
+                title2: "real estate market",
                 subtitle:
-                  "Get your investment consulting through hidden real estate opportunities that we have access to.",
+                  "Talk to Thiago or Giordano to find your first property, a new home for your family or an opportunity in land and swaps.",
                 btn1: "Chat on WhatsApp",
                 btn2: "Call Now",
               },
@@ -2754,7 +2757,7 @@
                 title2: "y formamos amistades",
                 p1: '<strong class="text-gray-600">Thiago Carneiro</strong><br>El corredor de las OPORTUNIDADES.<br>✔ Casado | Padre de 6 hijos<br>✔ En Balneário Camboriú desde 1988<br>✔ 1° Inmueble de subasta vendido en 2013.<br>Especialista en OPORTUNIDADES: áreas para permuta, inmuebles en planta e inmuebles por debajo del mercado. Foco estratégico: ITAPOÁ-SC, la próxima gran oportunidad del litoral catarinense.',
                 p2: '<strong class="text-gray-600">Giordano Chiaradia</strong> actúa en el mercado desde 2010. Residente de Florianópolis desde 1984, trabajó como piloto de helicóptero en una de las mayores loteadoras de SC, con contacto directo con grandes emprendimientos.',
-                p3: 'Juntos, atienden a quienes quieren <strong class="text-gray-600">comprar para vivir, dejar el alquiler o invertir</strong> en Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha y Navegantes.',
+                p3: 'Juntos, atienden a quienes quieren <strong class="text-gray-600">comprar para vivir, invertir o dejar el alquiler</strong> en Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha y Navegantes.',
                 cta: "Contáctanos",
               },
               services: {
@@ -2799,7 +2802,7 @@
                 items: [
                   {
                     title: "Conversa con Nosotros",
-                    desc: "Habla con Thiago o Giordano por WhatsApp. Entenderemos si buscas vivir, dejar el alquiler o invertir.",
+                    desc: "Habla con Thiago o Giordano por WhatsApp. Entenderemos si buscas comprar para vivir, invertir o dejar el alquiler.",
                   },
                   {
                     title: "Selección Personalizada",
@@ -2923,11 +2926,12 @@
                 ],
               },
               cta: {
-                tag: "Empieza Ahora",
-                title1: "¿Listo para encontrar tu espacio en el",
-                title2: "litoral catarinense",
+                tag: "Consultoría Inmobiliaria",
+                title1:
+                  "Ven a hacer tu consultoría de inversiones, a través de las oportunidades ocultas del",
+                title2: "mercado inmobiliario",
                 subtitle:
-                  "Ven a hacer tu consultoría de inversiones, a través de las oportunidades ocultas del mercado inmobiliario a las que tenemos acceso.",
+                  "Habla con Thiago o Giordano para encontrar tu primer inmueble, una nueva casa para la familia o una oportunidad en terrenos y permutas.",
                 btn1: "Hablar por WhatsApp",
                 btn2: "Llamar Ahora",
               },
