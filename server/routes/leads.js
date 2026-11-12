@@ -1,22 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { pool } = require("../db");
-const jwt = require("jsonwebtoken");
+const { authMiddleware } = require("./auth");
 
-const SECRET = process.env.JWT_SECRET || "sbruzzi_carneiro_secret_2024";
-
-function auth(req, res, next) {
-  const token = req.headers.authorization?.replace("Bearer ", "");
-  if (!token) return res.status(401).json({ error: "Token necessário" });
-  try {
-    req.user = jwt.verify(token, SECRET);
-    next();
-  } catch {
-    res.status(401).json({ error: "Token inválido" });
-  }
-}
-
-router.use(auth);
+router.use(authMiddleware);
 
 router.get("/", async (req, res) => {
   try {
@@ -28,7 +15,7 @@ router.get("/", async (req, res) => {
     `);
     res.json(rows);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Erro interno" });
   }
 });
 
@@ -49,7 +36,7 @@ router.get("/stats", async (req, res) => {
       byStatus: byStatus.reduce((acc, r) => { acc[r.status] = r.count; return acc; }, {}),
     });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Erro interno" });
   }
 });
 
@@ -66,7 +53,7 @@ router.get("/:id", async (req, res) => {
     );
     res.json({ ...rows[0], activities });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Erro interno" });
   }
 });
 
@@ -81,7 +68,7 @@ router.post("/", async (req, res) => {
     );
     res.status(201).json({ id: result.insertId, message: "Lead criado" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Erro interno" });
   }
 });
 
@@ -94,7 +81,7 @@ router.put("/:id", async (req, res) => {
     );
     res.json({ message: "Lead atualizado" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Erro interno" });
   }
 });
 
@@ -103,7 +90,7 @@ router.delete("/:id", async (req, res) => {
     await pool.query("DELETE FROM leads WHERE id = ?", [req.params.id]);
     res.json({ message: "Lead excluído" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Erro interno" });
   }
 });
 
@@ -117,7 +104,7 @@ router.post("/:id/activities", async (req, res) => {
     );
     res.status(201).json({ id: result.insertId, message: "Atividade registrada" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Erro interno" });
   }
 });
 

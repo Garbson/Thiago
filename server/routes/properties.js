@@ -7,8 +7,11 @@ const { authMiddleware } = require("./auth");
 
 const router = express.Router();
 
+const UPLOADS_DIR = process.env.UPLOADS_DIR || path.join(__dirname, "../uploads");
+fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+
 const storage = multer.diskStorage({
-  destination: path.join(__dirname, "../uploads"),
+  destination: UPLOADS_DIR,
   filename: (req, file, cb) => {
     const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(null, unique + path.extname(file.originalname));
@@ -35,7 +38,7 @@ router.get("/public", async (req, res) => {
        FROM properties p
        WHERE p.active = 1
        ORDER BY p.featured DESC, p.created_at DESC
-       LIMIT 10`
+       LIMIT 200`
     );
 
     for (const row of rows) {
@@ -81,7 +84,7 @@ router.get("/", authMiddleware, async (req, res) => {
 // Admin: create property
 router.post("/", authMiddleware, upload.array("images", 20), async (req, res) => {
   try {
-    const maxProps = parseInt(process.env.MAX_PROPERTIES) || 10;
+    const maxProps = parseInt(process.env.MAX_PROPERTIES) || 200;
     const [count] = await pool.query("SELECT COUNT(*) as total FROM properties");
     if (count[0].total >= maxProps) {
       if (req.files) req.files.forEach((f) => fs.unlinkSync(f.path));
@@ -107,7 +110,7 @@ router.post("/", authMiddleware, upload.array("images", 20), async (req, res) =>
       [
         title, description, price || 0, property_type || "apartamento",
         transaction_type || "venda", address, neighborhood, city,
-        state || "SP", zip_code, area || 0, bedrooms || 0,
+        state || "SC", zip_code, area || 0, bedrooms || 0,
         bathrooms || 0, parking || 0, suites || 0,
         furnished ? 1 : 0, condominium_fee || 0, iptu || 0,
         tag, featured ? 1 : 0,
@@ -152,7 +155,7 @@ router.put("/:id", authMiddleware, upload.array("images", 20), async (req, res) 
       [
         title, description, price || 0, property_type || "apartamento",
         transaction_type || "venda", address, neighborhood, city,
-        state || "SP", zip_code, area || 0, bedrooms || 0,
+        state || "SC", zip_code, area || 0, bedrooms || 0,
         bathrooms || 0, parking || 0, suites || 0,
         furnished ? 1 : 0, condominium_fee || 0, iptu || 0,
         tag, featured ? 1 : 0, active !== undefined ? (active ? 1 : 0) : 1,
@@ -202,7 +205,7 @@ router.delete("/:id", authMiddleware, async (req, res) => {
       [id]
     );
     for (const img of images) {
-      const filePath = path.join(__dirname, "../uploads", img.filename);
+      const filePath = path.join(UPLOADS_DIR, img.filename);
       if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
     }
 
@@ -219,7 +222,7 @@ router.delete("/images/:imageId", authMiddleware, async (req, res) => {
     const { imageId } = req.params;
     const [imgs] = await pool.query("SELECT filename FROM property_images WHERE id = ?", [imageId]);
     if (imgs.length > 0) {
-      const filePath = path.join(__dirname, "../uploads", imgs[0].filename);
+      const filePath = path.join(UPLOADS_DIR, imgs[0].filename);
       if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
       await pool.query("DELETE FROM property_images WHERE id = ?", [imageId]);
     }

@@ -5,8 +5,29 @@ const { pool } = require("../db");
 
 const router = express.Router();
 
+// Freio simples contra força bruta: 10 tentativas por IP a cada 15 minutos.
+const attempts = new Map();
+const WINDOW_MS = 15 * 60 * 1000;
+const MAX_ATTEMPTS = 10;
+
+function tooManyAttempts(ip) {
+  const now = Date.now();
+  const entry = attempts.get(ip);
+  if (!entry || now - entry.start > WINDOW_MS) {
+    attempts.set(ip, { start: now, count: 1 });
+    return false;
+  }
+  entry.count += 1;
+  return entry.count > MAX_ATTEMPTS;
+}
+
 router.post("/login", async (req, res) => {
   try {
+    if (tooManyAttempts(req.ip)) {
+      return res
+        .status(429)
+        .json({ error: "Muitas tentativas. Aguarde 15 minutos." });
+    }
     const { email, password } = req.body;
     if (!email || !password) {
       return res.status(400).json({ error: "Email e senha são obrigatórios" });
@@ -29,6 +50,7 @@ router.post("/login", async (req, res) => {
       { expiresIn: "24h" }
     );
 
+    attempts.delete(req.ip);
     res.json({ token, user: { id: user.id, email: user.email, name: user.name } });
   } catch (err) {
     res.status(500).json({ error: "Erro interno" });

@@ -1085,11 +1085,14 @@
 
             <div class="mt-4 p-3 bg-navy/20 border border-navy/30 rounded-lg">
               <p class="text-white/40 text-xs leading-relaxed">
-                <strong class="text-white/60">Como funciona:</strong> Ao
-                publicar, um feed XML é gerado para cada portal. Os portais
-                podem consumir automaticamente este feed pela URL:
+                <strong class="text-white/60">Como funciona:</strong> "Publicar"
+                inclui o imóvel no feed XML (formato VRSync). Cadastre a URL
+                do feed uma única vez no painel de cada portal (no Grupo OLX:
+                Canal Pro → Configurações da conta → Integração de anúncios) e
+                ele passa a ler sozinho. Exigências: 5+ fotos JPG, descrição
+                com 50+ caracteres e CEP. URL:
                 <code class="text-primary text-[10px]"
-                  >/api/portals/feed/{portal}</code
+                  >{{ feedBase }}/api/portals/feed/{portal}</code
                 >
               </p>
             </div>
@@ -1630,6 +1633,7 @@
             { id: "chavenasmao", name: "Chaves na Mão" },
             { id: "imovelweb", name: "Imóvel Web" },
           ]);
+          const feedBase = window.location.origin;
           const showPortalModal = ref(false);
           const portalProperty = ref(null);
           const portalLoading = ref(false);
@@ -1941,7 +1945,7 @@
             address: "",
             neighborhood: "",
             city: "",
-            state: "SP",
+            state: "SC",
             zip_code: "",
             area: "",
             bedrooms: 0,
@@ -2223,20 +2227,22 @@
           async function publishAll() {
             portalLoading.value = true;
             try {
-              await fetch(
+              const res = await fetch(
                 API + "/portals/publish-all/" + portalProperty.value.id,
                 {
                   method: "POST",
                   headers: headers(),
                 },
               );
-              showToast("Publicado em todos os portais!");
+              const data = await res.json();
+              if (!res.ok) throw new Error(data.error);
+              showToast("Incluído no feed de todos os portais!");
               loadProperties();
               portals.value.forEach(
                 (p) => (portalProperty.value["published_" + p.id] = 1),
               );
-            } catch {
-              showToast("Erro", "error");
+            } catch (err) {
+              showToast(err.message || "Erro", "error");
             }
             portalLoading.value = false;
           }
@@ -2273,6 +2279,7 @@
             deleteProperty,
             toggleActive,
             portals,
+            feedBase,
             showPortalModal,
             portalProperty,
             portalLoading,

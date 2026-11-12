@@ -44,7 +44,7 @@ async function initDatabase() {
       address VARCHAR(500),
       neighborhood VARCHAR(255),
       city VARCHAR(255),
-      state VARCHAR(2) DEFAULT 'SP',
+      state VARCHAR(2) DEFAULT 'SC',
       zip_code VARCHAR(10),
       area DECIMAL(10,2),
       bedrooms INT DEFAULT 0,
@@ -127,12 +127,15 @@ async function initDatabase() {
   const bcrypt = require("bcryptjs");
   const [existing] = await pool.query("SELECT id FROM users LIMIT 1");
   if (existing.length === 0) {
-    const hash = await bcrypt.hash(
-      process.env.ADMIN_PASSWORD || "admin123",
-      10
-    );
+    const password = process.env.ADMIN_PASSWORD;
+    if (!password || password.length < 10 || !process.env.ADMIN_EMAIL) {
+      throw new Error(
+        "Defina ADMIN_EMAIL e ADMIN_PASSWORD (10+ caracteres) no .env para criar o primeiro usuário"
+      );
+    }
+    const hash = await bcrypt.hash(password, 12);
     await pool.query("INSERT INTO users (email, password, name) VALUES (?, ?, ?)", [
-      process.env.ADMIN_EMAIL || "admin@chiaradiaecarneiro.com.br",
+      process.env.ADMIN_EMAIL,
       hash,
       "Administrador",
     ]);

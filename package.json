@@ -1,7 +1,7 @@
 {
-  "name": "sbruzzi-carneiro-site",
+  "name": "carneiro-chiaradia-site",
   "version": "1.0.0",
-  "description": "Site Sbruzzi & Carneiro - Investimentos e Negócios Imobiliários",
+  "description": "Site Carneiro & Chiaradia - Investimentos e Negócios Imobiliários",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",

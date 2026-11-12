@@ -1,0 +1,19 @@
+[Unit]
+Description=Carneiro & Chiaradia - site e API
+After=network.target mariadb.service
+Wants=mariadb.service
+
+[Service]
+Type=simple
+User=carneiro
+WorkingDirectory=/opt/carneiro
+ExecStart=/usr/bin/node server/index.js
+Restart=always
+RestartSec=3
+EnvironmentFile=/opt/carneiro/.env
+NoNewPrivileges=true
+ProtectSystem=full
+ReadWritePaths=/var/lib/carneiro
+
+[Install]
+WantedBy=multi-user.target

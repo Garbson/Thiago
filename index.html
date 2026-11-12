@@ -56,7 +56,8 @@
       }
       body {
         font-family: "Inter", system-ui, sans-serif;
-        overflow-x: hidden;
+        /* clip (e não hidden) para não quebrar o position: sticky do Sobrevoo */
+        overflow-x: clip;
       }
 
       .gradient-text {
@@ -350,6 +351,27 @@
           opacity: 1;
         }
       }
+      /* Sobrevoo */
+      #sobrevoo { height: 340vh; position: relative; background: #061e3c; }
+      #sobrevoo .sv-stage {
+        position: sticky; top: 0; height: 100vh; overflow: hidden;
+        background:
+          radial-gradient(900px 500px at 78% 40%, rgba(23, 75, 130, 0.55), transparent 70%),
+          radial-gradient(600px 400px at 10% 90%, rgba(201, 151, 46, 0.12), transparent 70%),
+          linear-gradient(180deg, #061e3c, #0b2f5b 140%);
+      }
+      #sobrevoo .sv-rotor { transform-box: fill-box; transform-origin: center; animation: svSpin 0.18s linear infinite; }
+      @keyframes svSpin { to { transform: rotate(360deg); } }
+      #sobrevoo .sv-wave { animation: svWave 6s ease-in-out infinite; }
+      @keyframes svWave { 0%,100% { transform: translateX(0); opacity: .25; } 50% { transform: translateX(8px); opacity: .5; } }
+      #sobrevoo .sv-pulse { transform-box: fill-box; transform-origin: center; animation: svPulse 2.2s ease-out infinite; }
+      @keyframes svPulse { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(3.2); opacity: 0; } }
+      #sobrevoo .sv-city { cursor: pointer; }
+      #sobrevoo .sv-city:focus-visible circle.sv-dot { stroke: #fff; stroke-width: 2; }
+      @media (prefers-reduced-motion: reduce) {
+        #sobrevoo .sv-rotor, #sobrevoo .sv-wave, #sobrevoo .sv-pulse { animation: none; }
+      }
+      @media (max-width: 767px) { #sobrevoo { height: 300vh; } }
       @media (max-width: 767px) {
         section {
           scroll-margin-top: 64px;
@@ -361,8 +383,7 @@
           padding-top: 3.5rem !important;
           padding-bottom: 3.5rem !important;
         }
-        #servicos .grid > :nth-child(n + 4),
-        #depoimentos .grid > :nth-child(n + 3) {
+        #servicos .grid > :nth-child(n + 4) {
           display: none;
         }
         [data-aos] {
@@ -1018,6 +1039,87 @@
                   {{ step.desc }}
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sobrevoo: o litoral visto de cima, guiado pelo scroll -->
+      <section id="sobrevoo" :aria-label="t('sobrevoo').tag">
+        <div class="sv-stage">
+          <div class="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 pt-16 lg:pt-20 pb-3 grid lg:grid-cols-2 gap-2 lg:gap-10 items-center">
+            <div class="order-2 lg:order-1 text-white">
+              <span class="text-primary-light text-xs font-bold tracking-widest uppercase">{{ t('sobrevoo').tag }}</span>
+              <h2 class="font-display text-2xl lg:text-5xl font-bold mt-1 lg:mt-2 leading-tight">
+                {{ t('sobrevoo').title1 }}
+                <span class="text-primary-light">{{ t('sobrevoo').title2 }}</span>
+              </h2>
+              <p class="hidden sm:block text-white/70 text-sm lg:text-base mt-3 max-w-md leading-relaxed">{{ t('sobrevoo').subtitle }}</p>
+
+              <div class="mt-3 lg:mt-5 min-h-[8rem] lg:min-h-[9.5rem] max-w-md" aria-live="polite">
+                <div v-if="svActive < 0" class="text-white/60 text-sm flex items-center gap-2">
+                  <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                  {{ t('sobrevoo').hint }}
+                </div>
+                <div v-else class="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-4 lg:p-5">
+                  <div class="flex items-baseline justify-between gap-3">
+                    <h3 class="font-display text-xl lg:text-2xl font-bold">{{ svCities[svActive].name }}</h3>
+                    <span class="text-primary-light text-xs font-semibold whitespace-nowrap">
+                      {{ svCities[svActive].count }} {{ svCities[svActive].count === 1 ? t('sobrevoo').one : t('sobrevoo').many }}
+                    </span>
+                  </div>
+                  <p class="text-white/75 text-xs lg:text-sm mt-1.5 lg:mt-2 leading-relaxed">{{ svCities[svActive].text }}</p>
+                  <button
+                    @click="svSelect(svActive)"
+                    class="mt-3 lg:mt-4 inline-flex items-center gap-2 bg-primary hover:bg-primary-light text-navy-dark px-4 lg:px-5 py-2 lg:py-2.5 rounded-xl text-sm font-bold transition"
+                  >
+                    {{ svCities[svActive].count ? t('sobrevoo').view.replace('{city}', svCities[svActive].name) : t('sobrevoo').talk.replace('{city}', svCities[svActive].name) }}
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-1 lg:order-2 h-[40vh] lg:h-[82vh] relative">
+              <svg viewBox="-60 0 420 700" class="w-full h-full" role="img" :aria-label="t('sobrevoo').mapLabel" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <linearGradient id="svLand" x1="0" x2="1">
+                    <stop offset="0" stop-color="#0f3d70"/><stop offset="1" stop-color="#174b82"/>
+                  </linearGradient>
+                </defs>
+                <path :d="svLandD" fill="url(#svLand)"/>
+                <path id="svCoast" :d="svCoastD" fill="none" stroke="#E5BC57" stroke-opacity=".55" stroke-width="2"/>
+                <g stroke="#fff" stroke-linecap="round" fill="none">
+                  <path class="sv-wave" d="M 300 90 q 10 -6 20 0 t 20 0" stroke-width="1.5"/>
+                  <path class="sv-wave" style="animation-delay:-2s" d="M 270 260 q 10 -6 20 0 t 20 0" stroke-width="1.5"/>
+                  <path class="sv-wave" style="animation-delay:-4s" d="M 290 430 q 10 -6 20 0 t 20 0" stroke-width="1.5"/>
+                  <path class="sv-wave" style="animation-delay:-1s" d="M 260 600 q 10 -6 20 0 t 20 0" stroke-width="1.5"/>
+                </g>
+                <g transform="translate(34 0)">
+                  <path :d="svCoastD" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2" stroke-dasharray="3 7"/>
+                  <path :d="svCoastD" fill="none" stroke="#E5BC57" stroke-width="3" stroke-linecap="round"
+                        :stroke-dasharray="svLen" :stroke-dashoffset="svLen * (1 - svProgress)"/>
+                </g>
+                <g v-for="(c, i) in svCities" :key="c.name" class="sv-city" tabindex="0" role="button"
+                   :aria-label="c.name" @click="svGo(i)" @keydown.enter="svGo(i)">
+                  <circle v-if="c.lit && i === svActive" class="sv-pulse" :cx="c.x" :cy="c.y" r="6" fill="#E5BC57"/>
+                  <circle class="sv-dot" :cx="c.x" :cy="c.y" :r="c.lit ? 6 : 4"
+                          :fill="c.lit ? '#E5BC57' : '#8fa6c4'" :stroke="c.lit ? '#fff' : 'none'" stroke-width="1.5"
+                          style="transition: fill .3s, r .3s"/>
+                  <text :x="c.x - 14" :y="c.y + 4" text-anchor="end" font-size="13" font-weight="600"
+                        :fill="c.lit ? '#fff' : '#8fa6c4'" style="transition: fill .3s">{{ c.name }}</text>
+                  <rect :x="c.x - 150" :y="c.y - 14" width="170" height="28" fill="transparent"/>
+                </g>
+                <g :transform="`translate(${svHeli.x} ${svHeli.y}) rotate(${svHeli.rot})`">
+                  <ellipse cx="0" cy="0" rx="11" ry="6" fill="#fff" stroke="#0B2F5B" stroke-width="1.5"/>
+                  <path d="M -10 0 L -26 0" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M -26 -5 L -26 5" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="5" cy="0" r="3" fill="#174B82"/>
+                  <g class="sv-rotor"><path d="M -22 0 L 22 0 M 0 -22 L 0 22" stroke="#E5BC57" stroke-width="2" stroke-linecap="round" opacity=".85"/></g>
+                  <circle cx="0" cy="0" r="2" fill="#0B2F5B"/>
+                </g>
+              </svg>
+              <span class="absolute bottom-0 right-0 text-[10px] text-white/40">{{ t('sobrevoo').note }}</span>
             </div>
           </div>
         </div>
@@ -1707,6 +1809,11 @@
                   />
                 </svg>
               </div>
+              <h3
+                class="font-display text-lg font-semibold text-gray-800 leading-snug mb-3"
+              >
+                “{{ tt.title }}”
+              </h3>
               <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-1">
                 {{ tt.text }}
               </p>
@@ -2169,7 +2276,7 @@
                 title1: "Trazemos oportunidades, fazemos negócios",
                 title2: "e formamos amizades",
                 p1: '<strong class="text-gray-600">Thiago Carneiro</strong><br>O corretor das OPORTUNIDADES.<br>✔ Casado | Pai de 6 filhos<br>✔ Em Balneário Camboriú desde 1988<br>✔ 1° Imóvel de leilão vendido em 2013.<br>Especialista em OPORTUNIDADES: áreas para permuta, imóveis na planta e imóveis abaixo do mercado. Foco estratégico: ITAPOÁ-SC, a próxima grande oportunidade do litoral catarinense.',
-                p2: '<strong class="text-gray-600">Giordano Chiaradia</strong> atua no mercado desde 2010. Morador de Florianópolis desde 1984, atuou como piloto de helicóptero em uma das maiores loteadoras de SC, com contato direto com grandes empreendimentos.',
+                p2: '<strong class="text-gray-600">Giordano Chiaradia</strong><br> Atua no mercado desde 2010. Morador de Florianópolis desde 1984, atuou como piloto de helicóptero em uma das maiores loteadoras de SC, com contato direto com grandes empreendimentos.',
                 p3: 'Juntos, atendem quem quer <strong class="text-gray-600">comprar para morar, investir ou sair do aluguel</strong> em Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha e Navegantes.',
                 cta: "Entre em contato",
               },
@@ -2272,6 +2379,29 @@
                 metricCoamo:
                   "previstos para um novo terminal portuário da Coamo",
               },
+              sobrevoo: {
+                tag: "Sobrevoo",
+                title1: "O litoral catarinense,",
+                title2: "visto de cima",
+                subtitle: "Antes de ser corretor, o Giordano pilotou helicóptero sobre os maiores loteamentos de SC. Role a página e sobrevoe com a gente de Itapoá a Balneário Camboriú.",
+                hint: "Role para decolar",
+                one: "imóvel",
+                many: "imóveis",
+                view: "Ver imóveis em {city}",
+                talk: "Falar sobre {city}",
+                mapLabel: "Mapa ilustrativo do litoral norte de Santa Catarina com as cidades atendidas",
+                note: "Mapa ilustrativo",
+                cities: [
+                  "Foco estratégico: a próxima grande oportunidade do litoral catarinense.",
+                  "Apartamentos perto da praia e oportunidades abaixo do mercado.",
+                  "Litoral norte catarinense: compra, investimento e permuta com quem conhece a região.",
+                  "Litoral norte catarinense: compra, investimento e permuta com quem conhece a região.",
+                  "Áreas e imóveis para investir perto do eixo Itajaí–Camboriú.",
+                  "Um dos principais polos do litoral. Oportunidades para morar e investir.",
+                  "Cidade vizinha e porta de entrada para oportunidades na planta e áreas para permuta.",
+                  "Onde o Thiago atua desde 1988: do imóvel de leilão ao lançamento."
+                ],
+              },
               testimonials: {
                 tag: "Depoimentos",
                 title1: "O que nossos clientes",
@@ -2280,22 +2410,25 @@
                   "A confiança dos nossos clientes é o nosso maior reconhecimento.",
                 items: [
                   {
-                    name: "Marcos Oliveira",
-                    initials: "MO",
-                    location: "Curitiba, PR",
-                    text: "Investimos em um terreno em Itapoá com a assessoria do Thiago e do Giordano. A valorização em dois anos superou todas as expectativas. Profissionais sérios e que conhecem a região como ninguém.",
+                    name: "Marcondes",
+                    initials: "M",
+                    location: "Cliente Carneiro & Chiaradia",
+                    title: "Uma oportunidade que fez sentido para minha família.",
+                    text: "O Thiago encontrou um excelente apartamento em Barra Velha para presentear minha filha. Além de estar próximo à praia, conseguimos uma oportunidade com valor abaixo do mercado. Foi uma negociação segura, com uma excelente oportunidade para nossa família.",
                   },
                   {
-                    name: "Fernanda Keller",
-                    initials: "FK",
-                    location: "Joinville, SC",
-                    text: "Fechamos uma permuta de terreno em Barra Velha com acompanhamento impecável. Eles cuidaram de toda a negociação e documentação. Resultado: saímos ganhando dos dois lados.",
+                    name: "Dona Odete",
+                    initials: "DO",
+                    location: "Cliente Carneiro & Chiaradia",
+                    title: "Em menos de uma semana, a oportunidade virou negócio.",
+                    text: "O Thiago chegou até mim buscando uma possível permuta pelos meus dois lotes. No começo, confesso que fiquei desconfiada, porque muitos corretores já haviam passado por aqui dizendo representar construtoras e nunca mais voltavam. Com ele foi diferente. Em menos de uma semana, recebi uma proposta de uma construtora e fechamos uma excelente permuta, com aporte em dinheiro. O que parecia improvável se tornou um ótimo negócio.",
                   },
                   {
-                    name: "Roberto Andrade",
-                    initials: "RA",
-                    location: "São Paulo, SP",
-                    text: "Queria investir no litoral catarinense mas não conhecia a região. O Giordano me apresentou oportunidades que eu jamais encontraria sozinho. Hoje tenho 3 terrenos e uma rentabilidade excelente.",
+                    name: "Giordano Chiaradia",
+                    initials: "GC",
+                    location: "Sócio Carneiro & Chiaradia",
+                    title: "Uma oportunidade de investimento se transformou em uma sociedade.",
+                    text: "O Thiago já era um amigo de longa data quando me apresentou uma excelente oportunidade de investimento em Itapoá, envolvendo um terreno com potencial para futura permuta. Gostei tanto da cidade e enxerguei tanto potencial naquele mercado que propus uma sociedade ao Thiago. Foi assim que nasceu a Carneiro & Chiaradia Investimentos e Negócios Imobiliários.",
                   },
                 ],
               },
@@ -2564,6 +2697,29 @@
                   "already invested by Porto Itapoá, with further expansions planned",
                 metricCoamo: "planned for a new Coamo port terminal",
               },
+              sobrevoo: {
+                tag: "Flyover",
+                title1: "The Santa Catarina coast,",
+                title2: "seen from above",
+                subtitle: "Before becoming a broker, Giordano flew helicopters over the largest developments in SC. Scroll to fly with us from Itapoá to Balneário Camboriú.",
+                hint: "Scroll to take off",
+                one: "property",
+                many: "properties",
+                view: "View properties in {city}",
+                talk: "Talk about {city}",
+                mapLabel: "Illustrative map of the northern coast of Santa Catarina with the cities we serve",
+                note: "Illustrative map",
+                cities: [
+                  "Strategic focus: the next big opportunity on the Santa Catarina coast.",
+                  "Apartments near the beach and below-market opportunities.",
+                  "Northern coast of Santa Catarina: buying, investing and land swaps with people who know the region.",
+                  "Northern coast of Santa Catarina: buying, investing and land swaps with people who know the region.",
+                  "Land and properties to invest in, near the Itajaí–Camboriú axis.",
+                  "One of the main hubs of the coast. Opportunities to live and invest.",
+                  "Neighboring city and gateway to off-plan opportunities and land for swaps.",
+                  "Where Thiago has worked since 1988: from auction properties to new launches."
+                ],
+              },
               testimonials: {
                 tag: "Testimonials",
                 title1: "What our clients",
@@ -2571,22 +2727,25 @@
                 subtitle: "Our clients' trust is our greatest recognition.",
                 items: [
                   {
-                    name: "Marcos Oliveira",
-                    initials: "MO",
-                    location: "Curitiba, PR",
-                    text: "We invested in land in Itapoá with Thiago and Giordano's advice. The appreciation in two years exceeded all expectations. Serious professionals who know the region like no one else.",
+                    name: "Marcondes",
+                    initials: "M",
+                    location: "Carneiro & Chiaradia client",
+                    title: "An opportunity that made sense for my family.",
+                    text: "Thiago found an excellent apartment in Barra Velha as a gift for my daughter. Besides being close to the beach, we secured it below market value. It was a safe negotiation and an excellent opportunity for our family.",
                   },
                   {
-                    name: "Fernanda Keller",
-                    initials: "FK",
-                    location: "Joinville, SC",
-                    text: "We closed a land swap in Barra Velha with impeccable support. They handled all the negotiation and documentation. Result: we came out winning on both sides.",
+                    name: "Dona Odete",
+                    initials: "DO",
+                    location: "Carneiro & Chiaradia client",
+                    title: "In less than a week, the opportunity became a deal.",
+                    text: "Thiago came to me looking for a possible swap for my two plots. At first, I admit I was suspicious, because many brokers had already come by claiming to represent developers and never came back. With him it was different. In less than a week I received a proposal from a developer and we closed an excellent swap, with a cash contribution. What seemed unlikely became a great deal.",
                   },
                   {
-                    name: "Roberto Andrade",
-                    initials: "RA",
-                    location: "São Paulo, SP",
-                    text: "I wanted to invest on the coast of Santa Catarina but didn't know the region. Giordano showed me opportunities I would never find on my own. Today I have 3 plots and excellent returns.",
+                    name: "Giordano Chiaradia",
+                    initials: "GC",
+                    location: "Carneiro & Chiaradia partner",
+                    title: "An investment opportunity turned into a partnership.",
+                    text: "Thiago was already a longtime friend when he showed me an excellent investment opportunity in Itapoá, involving a plot with potential for a future swap. I liked the city so much, and saw so much potential in that market, that I proposed a partnership to Thiago. That is how Carneiro & Chiaradia Investimentos e Negócios Imobiliários was born.",
                   },
                 ],
               },
@@ -2859,6 +3018,29 @@
                 metricCoamo:
                   "previstos para una nueva terminal portuaria de Coamo",
               },
+              sobrevoo: {
+                tag: "Sobrevuelo",
+                title1: "El litoral catarinense,",
+                title2: "visto desde arriba",
+                subtitle: "Antes de ser corredor, Giordano pilotó helicópteros sobre los mayores loteos de SC. Desplázate y sobrevuela con nosotros de Itapoá a Balneário Camboriú.",
+                hint: "Desplázate para despegar",
+                one: "inmueble",
+                many: "inmuebles",
+                view: "Ver inmuebles en {city}",
+                talk: "Hablar sobre {city}",
+                mapLabel: "Mapa ilustrativo del litoral norte de Santa Catarina con las ciudades que atendemos",
+                note: "Mapa ilustrativo",
+                cities: [
+                  "Foco estratégico: la próxima gran oportunidad del litoral catarinense.",
+                  "Departamentos cerca de la playa y oportunidades por debajo del mercado.",
+                  "Litoral norte catarinense: compra, inversión y permuta con quien conoce la región.",
+                  "Litoral norte catarinense: compra, inversión y permuta con quien conoce la región.",
+                  "Terrenos e inmuebles para invertir cerca del eje Itajaí–Camboriú.",
+                  "Uno de los principales polos del litoral. Oportunidades para vivir e invertir.",
+                  "Ciudad vecina y puerta de entrada a oportunidades en planos y terrenos para permuta.",
+                  "Donde Thiago actúa desde 1988: del inmueble de remate al lanzamiento."
+                ],
+              },
               testimonials: {
                 tag: "Testimonios",
                 title1: "Lo que nuestros clientes",
@@ -2867,22 +3049,25 @@
                   "La confianza de nuestros clientes es nuestro mayor reconocimiento.",
                 items: [
                   {
-                    name: "Marcos Oliveira",
-                    initials: "MO",
-                    location: "Curitiba, PR",
-                    text: "Invertimos en un terreno en Itapoá con la asesoría de Thiago y Giordano. La valorización en dos años superó todas las expectativas. Profesionales serios que conocen la región como nadie.",
+                    name: "Marcondes",
+                    initials: "M",
+                    location: "Cliente Carneiro & Chiaradia",
+                    title: "Una oportunidad que tuvo sentido para mi familia.",
+                    text: "Thiago encontró un excelente departamento en Barra Velha para regalarle a mi hija. Además de estar cerca de la playa, conseguimos una oportunidad por debajo del valor de mercado. Fue una negociación segura y una excelente oportunidad para nuestra familia.",
                   },
                   {
-                    name: "Fernanda Keller",
-                    initials: "FK",
-                    location: "Joinville, SC",
-                    text: "Cerramos una permuta de terreno en Barra Velha con un acompañamiento impecable. Ellos se encargaron de toda la negociación y documentación. Resultado: salimos ganando por ambos lados.",
+                    name: "Dona Odete",
+                    initials: "DO",
+                    location: "Cliente Carneiro & Chiaradia",
+                    title: "En menos de una semana, la oportunidad se convirtió en negocio.",
+                    text: "Thiago llegó a mí buscando una posible permuta por mis dos lotes. Al principio, confieso que desconfié, porque muchos corredores ya habían pasado por aquí diciendo representar constructoras y nunca volvían. Con él fue diferente. En menos de una semana recibí una propuesta de una constructora y cerramos una excelente permuta, con aporte en dinero. Lo que parecía improbable se convirtió en un gran negocio.",
                   },
                   {
-                    name: "Roberto Andrade",
-                    initials: "RA",
-                    location: "São Paulo, SP",
-                    text: "Quería invertir en el litoral catarinense pero no conocía la región. Giordano me presentó oportunidades que jamás encontraría solo. Hoy tengo 3 terrenos y una rentabilidad excelente.",
+                    name: "Giordano Chiaradia",
+                    initials: "GC",
+                    location: "Socio Carneiro & Chiaradia",
+                    title: "Una oportunidad de inversión se transformó en una sociedad.",
+                    text: "Thiago ya era un amigo de muchos años cuando me presentó una excelente oportunidad de inversión en Itapoá, con un terreno con potencial para una futura permuta. Me gustó tanto la ciudad y vi tanto potencial en ese mercado que le propuse una sociedad a Thiago. Así nació Carneiro & Chiaradia Investimentos e Negócios Imobiliários.",
                   },
                 ],
               },
@@ -3485,6 +3670,119 @@
             }
           }
 
+
+          // ----- Sobrevoo -----
+          const SV_COAST =
+            "M 250 0 C 250 80, 215 140, 225 230 S 180 380, 205 470 S 175 600, 195 700";
+          const SV_CITIES = [
+            { name: "Itapoá", t: 0.05, dx: 0 },
+            { name: "Barra Velha", t: 0.24, dx: 0 },
+            { name: "Piçarras", t: 0.35, dx: 0 },
+            { name: "Penha", t: 0.44, dx: 0 },
+            { name: "Navegantes", t: 0.56, dx: 0 },
+            { name: "Itajaí", t: 0.67, dx: 0 },
+            { name: "Camboriú", t: 0.81, dx: -70 },
+            { name: "Balneário Camboriú", t: 0.93, dx: 0 },
+          ];
+          const svCoastD = SV_COAST;
+          const svLandD = SV_COAST + " L -60 700 L -60 0 Z";
+          const svProgress = ref(0);
+          const svLen = ref(1000);
+          const svPts = ref([]);
+          const svHeli = reactive({ x: 284, y: 0, rot: 90 });
+          let svPath = null;
+          let svTicking = false;
+
+          function svPlace() {
+            if (!svPath) return;
+            const L = svPath.getTotalLength();
+            svLen.value = L;
+            const at = (f) => svPath.getPointAtLength(Math.max(0, Math.min(1, f)) * L);
+            const a = at(svProgress.value - 0.01);
+            const b = at(svProgress.value + 0.01);
+            const c = at(svProgress.value);
+            svHeli.x = c.x + 34;
+            svHeli.y = c.y;
+            svHeli.rot = (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI;
+          }
+
+          function svUpdate() {
+            svTicking = false;
+            const el = document.getElementById("sobrevoo");
+            if (!el) return;
+            const r = el.getBoundingClientRect();
+            const span = el.offsetHeight - window.innerHeight;
+            svProgress.value = Math.max(0, Math.min(1, -r.top / span));
+            svPlace();
+          }
+
+          function svOnScroll() {
+            if (!svTicking) {
+              svTicking = true;
+              requestAnimationFrame(svUpdate);
+            }
+          }
+
+          const svCities = computed(() =>
+            SV_CITIES.map((c, i) => {
+              const pt = svPts.value[i] || { x: 0, y: 0 };
+              const count = properties.value.filter(
+                (p) => (p.location || "").split(",")[0].trim() === c.name,
+              ).length;
+              return {
+                name: c.name,
+                x: pt.x + c.dx,
+                y: pt.y,
+                t: c.t,
+                count,
+                lit: svProgress.value >= c.t - 0.015,
+                text: t("sobrevoo").cities[i],
+              };
+            }),
+          );
+
+          const svActive = computed(() => {
+            let idx = -1;
+            svCities.value.forEach((c, i) => {
+              if (c.lit) idx = i;
+            });
+            return idx;
+          });
+
+          function svGo(i) {
+            const el = document.getElementById("sobrevoo");
+            if (!el) return;
+            const span = el.offsetHeight - window.innerHeight;
+            const top = el.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({
+              top: top + SV_CITIES[i].t * span,
+              behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+                .matches
+                ? "auto"
+                : "smooth",
+            });
+          }
+
+          function svSelect(i) {
+            const c = svCities.value[i];
+            if (c.count > 0) {
+              qualification.city = c.name;
+              activeFilter.value = "all";
+              searchSubmitted.value = true;
+              scrollToProperties();
+            } else {
+              window.open(
+                whatsappLink +
+                  "?text=" +
+                  encodeURIComponent(
+                    t("sobrevoo").talk.replace("{city}", c.name),
+                  ),
+                "_blank",
+                "noopener",
+              );
+            }
+          }
+
           const testimonials = computed(() => t("testimonials").items);
           const faqs = computed(() => t("faq").items);
 
@@ -3495,6 +3793,13 @@
           onMounted(() => {
             window.addEventListener("scroll", handleScroll);
             window.addEventListener("popstate", handlePopState);
+            svPath = document.getElementById("svCoast");
+            const L0 = svPath.getTotalLength();
+            svPts.value = SV_CITIES.map((c) => svPath.getPointAtLength(c.t * L0));
+            svLen.value = L0;
+            window.addEventListener("scroll", svOnScroll, { passive: true });
+            window.addEventListener("resize", svOnScroll);
+            svUpdate();
             AOS.init({
               duration: 800,
               easing: "ease-out-cubic",
@@ -3508,6 +3813,8 @@
           onUnmounted(() => {
             window.removeEventListener("scroll", handleScroll);
             window.removeEventListener("popstate", handlePopState);
+            window.removeEventListener("scroll", svOnScroll);
+            window.removeEventListener("resize", svOnScroll);
           });
 
           return {
@@ -3546,6 +3853,15 @@
             closeProperty,
             testimonials,
             faqs,
+            svCoastD,
+            svLandD,
+            svProgress,
+            svLen,
+            svHeli,
+            svCities,
+            svActive,
+            svGo,
+            svSelect,
           };
         },
       }).mount("#app");
