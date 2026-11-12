@@ -1,19 +1,32 @@
 #!/usr/bin/env bash
 # Prepara a VPS (Debian/Ubuntu) para rodar o site + API. Execute NA VPS, como root:
 #   ADMIN_EMAIL=voce@email.com DOMAIN=seudominio.com.br bash setup-server.sh
-# DOMAIN é opcional; sem ele o site responde pelo IP, sem HTTPS.
+# Convive com outros sites no mesmo servidor: usa porta própria (APP_PORT, padrão
+# 3011), não mexe nos sites do nginx existentes e só cria o site do nginx quando
+# DOMAIN é informado. Sem DOMAIN a API fica só em 127.0.0.1 (acesso por túnel SSH).
 set -euo pipefail
 
 APP_DIR=/opt/carneiro
 APP_USER=carneiro
+APP_PORT="${APP_PORT:-3011}"
 DB_NAME=chiaradia_carneiro
 DB_USER=carneiro
 : "${ADMIN_EMAIL:?Defina ADMIN_EMAIL (e-mail de login do painel e contato dos portais)}"
 DOMAIN="${DOMAIN:-}"
+ADMIN_EMAIL_2="${ADMIN_EMAIL_2:-}"
+CONTACT_EMAIL="${CONTACT_EMAIL:-$ADMIN_EMAIL}"
+
+if ss -tln | grep -q ":$APP_PORT "; then
+  if ! systemctl is-active --quiet carneiro; then
+    echo "A porta $APP_PORT já está em uso por outro serviço. Rode com APP_PORT=<outra>." >&2
+    exit 1
+  fi
+fi
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -y
-apt-get install -y curl ca-certificates gnupg nginx mariadb-server openssl rsync
+apt-get install -y curl ca-certificates gnupg mariadb-server openssl rsync
+command -v nginx >/dev/null || apt-get install -y nginx
 
 if ! command -v node >/dev/null || [ "$(node -p 'process.versions.node.split(".")[0]')" -lt 20 ]; then
   curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
@@ -31,6 +44,7 @@ if [ ! -f "$APP_DIR/.env" ]; then
   DB_PASSWORD=$(openssl rand -hex 16)
   JWT_SECRET=$(openssl rand -hex 48)
   ADMIN_PASSWORD=$(openssl rand -base64 18 | tr -d '/+=' | cut -c1-16)
+  ADMIN_PASSWORD_2=$(openssl rand -base64 18 | tr -d '/+=' | cut -c1-16)
 
   mysql -e "CREATE DATABASE IF NOT EXISTS \`$DB_NAME\` CHARACTER SET utf8mb4;"
   mysql -e "CREATE USER IF NOT EXISTS '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD';"
@@ -39,7 +53,7 @@ if [ ! -f "$APP_DIR/.env" ]; then
 
   if [ -n "$DOMAIN" ]; then PUBLIC_URL="https://$DOMAIN"; else PUBLIC_URL="http://$(curl -s https://api.ipify.org || hostname -I | awk '{print $1}')"; fi
   cat > "$APP_DIR/.env" <<ENV
-PORT=3001
+PORT=$APP_PORT
 HOST=127.0.0.1
 PUBLIC_URL=$PUBLIC_URL
 DB_HOST=localhost
@@ -50,9 +64,11 @@ DB_NAME=$DB_NAME
 JWT_SECRET=$JWT_SECRET
 ADMIN_EMAIL=$ADMIN_EMAIL
 ADMIN_PASSWORD=$ADMIN_PASSWORD
-COMPANY_NAME=Carneiro & Chiaradia
-CONTACT_NAME=Carneiro & Chiaradia
-CONTACT_EMAIL=$ADMIN_EMAIL
+ADMIN_EMAIL_2=$ADMIN_EMAIL_2
+ADMIN_PASSWORD_2=$ADMIN_PASSWORD_2
+COMPANY_NAME="Carneiro & Chiaradia"
+CONTACT_NAME="Carneiro & Chiaradia"
+CONTACT_EMAIL=$CONTACT_EMAIL
 UPLOADS_DIR=/var/lib/carneiro/uploads
 ENV
   chmod 600 "$APP_DIR/.env"
@@ -60,21 +76,22 @@ ENV
   echo
   echo "=============================================================="
   echo " Login do painel (anote agora, esta senha não aparece de novo):"
-  echo "   e-mail: $ADMIN_EMAIL"
-  echo "   senha : $ADMIN_PASSWORD"
+  echo "   login 1: $ADMIN_EMAIL  /  senha: $ADMIN_PASSWORD"
+  [ -n "$ADMIN_EMAIL_2" ] && echo "   login 2: $ADMIN_EMAIL_2  /  senha: $ADMIN_PASSWORD_2"
   echo "=============================================================="
 else
   echo ".env já existe, mantido."
 fi
 
-cat > /etc/nginx/sites-available/carneiro <<NGINX
+if [ -n "$DOMAIN" ]; then
+  cat > /etc/nginx/sites-available/carneiro <<NGINX
 server {
     listen 80;
     listen [::]:80;
-    server_name ${DOMAIN:-_};
+    server_name $DOMAIN;
     client_max_body_size 25m;
     location / {
-        proxy_pass http://127.0.0.1:3001;
+        proxy_pass http://127.0.0.1:$APP_PORT;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
@@ -82,14 +99,13 @@ server {
     }
 }
 NGINX
-ln -sf /etc/nginx/sites-available/carneiro /etc/nginx/sites-enabled/carneiro
-rm -f /etc/nginx/sites-enabled/default
-nginx -t && systemctl reload nginx
-
-if [ -n "$DOMAIN" ]; then
+  ln -sf /etc/nginx/sites-available/carneiro /etc/nginx/sites-enabled/carneiro
+  nginx -t && systemctl reload nginx
   apt-get install -y certbot python3-certbot-nginx
-  certbot --nginx -d "$DOMAIN" --non-interactive --agree-tos -m "$ADMIN_EMAIL" --redirect || \
+  certbot --nginx -d "$DOMAIN" --non-interactive --agree-tos -m "$CONTACT_EMAIL" --redirect || \
     echo "certbot falhou: confirme que o DNS de $DOMAIN aponta para esta VPS e rode de novo."
+else
+  echo "Sem DOMAIN: nginx não alterado. Acesse por túnel: ssh -L 3011:127.0.0.1:$APP_PORT root@IP"
 fi
 
 echo "Servidor preparado. Agora envie o código com deploy/deploy.sh (na sua máquina)."

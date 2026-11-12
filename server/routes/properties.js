@@ -29,6 +29,12 @@ const upload = multer({
   },
 });
 
+// Formulários enviam booleanos como texto ("0"/"1"/"true"/"false"): "0" não pode virar verdadeiro.
+function flag(value, fallback = 0) {
+  if (value === undefined || value === null) return fallback;
+  return ["1", "true", "on", "yes"].includes(String(value).toLowerCase()) ? 1 : 0;
+}
+
 // Public: list active properties for landing page
 router.get("/public", async (req, res) => {
   try {
@@ -112,8 +118,8 @@ router.post("/", authMiddleware, upload.array("images", 20), async (req, res) =>
         transaction_type || "venda", address, neighborhood, city,
         state || "SC", zip_code, area || 0, bedrooms || 0,
         bathrooms || 0, parking || 0, suites || 0,
-        furnished ? 1 : 0, condominium_fee || 0, iptu || 0,
-        tag, featured ? 1 : 0,
+        flag(furnished), condominium_fee || 0, iptu || 0,
+        tag, flag(featured),
       ]
     );
 
@@ -157,8 +163,8 @@ router.put("/:id", authMiddleware, upload.array("images", 20), async (req, res) 
         transaction_type || "venda", address, neighborhood, city,
         state || "SC", zip_code, area || 0, bedrooms || 0,
         bathrooms || 0, parking || 0, suites || 0,
-        furnished ? 1 : 0, condominium_fee || 0, iptu || 0,
-        tag, featured ? 1 : 0, active !== undefined ? (active ? 1 : 0) : 1,
+        flag(furnished), condominium_fee || 0, iptu || 0,
+        tag, flag(featured), flag(active, 1),
         id,
       ]
     );

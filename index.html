@@ -371,6 +371,21 @@
       @media (prefers-reduced-motion: reduce) {
         #sobrevoo .sv-rotor, #sobrevoo .sv-wave, #sobrevoo .sv-pulse { animation: none; }
       }
+      #sobrevoo .sv-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity 1s; }
+      #sobrevoo .sv-canvas.on { opacity: 1; }
+      #sobrevoo .sv-shade { position: absolute; inset: 0; pointer-events: none;
+        background: linear-gradient(90deg, rgba(4,18,40,.92) 0%, rgba(4,18,40,.72) 30%, rgba(4,18,40,.25) 50%, transparent 64%), linear-gradient(0deg, rgba(4,18,40,.55), transparent 30%); }
+      #sobrevoo .sv-rail { position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); z-index: 2; display: flex; flex-direction: column; gap: .55rem; align-items: flex-end; padding: .8rem .9rem; border-radius: 1rem; background: rgba(4,18,40,.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.08); }
+      #sobrevoo .sv-rail button { display: flex; align-items: center; gap: .6rem; font-size: .72rem; font-weight: 600; color: rgba(255,255,255,.55); text-shadow: 0 1px 6px rgba(0,0,0,.6); transition: color .3s; }
+      #sobrevoo .sv-rail button i { width: 8px; height: 8px; border-radius: 99px; background: rgba(255,255,255,.45); transition: all .3s; }
+      #sobrevoo .sv-rail button.lit { color: rgba(255,255,255,.85); }
+      #sobrevoo .sv-rail button.lit i { background: #E5BC57; }
+      #sobrevoo .sv-rail button.cur { color: #fff; }
+      #sobrevoo .sv-rail button.cur i { width: 12px; height: 12px; box-shadow: 0 0 0 4px rgba(229,188,87,.3); }
+      @media (max-width: 1023px) {
+        #sobrevoo .sv-rail { right: auto; left: 50%; top: 5.2rem; transform: translateX(-50%); flex-direction: row; gap: .7rem; align-items: center; }
+        #sobrevoo .sv-shade { background: linear-gradient(0deg, rgba(6,30,60,.88) 0%, rgba(6,30,60,.5) 34%, transparent 58%); }
+      }
       @media (max-width: 767px) { #sobrevoo { height: 300vh; } }
       @media (max-width: 767px) {
         section {
@@ -1045,16 +1060,26 @@
       </section>
 
       <!-- Sobrevoo: o litoral visto de cima, guiado pelo scroll -->
-      <section id="sobrevoo" :aria-label="t('sobrevoo').tag">
+      <section id="sobrevoo" class="hidden lg:block" :aria-label="t('sobrevoo').tag">
         <div class="sv-stage">
-          <div class="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 pt-16 lg:pt-20 pb-3 grid lg:grid-cols-2 gap-2 lg:gap-10 items-center">
+          <canvas id="svCanvas" class="sv-canvas" :class="{ on: sv3d }" aria-hidden="true"></canvas>
+          <div v-show="sv3d" class="sv-shade"></div>
+          <ol v-show="sv3d" class="sv-rail" :aria-label="t('sobrevoo').mapLabel">
+            <li v-for="(c, i) in svCities" :key="c.name">
+              <button type="button" @click="svGo(i)" :class="{ lit: c.lit, cur: i === svActive }">
+                <span class="hidden lg:inline">{{ c.name }}</span><i></i>
+              </button>
+            </li>
+          </ol>
+          <div class="relative max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 pt-16 lg:pt-20 grid lg:grid-cols-2 gap-2 lg:gap-10"
+               :class="svFallback ? 'items-center pb-3' : 'items-end lg:items-center pb-24 lg:pb-3'">
             <div class="order-2 lg:order-1 text-white">
               <span class="text-primary-light text-xs font-bold tracking-widest uppercase">{{ t('sobrevoo').tag }}</span>
               <h2 class="font-display text-2xl lg:text-5xl font-bold mt-1 lg:mt-2 leading-tight">
                 {{ t('sobrevoo').title1 }}
                 <span class="text-primary-light">{{ t('sobrevoo').title2 }}</span>
               </h2>
-              <p class="hidden sm:block text-white/70 text-sm lg:text-base mt-3 max-w-md leading-relaxed">{{ t('sobrevoo').subtitle }}</p>
+              <p v-show="!sv3d || svActive < 1" class="hidden sm:block text-white/80 text-sm lg:text-base mt-3 max-w-md leading-relaxed">{{ t('sobrevoo').subtitle }}</p>
 
               <div class="mt-3 lg:mt-5 min-h-[8rem] lg:min-h-[9.5rem] max-w-md" aria-live="polite">
                 <div v-if="svActive < 0" class="text-white/60 text-sm flex items-center gap-2">
@@ -1080,7 +1105,7 @@
               </div>
             </div>
 
-            <div class="order-1 lg:order-2 h-[40vh] lg:h-[82vh] relative">
+            <div v-show="svFallback" class="order-1 lg:order-2 h-[40vh] lg:h-[82vh] relative">
               <svg viewBox="-60 0 420 700" class="w-full h-full" role="img" :aria-label="t('sobrevoo').mapLabel" preserveAspectRatio="xMidYMid meet">
                 <defs>
                   <linearGradient id="svLand" x1="0" x2="1">
@@ -1122,6 +1147,7 @@
               <span class="absolute bottom-0 right-0 text-[10px] text-white/40">{{ t('sobrevoo').note }}</span>
             </div>
           </div>
+          <span v-show="sv3d" class="absolute bottom-2 left-4 text-[10px] text-white/40">{{ t('sobrevoo').note3d }}</span>
         </div>
       </section>
 
@@ -2391,6 +2417,7 @@
                 talk: "Falar sobre {city}",
                 mapLabel: "Mapa ilustrativo do litoral norte de Santa Catarina com as cidades atendidas",
                 note: "Mapa ilustrativo",
+                note3d: "Cena ilustrativa",
                 cities: [
                   "Foco estratégico: a próxima grande oportunidade do litoral catarinense.",
                   "Apartamentos perto da praia e oportunidades abaixo do mercado.",
@@ -2709,6 +2736,7 @@
                 talk: "Talk about {city}",
                 mapLabel: "Illustrative map of the northern coast of Santa Catarina with the cities we serve",
                 note: "Illustrative map",
+                note3d: "Illustrative scene",
                 cities: [
                   "Strategic focus: the next big opportunity on the Santa Catarina coast.",
                   "Apartments near the beach and below-market opportunities.",
@@ -3030,6 +3058,7 @@
                 talk: "Hablar sobre {city}",
                 mapLabel: "Mapa ilustrativo del litoral norte de Santa Catarina con las ciudades que atendemos",
                 note: "Mapa ilustrativo",
+                note3d: "Escena ilustrativa",
                 cities: [
                   "Foco estratégico: la próxima gran oportunidad del litoral catarinense.",
                   "Departamentos cerca de la playa y oportunidades por debajo del mercado.",
@@ -3429,14 +3458,13 @@
           const apiPropertiesLoaded = ref(false);
           const properties = ref([]);
 
+          // Imóveis vindos da API trazem "city"; os do catálogo fixo têm "Cidade, UF".
+          function cityOf(p) {
+            return (p.city || (p.location || "").split(",")[0]).trim();
+          }
+
           const cityOptions = computed(() =>
-            [
-              ...new Set(
-                properties.value
-                  .map((p) => (p.location || "").split(",")[0].trim())
-                  .filter(Boolean),
-              ),
-            ].sort(),
+            [...new Set(properties.value.map(cityOf).filter(Boolean))].sort(),
           );
 
           function currencyNumber(value) {
@@ -3452,8 +3480,7 @@
                   activeFilter.value,
                 );
               const cityMatch =
-                !qualification.city ||
-                (property.location || "").startsWith(qualification.city);
+                !qualification.city || cityOf(property) === qualification.city;
               const priceMatch =
                 !qualification.maxPrice ||
                 currencyNumber(property.price) <=
@@ -3638,6 +3665,7 @@
                 properties.value = data.map((p) => ({
                   id: p.id,
                   slug: p.id,
+                  city: p.city || "",
                   title: p.title,
                   location:
                     [p.neighborhood, p.city].filter(Boolean).join(", ") ||
@@ -3690,6 +3718,58 @@
           const svLen = ref(1000);
           const svPts = ref([]);
           const svHeli = reactive({ x: 284, y: 0, rot: 90 });
+          const sv3d = ref(false);
+          const svFallback = ref(false); // mapa 2D: só se o 3D não puder rodar
+          let sv3dApi = null;
+          let sv3dLoading = false;
+
+          function svScript(src) {
+            return new Promise((ok, fail) => {
+              const el = document.createElement("script");
+              el.src = src;
+              el.onload = ok;
+              el.onerror = fail;
+              document.head.appendChild(el);
+            });
+          }
+
+          // Carrega o Three.js só quando o visitante se aproxima da seção.
+          async function svLoad3d() {
+            if (sv3dLoading) return;
+            sv3dLoading = true;
+            try {
+              await svScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js");
+              const ex = "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/";
+              try {
+                for (const f of [
+                  "shaders/CopyShader.js",
+                  "shaders/LuminosityHighPassShader.js",
+                  "shaders/FXAAShader.js",
+                  "postprocessing/EffectComposer.js",
+                  "postprocessing/RenderPass.js",
+                  "postprocessing/ShaderPass.js",
+                  "postprocessing/UnrealBloomPass.js",
+                ])
+                  await svScript(ex + f);
+              } catch (e) {
+                // sem brilho extra: a cena funciona do mesmo jeito
+              }
+              await svScript("assets/sobrevoo3d.js?v=11");
+              sv3dApi = window.Sobrevoo3D.init(
+                document.getElementById("svCanvas"),
+                { cities: SV_CITIES },
+              );
+              if (!sv3dApi) {
+                svFallback.value = true;
+                return;
+              }
+              sv3dApi.setProgress(svProgress.value);
+              sv3dApi.setCounts(svCities.value.map((c) => c.count));
+              sv3d.value = true;
+            } catch (e) {
+              svFallback.value = true; // sem WebGL ou sem rede: mapa 2D
+            }
+          }
           let svPath = null;
           let svTicking = false;
 
@@ -3710,10 +3790,14 @@
             svTicking = false;
             const el = document.getElementById("sobrevoo");
             if (!el) return;
+            if (!el.offsetHeight) return; // seção só existe em telas de notebook/desktop
             const r = el.getBoundingClientRect();
             const span = el.offsetHeight - window.innerHeight;
             svProgress.value = Math.max(0, Math.min(1, -r.top / span));
             svPlace();
+            if (sv3dApi) sv3dApi.setProgress(svProgress.value);
+            if (!sv3dLoading && !svFallback.value && r.top < window.innerHeight + 1400)
+              svLoad3d();
           }
 
           function svOnScroll() {
@@ -3727,7 +3811,7 @@
             SV_CITIES.map((c, i) => {
               const pt = svPts.value[i] || { x: 0, y: 0 };
               const count = properties.value.filter(
-                (p) => (p.location || "").split(",")[0].trim() === c.name,
+                (p) => cityOf(p) === c.name,
               ).length;
               return {
                 name: c.name,
@@ -3800,6 +3884,24 @@
             window.addEventListener("scroll", svOnScroll, { passive: true });
             window.addEventListener("resize", svOnScroll);
             svUpdate();
+            if ("IntersectionObserver" in window) {
+              const svIo = new IntersectionObserver(
+                (entries) => {
+                  if (entries[0].isIntersecting) {
+                    svIo.disconnect();
+                    svLoad3d();
+                  }
+                },
+                { rootMargin: "1400px" },
+              );
+              svIo.observe(document.getElementById("sobrevoo"));
+            } else {
+              svFallback.value = true;
+            }
+            Vue.watch(
+              () => svCities.value.map((c) => c.count).join(","),
+              () => sv3dApi && sv3dApi.setCounts(svCities.value.map((c) => c.count)),
+            );
             AOS.init({
               duration: 800,
               easing: "ease-out-cubic",
@@ -3856,6 +3958,8 @@
             svCoastD,
             svLandD,
             svProgress,
+            sv3d,
+            svFallback,
             svLen,
             svHeli,
             svCities,

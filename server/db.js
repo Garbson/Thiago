@@ -124,22 +124,30 @@ async function initDatabase() {
     )
   `);
 
+  // Usuários iniciais vêm do .env: ADMIN_EMAIL/ADMIN_PASSWORD e, opcionalmente,
+  // ADMIN_EMAIL_2/ADMIN_PASSWORD_2. Só cria quem ainda não existe.
   const bcrypt = require("bcryptjs");
+  const seeds = [
+    [process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD, "Administrador"],
+    [process.env.ADMIN_EMAIL_2, process.env.ADMIN_PASSWORD_2, "Administrador 2"],
+  ].filter(([email]) => email);
+
   const [existing] = await pool.query("SELECT id FROM users LIMIT 1");
-  if (existing.length === 0) {
-    const password = process.env.ADMIN_PASSWORD;
-    if (!password || password.length < 10 || !process.env.ADMIN_EMAIL) {
-      throw new Error(
-        "Defina ADMIN_EMAIL e ADMIN_PASSWORD (10+ caracteres) no .env para criar o primeiro usuário"
-      );
+  if (existing.length === 0 && seeds.length === 0) {
+    throw new Error("Defina ADMIN_EMAIL e ADMIN_PASSWORD no .env para criar o primeiro usuário");
+  }
+  for (const [email, password, name] of seeds) {
+    const [found] = await pool.query("SELECT id FROM users WHERE email = ?", [email]);
+    if (found.length) continue;
+    if (!password || password.length < 10) {
+      throw new Error(`Senha de ${email} precisa ter 10+ caracteres no .env`);
     }
-    const hash = await bcrypt.hash(password, 12);
     await pool.query("INSERT INTO users (email, password, name) VALUES (?, ?, ?)", [
-      process.env.ADMIN_EMAIL,
-      hash,
-      "Administrador",
+      email,
+      await bcrypt.hash(password, 12),
+      name,
     ]);
-    console.log("Admin user created");
+    console.log(`Usuário criado: ${email}`);
   }
 }
 

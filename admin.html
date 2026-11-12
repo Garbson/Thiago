@@ -561,8 +561,7 @@
                 </svg>
               </div>
               <p class="text-white/40 mb-4">
-                {{ crmFilter || crmSearch ? 'Nenhum lead encontrado' : 'Nenhum
-                lead cadastrado' }}
+                {{ crmFilter || crmSearch ? 'Nenhum lead encontrado' : 'Nenhum lead cadastrado' }}
               </p>
               <button
                 v-if="!crmFilter && !crmSearch"
@@ -966,8 +965,7 @@
                     />
                   </svg>
                   <span class="text-white/30 text-xs"
-                    >{{ newImages.length ? newImages.length + ' arquivo(s)
-                    selecionado(s)' : 'Clique para adicionar fotos' }}</span
+                    >{{ newImages.length ? newImages.length + ' arquivo(s) selecionado(s)' : 'Clique para adicionar fotos' }}</span
                   >
                 </div>
                 <input
@@ -1619,7 +1617,7 @@
 
           const properties = ref([]);
           const loading = ref(false);
-          const maxProperties = ref(10);
+          const maxProperties = ref(200);
 
           const showForm = ref(false);
           const editingId = ref(null);
