@@ -302,7 +302,6 @@
       @media (min-width: 640px) { .strat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
       @media (min-width: 1024px) { .strat-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
       @media (max-width: 639px) { .strat-grid { grid-template-columns: 1fr; } }
-      #itapoa-texto,
       #itapoa {
         order: 4;
       }
@@ -1690,97 +1689,6 @@
         </div>
       </transition>
 
-      <!-- Depoimento / Quote — Itapoá -->
-      <section id="itapoa-texto" class="pt-24 lg:pt-32 pb-4 relative overflow-hidden">
-        <div class="absolute inset-0 pointer-events-none">
-          <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl"
-          ></div>
-        </div>
-        <div
-          class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative"
-        >
-          <div data-aos="zoom-in">
-            <svg
-              class="w-12 h-12 text-primary/30 mx-auto mb-8"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
-              />
-            </svg>
-          </div>
-          <h2
-            data-aos="fade-up"
-            data-aos-delay="100"
-            class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-relaxed"
-          >
-            {{ t('quote').title1 }}
-            <span class="gradient-text">{{ t('quote').title2 }}</span>
-          </h2>
-          <p
-            data-aos="fade-up"
-            data-aos-delay="200"
-            class="text-gray-500 text-lg mb-8 max-w-2xl mx-auto"
-          >
-            {{ t('quote').text }}
-          </p>
-          <div class="grid sm:grid-cols-3 gap-3 my-8 text-left">
-            <a
-              href="https://www.ibge.gov.br/cidades-e-estados/sc/itapoa.html"
-              target="_blank"
-              class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition"
-            >
-              <strong class="text-2xl text-primary block">+108%</strong
-              ><span class="text-sm text-gray-600"
-                >{{ t('quote').metricPopulation }}</span
-              >
-            </a>
-            <a
-              href="https://siteinstitucional.sc.senai.br/pt-br/imprensa/porto-itapoa-inaugura-expansao-com-investimento-de-r-815-milhoes"
-              target="_blank"
-              class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition"
-            >
-              <strong class="text-2xl text-primary block">R$ 2,5 bi</strong
-              ><span class="text-sm text-gray-600"
-                >{{ t('quote').metricPort }}</span
-              >
-            </a>
-            <a
-              href="https://www2.ielsc.org.br/pt-br/imprensa/cooperativa-paranaense-coamo-anuncia-novo-porto-em-itapoa"
-              target="_blank"
-              class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition"
-            >
-              <strong class="text-2xl text-primary block">R$ 3 bi</strong
-              ><span class="text-sm text-gray-600"
-                >{{ t('quote').metricCoamo }}</span
-              >
-            </a>
-          </div>
-          <p class="text-xs text-gray-400 mb-8">{{ t('quote').sources }}</p>
-          <div
-            data-aos="fade-up"
-            data-aos-delay="300"
-            class="flex items-center justify-center gap-4"
-          >
-            <div
-              class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center"
-            >
-              <span class="text-primary font-bold text-lg">CC</span>
-            </div>
-            <div class="text-left">
-              <span class="text-gray-800 font-semibold text-sm block"
-                >Carneiro & Chiaradia</span
-              >
-              <span class="text-gray-500 text-xs"
-                >{{ t('quote').company }}</span
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- Itapoá — Resultados reais e grande potencial -->
       <section id="itapoa" class="py-16 lg:py-24 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2477,16 +2385,16 @@
                   "Ajudamos você a encontrar o imóvel ideal para investir ou morar. Conectamos famílias, investidores e construtoras às melhores oportunidades do litoral de SC.",
                 items: [
                   {
+                    title: "Investimentos Estratégicos",
+                    desc: "Conectamos investidores a oportunidades de alta valorização no litoral catarinense, especialmente em Itapoá e região.",
+                  },
+                  {
                     title: "Compra para Morar",
                     desc: "Encontramos o imóvel perfeito para você e sua família. Casas, apartamentos e coberturas no litoral catarinense para realizar o sonho da casa própria.",
                   },
                   {
                     title: "Saia do Aluguel",
                     desc: "Assessoria completa para quem quer sair do aluguel. Analisamos seu perfil, encontramos opções acessíveis e acompanhamos todo o processo de compra.",
-                  },
-                  {
-                    title: "Investimentos Estratégicos",
-                    desc: "Conectamos investidores a oportunidades de alta valorização no litoral catarinense, especialmente em Itapoá e região.",
                   },
                   {
                     title: "Terrenos para Permuta",
@@ -2830,16 +2738,16 @@
                   "We help you find the ideal property to invest in or live in. We connect families, investors and developers to the best opportunities on SC's coast.",
                 items: [
                   {
+                    title: "Strategic Investments",
+                    desc: "We connect investors to high-appreciation opportunities on the coast of Santa Catarina, especially in Itapoá and the region.",
+                  },
+                  {
                     title: "Buy to Live",
                     desc: "We find the perfect property for you and your family. Houses, apartments and penthouses on SC's coast to make your dream of homeownership come true.",
                   },
                   {
                     title: "Stop Renting",
                     desc: "Full advisory for those who want to stop renting. We analyze your profile, find affordable options and guide you through the entire purchase process.",
-                  },
-                  {
-                    title: "Strategic Investments",
-                    desc: "We connect investors to high-appreciation opportunities on the coast of Santa Catarina, especially in Itapoá and the region.",
                   },
                   {
                     title: "Land for Swap",
@@ -3182,16 +3090,16 @@
                   "Te ayudamos a encontrar el inmueble ideal para invertir o vivir. Conectamos familias, inversores y constructoras con las mejores oportunidades del litoral de SC.",
                 items: [
                   {
+                    title: "Inversiones Estratégicas",
+                    desc: "Conectamos inversores con oportunidades de alta valorización en el litoral catarinense, especialmente en Itapoá y la región.",
+                  },
+                  {
                     title: "Compra para Vivir",
                     desc: "Encontramos el inmueble perfecto para ti y tu familia. Casas, departamentos y áticos en el litoral catarinense para realizar el sueño de la casa propia.",
                   },
                   {
                     title: "Deja el Alquiler",
                     desc: "Asesoría completa para quienes quieren dejar de alquilar. Analizamos tu perfil, encontramos opciones accesibles y te acompañamos en todo el proceso de compra.",
-                  },
-                  {
-                    title: "Inversiones Estratégicas",
-                    desc: "Conectamos inversores con oportunidades de alta valorización en el litoral catarinense, especialmente en Itapoá y la región.",
                   },
                   {
                     title: "Terrenos para Permuta",
@@ -3486,9 +3394,9 @@
           const stats = computed(() => t("stats"));
 
           const serviceIcons = [
+            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>',
             '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>',
             '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>',
-            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>',
             '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
             '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>',
             '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>',
