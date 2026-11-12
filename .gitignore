@@ -4,3 +4,7 @@ node_modules
 *.bak
 server/uploads/*
 !server/uploads/.gitkeep
+
+# Cloudflare Pages
+cloudflare/public/
+cloudflare/.wrangler/

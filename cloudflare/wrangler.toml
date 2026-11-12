@@ -1,0 +1,7 @@
+name = "carneiro-chiaradia"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "public"
+
+[vars]
+# Origem HTTPS da API na VPS (ajustar quando o endereço estiver definido).
+ORIGIN = "https://187-77-241-135.sslip.io"

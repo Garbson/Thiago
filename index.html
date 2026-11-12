@@ -6,7 +6,7 @@
     <title>Carneiro & Chiaradia | Investimentos e Negócios Imobiliários</title>
     <meta
       name="description"
-      content="Carneiro & Chiaradia - Imóveis para comprar para morar, investir ou sair do aluguel no litoral catarinense."
+      content="Carneiro & Chiaradia - Imóveis para investir, morar ou sair do aluguel no litoral catarinense."
     />
     <link
       rel="icon"
@@ -298,6 +298,10 @@
         order: 3;
         padding-top: 2.5rem !important;
       }
+      .strat-grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      @media (min-width: 640px) { .strat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+      @media (min-width: 1024px) { .strat-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+      @media (max-width: 639px) { .strat-grid { grid-template-columns: 1fr; } }
       #itapoa {
         order: 4;
       }
@@ -1003,6 +1007,66 @@
               </div>
             </div>
           </div>
+
+          <div class="mt-20">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+              <h3
+                data-aos="fade-up"
+                class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold mb-3"
+              >
+                {{ t('strategy').title1 }}
+                <span class="gradient-text">{{ t('strategy').title2 }}</span>
+              </h3>
+              <p
+                data-aos="fade-up"
+                data-aos-delay="100"
+                class="text-gray-500 uppercase tracking-widest text-xs sm:text-sm"
+              >
+                {{ t('strategy').sub }}
+              </p>
+            </div>
+            <div class="strat-grid">
+              <article
+                v-for="(st, i) in t('strategy').steps"
+                :key="i"
+                data-aos="fade-up"
+                :data-aos-delay="i * 100"
+                class="relative rounded-2xl overflow-hidden min-h-[330px] flex flex-col text-white shadow-lg"
+              >
+                <img
+                  :src="strategyImgs[i]"
+                  alt=""
+                  loading="lazy"
+                  class="absolute inset-0 w-full h-full object-cover"
+                />
+                <div class="relative bg-neutral-900/70 px-4 py-3">
+                  <span
+                    class="font-display text-3xl font-bold text-primary-light block leading-none"
+                    >0{{ i + 1 }}</span
+                  >
+                  <strong
+                    class="block text-sm font-bold uppercase tracking-wide mt-1 leading-snug"
+                    >{{ st.title }}</strong
+                  >
+                </div>
+                <div class="flex-1"></div>
+                <p
+                  class="relative bg-neutral-900/80 px-4 py-4 text-sm leading-relaxed"
+                >
+                  {{ st.text }}
+                </p>
+              </article>
+            </div>
+            <div
+              class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-navy-dark text-xs sm:text-sm font-bold uppercase tracking-widest"
+            >
+              <span>{{ t('strategy').flow[0] }}</span>
+              <span class="text-primary text-xl">&rarr;</span>
+              <span>{{ t('strategy').flow[1] }}</span>
+              <span class="text-primary text-xl">&rarr;</span>
+              <span>{{ t('strategy').flow[2] }}</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1647,92 +1711,121 @@
         </div>
       </transition>
 
-      <!-- Depoimento / Quote — Itapoá -->
-      <section id="itapoa" class="py-24 lg:py-32 relative overflow-hidden">
-        <div class="absolute inset-0 pointer-events-none">
-          <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl"
-          ></div>
-        </div>
-        <div
-          class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative"
-        >
-          <div data-aos="zoom-in">
-            <svg
-              class="w-12 h-12 text-primary/30 mx-auto mb-8"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
-              />
-            </svg>
-          </div>
-          <h2
-            data-aos="fade-up"
-            data-aos-delay="100"
-            class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-relaxed"
-          >
-            {{ t('quote').title1 }}
-            <span class="gradient-text">{{ t('quote').title2 }}</span>
-          </h2>
-          <p
-            data-aos="fade-up"
-            data-aos-delay="200"
-            class="text-gray-500 text-lg mb-8 max-w-2xl mx-auto"
-          >
-            {{ t('quote').text }}
-          </p>
-          <div class="grid sm:grid-cols-3 gap-3 my-8 text-left">
-            <a
-              href="https://www.ibge.gov.br/cidades-e-estados/sc/itapoa.html"
-              target="_blank"
-              class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition"
-            >
-              <strong class="text-2xl text-primary block">+108%</strong
-              ><span class="text-sm text-gray-600"
-                >{{ t('quote').metricPopulation }}</span
-              >
-            </a>
-            <a
-              href="https://siteinstitucional.sc.senai.br/pt-br/imprensa/porto-itapoa-inaugura-expansao-com-investimento-de-r-815-milhoes"
-              target="_blank"
-              class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition"
-            >
-              <strong class="text-2xl text-primary block">R$ 2,5 bi</strong
-              ><span class="text-sm text-gray-600"
-                >{{ t('quote').metricPort }}</span
-              >
-            </a>
-            <a
-              href="https://www2.ielsc.org.br/pt-br/imprensa/cooperativa-paranaense-coamo-anuncia-novo-porto-em-itapoa"
-              target="_blank"
-              class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition"
-            >
-              <strong class="text-2xl text-primary block">R$ 3 bi</strong
-              ><span class="text-sm text-gray-600"
-                >{{ t('quote').metricCoamo }}</span
-              >
-            </a>
-          </div>
-          <p class="text-xs text-gray-400 mb-8">{{ t('quote').sources }}</p>
+      <!-- Itapoá — Resultados reais e grande potencial -->
+      <section id="itapoa" class="py-16 lg:py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             data-aos="fade-up"
-            data-aos-delay="300"
-            class="flex items-center justify-center gap-4"
+            class="rounded-3xl overflow-hidden border border-primary/25 shadow-2xl bg-cream"
           >
             <div
-              class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center"
+              class="px-6 lg:px-10 pt-8 pb-6 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4"
             >
-              <span class="text-primary font-bold text-lg">CC</span>
+              <h2
+                class="font-display font-extrabold uppercase text-3xl sm:text-4xl lg:text-5xl leading-tight text-navy-dark"
+              >
+                {{ t('potential').title1 }}
+                <span class="gradient-text">{{ t('potential').title2 }}</span>
+              </h2>
+              <p
+                class="text-xs sm:text-sm uppercase tracking-[.16em] text-gray-600 max-w-md lg:text-right leading-relaxed"
+              >
+                {{ t('potential').sub }}
+              </p>
             </div>
-            <div class="text-left">
-              <span class="text-gray-800 font-semibold text-sm block"
-                >Carneiro & Chiaradia</span
+            <div class="relative">
+              <img
+                src="assets/praia.jpg"
+                alt="Itapoá"
+                loading="lazy"
+                class="absolute inset-0 w-full h-full object-cover"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-navy-dark/85 via-navy-dark/45 to-transparent"
+              ></div>
+              <div
+                class="relative grid lg:grid-cols-12 gap-8 p-6 lg:p-10 items-center"
               >
-              <span class="text-gray-500 text-xs"
-                >{{ t('quote').company }}</span
+                <ul class="lg:col-span-5 space-y-5 text-white">
+                  <li
+                    v-for="(st, i) in t('potential').stats"
+                    :key="i"
+                    class="flex items-center gap-4"
+                  >
+                    <span
+                      class="w-12 h-12 shrink-0 rounded-xl bg-white/15 backdrop-blur-sm border border-white/20 flex items-center justify-center text-primary-light"
+                    >
+                      <svg
+                        class="w-6 h-6"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        v-html="potentialIcons[i]"
+                      ></svg>
+                    </span>
+                    <span class="leading-snug">
+                      <strong
+                        class="block text-sm font-bold uppercase tracking-wider"
+                        >{{ st.title }}</strong
+                      >
+                      <span class="text-sm text-white/85">{{ st.text }}</span>
+                    </span>
+                  </li>
+                </ul>
+                <div
+                  class="lg:col-span-4 lg:col-start-9 bg-cream/95 backdrop-blur rounded-2xl p-5 shadow-xl"
+                >
+                  <h3
+                    class="text-[11px] font-bold uppercase tracking-[.16em] text-navy-dark mb-4"
+                  >
+                    {{ t('potential').formatsTitle }}
+                  </h3>
+                  <div class="space-y-3">
+                    <div
+                      v-for="(f, i) in t('potential').formats"
+                      :key="i"
+                      class="flex items-center gap-4"
+                    >
+                      <img
+                        :src="potentialImgs[i]"
+                        alt=""
+                        loading="lazy"
+                        class="w-20 h-14 object-cover rounded-lg shrink-0"
+                      />
+                      <span class="leading-snug">
+                        <strong
+                          class="block text-sm font-bold uppercase text-navy-dark"
+                          >{{ f.title }}</strong
+                        >
+                        <span class="text-sm text-gray-600">{{ f.text }}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="px-6 lg:px-10 py-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-navy-dark"
+            >
+              <svg
+                class="w-5 h-5 text-primary shrink-0"
+                viewBox="0 0 24 24"
+                fill="currentColor"
               >
+                <path
+                  d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"
+                />
+              </svg>
+              <template
+                v-for="(c, i) in t('potential').cities"
+                :key="c"
+              >
+                <span v-if="i" class="text-gray-300">|</span>
+                <span>{{ c }}</span>
+              </template>
             </div>
           </div>
         </div>
@@ -1948,7 +2041,7 @@
             class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
           >
             {{ t('cta').title1 }}
-            <span class="gradient-text">{{ t('cta').title2 }}</span>?
+            <span class="gradient-text">{{ t('cta').title2 }}</span>
           </h2>
           <p
             data-aos="fade-up"
@@ -2216,11 +2309,11 @@
                 brandLine: "Investimentos Imobiliários",
               },
               hero: {
-                title1: "Morar, investir ou sair do aluguel no",
+                title1: "Investir, morar ou sair do aluguel no",
                 title2: "litoral catarinense",
                 title3: "começa aqui",
                 subtitle:
-                  "Encontramos o imóvel ideal para você morar, investir ou sair do aluguel em Itapoá, Balneário Camboriú, Itajaí e todo o litoral de SC.",
+                  "Encontramos o imóvel ideal para você investir, morar ou sair do aluguel em Itapoá, Balneário Camboriú, Itajaí e todo o litoral de SC.",
                 cta1: "Fale Conosco",
                 cta2: "Ver Imóveis",
                 marqueeCities: "Itapoá · Balneário Camboriú · Itajaí",
@@ -2303,15 +2396,15 @@
                 title2: "e formamos amizades",
                 p1: '<strong class="text-gray-600">Thiago Carneiro</strong><br>O corretor das OPORTUNIDADES.<br>✔ Casado | Pai de 6 filhos<br>✔ Em Balneário Camboriú desde 1988<br>✔ 1° Imóvel de leilão vendido em 2013.<br>Especialista em OPORTUNIDADES: áreas para permuta, imóveis na planta e imóveis abaixo do mercado. Foco estratégico: ITAPOÁ-SC, a próxima grande oportunidade do litoral catarinense.',
                 p2: '<strong class="text-gray-600">Giordano Chiaradia</strong><br> Atua no mercado desde 2010. Morador de Florianópolis desde 1984, atuou como piloto de helicóptero em uma das maiores loteadoras de SC, com contato direto com grandes empreendimentos.',
-                p3: 'Juntos, atendem quem quer <strong class="text-gray-600">comprar para morar, investir ou sair do aluguel</strong> em Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha e Navegantes.',
+                p3: 'Juntos, atendem quem quer <strong class="text-gray-600">comprar para investir, morar ou sair do aluguel</strong> em Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha e Navegantes.',
                 cta: "Entre em contato",
               },
               services: {
                 tag: "Nossos Serviços",
-                title1: "Para morar ou investir no",
+                title1: "Para investir ou morar no",
                 title2: "litoral catarinense",
                 subtitle:
-                  "Ajudamos você a encontrar o imóvel ideal para morar ou investir. Conectamos famílias, investidores e construtoras às melhores oportunidades do litoral de SC.",
+                  "Ajudamos você a encontrar o imóvel ideal para investir ou morar. Conectamos famílias, investidores e construtoras às melhores oportunidades do litoral de SC.",
                 items: [
                   {
                     title: "Compra para Morar",
@@ -2335,7 +2428,7 @@
                   },
                   {
                     title: "Consultoria Personalizada",
-                    desc: "Orientação sob medida para quem quer morar no litoral ou investir com segurança, com análise de mercado e projeções de crescimento.",
+                    desc: "Orientação sob medida para quem quer investir com segurança ou morar no litoral, com análise de mercado e projeções de crescimento.",
                   },
                 ],
               },
@@ -2348,7 +2441,7 @@
                 items: [
                   {
                     title: "Converse Conosco",
-                    desc: "Fale com o Thiago ou o Giordano pelo WhatsApp. Entenderemos se você busca comprar para morar, investir ou sair do aluguel.",
+                    desc: "Fale com o Thiago ou o Giordano pelo WhatsApp. Entenderemos se você busca comprar para investir, morar ou sair do aluguel.",
                   },
                   {
                     title: "Seleção Personalizada",
@@ -2405,6 +2498,38 @@
                 metricCoamo:
                   "previstos para um novo terminal portuário da Coamo",
               },
+              potential: {
+                title1: "Resultados reais",
+                title2: "e grande potencial",
+                sub: "Região em plena expansão, com infraestrutura, porto, duplicações e novos lançamentos.",
+                stats: [
+                  { title: "Porto em expansão", text: "(meta 2030)" },
+                  { title: "Porto Coamo", text: "R$ 100 milhões/ano em tributos (projeção)" },
+                  { title: "Ponte PR/SC", text: "(em andamento)" },
+                  { title: "Duplicações", text: "na região" },
+                  { title: "Valorização média", text: "em 24 meses: 40% a 45%" },
+                ],
+                formatsTitle: "Oportunidades em diversos formatos",
+                formats: [
+                  { title: "Terrenos", text: "Para futura permuta (5 a 15 anos)" },
+                  { title: "Containers / Lofts", text: "Renda mensal imediata" },
+                  { title: "Imóveis na planta", text: "Oportunidades abaixo do mercado" },
+                ],
+                cities: ["Itapoá", "Bal. Camboriú", "Camboriú", "Itajaí", "Barra Velha", "Piçarras", "Penha", "Navegantes", "Porto Belo"],
+              },
+              strategy: {
+                title1: "Estratégia que gera",
+                title2: "renda e valorização",
+                sub: "Terrenos com potencial, renda no presente, patrimônio no futuro.",
+                steps: [
+                  { title: "Aquisição da área", text: "Terrenos com potencial de crescimento em regiões estratégicas." },
+                  { title: "Preparação e licenciamento", text: "Liberação ambiental (quando necessário), terraplanagem e infraestrutura." },
+                  { title: "Construção de módulos", text: "Módulos em container para locação (Airbnb, temporada ou anual)." },
+                  { title: "Renda mensal durante a valorização", text: "Geração de renda enquanto a área valoriza." },
+                  { title: "Permuta futura com incorporadora", text: "Conversão em unidades com alto potencial de valor." },
+                ],
+                flow: ["Renda hoje", "Valorização contínua", "Patrimônio no futuro"],
+              },
               sobrevoo: {
                 tag: "Sobrevoo",
                 title1: "O litoral catarinense,",
@@ -2424,7 +2549,7 @@
                   "Litoral norte catarinense: compra, investimento e permuta com quem conhece a região.",
                   "Litoral norte catarinense: compra, investimento e permuta com quem conhece a região.",
                   "Áreas e imóveis para investir perto do eixo Itajaí–Camboriú.",
-                  "Um dos principais polos do litoral. Oportunidades para morar e investir.",
+                  "Um dos principais polos do litoral. Oportunidades para investir e morar.",
                   "Cidade vizinha e porta de entrada para oportunidades na planta e áreas para permuta.",
                   "Onde o Thiago atua desde 1988: do imóvel de leilão ao lançamento."
                 ],
@@ -2537,11 +2662,11 @@
                 brandLine: "Real Estate Investments",
               },
               hero: {
-                title1: "Live, invest or stop renting on the",
+                title1: "Invest, live or stop renting on the",
                 title2: "coast of Santa Catarina",
                 title3: "starts here",
                 subtitle:
-                  "We find the ideal property for you to live, invest or stop renting in Itapoá, Balneário Camboriú, Itajaí and all across SC's coast.",
+                  "We find the ideal property for you to invest, live or stop renting in Itapoá, Balneário Camboriú, Itajaí and all across SC's coast.",
                 cta1: "Contact Us",
                 cta2: "See Properties",
                 marqueeCities: "Itapoá · Balneário Camboriú · Itajaí",
@@ -2624,15 +2749,15 @@
                 title2: "and build friendships",
                 p1: '<strong class="text-gray-600">Thiago Carneiro</strong><br>The OPPORTUNITIES broker.<br>✔ Married | Father of 6<br>✔ In Balneário Camboriú since 1988<br>✔ 1st auction property sold in 2013.<br>Specialist in OPPORTUNITIES: land for swap, off-plan properties and below-market properties. Strategic focus: ITAPOÁ-SC, the next big opportunity on the coast of Santa Catarina.',
                 p2: '<strong class="text-gray-600">Giordano Chiaradia</strong> has been in the market since 2010. A resident of Florianópolis since 1984, he worked as a helicopter pilot for one of SC\'s largest land developers, with direct contact with major projects.',
-                p3: 'Together, they serve those who want to <strong class="text-gray-600">buy a home, invest or stop renting</strong> in Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha and Navegantes.',
+                p3: 'Together, they serve those who want to <strong class="text-gray-600">invest, buy a home or stop renting</strong> in Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha and Navegantes.',
                 cta: "Get in touch",
               },
               services: {
                 tag: "Our Services",
-                title1: "To live or invest on the",
+                title1: "To invest or live on the",
                 title2: "coast of Santa Catarina",
                 subtitle:
-                  "We help you find the ideal property to live in or invest. We connect families, investors and developers to the best opportunities on SC's coast.",
+                  "We help you find the ideal property to invest in or live in. We connect families, investors and developers to the best opportunities on SC's coast.",
                 items: [
                   {
                     title: "Buy to Live",
@@ -2656,7 +2781,7 @@
                   },
                   {
                     title: "Personalized Consulting",
-                    desc: "Tailored guidance for those who want to live on the coast or invest with confidence, with market analysis and growth projections.",
+                    desc: "Tailored guidance for those who want to invest with confidence or live on the coast, with market analysis and growth projections.",
                   },
                 ],
               },
@@ -2669,7 +2794,7 @@
                 items: [
                   {
                     title: "Talk to Us",
-                    desc: "Reach out to Thiago or Giordano via WhatsApp. We'll understand if you're looking to buy a home, invest or stop renting.",
+                    desc: "Reach out to Thiago or Giordano via WhatsApp. We'll understand if you're looking to invest, buy a home or stop renting.",
                   },
                   {
                     title: "Personalized Selection",
@@ -2724,6 +2849,38 @@
                   "already invested by Porto Itapoá, with further expansions planned",
                 metricCoamo: "planned for a new Coamo port terminal",
               },
+              potential: {
+                title1: "Real results",
+                title2: "and great potential",
+                sub: "A region in full expansion, with infrastructure, a port, road duplications and new launches.",
+                stats: [
+                  { title: "Expanding port", text: "(2030 target)" },
+                  { title: "Coamo Port", text: "R$ 100 million/year in taxes (projection)" },
+                  { title: "PR/SC Bridge", text: "(under way)" },
+                  { title: "Road duplications", text: "in the region" },
+                  { title: "Average appreciation", text: "in 24 months: 40% to 45%" },
+                ],
+                formatsTitle: "Opportunities in several formats",
+                formats: [
+                  { title: "Land", text: "For a future swap (5 to 15 years)" },
+                  { title: "Containers / Lofts", text: "Immediate monthly income" },
+                  { title: "Off-plan properties", text: "Opportunities below market" },
+                ],
+                cities: ["Itapoá", "Bal. Camboriú", "Camboriú", "Itajaí", "Barra Velha", "Piçarras", "Penha", "Navegantes", "Porto Belo"],
+              },
+              strategy: {
+                title1: "A strategy that generates",
+                title2: "income and appreciation",
+                sub: "Land with potential, income today, wealth for the future.",
+                steps: [
+                  { title: "Land acquisition", text: "Land with growth potential in strategic regions." },
+                  { title: "Preparation and licensing", text: "Environmental clearance (when needed), earthworks and infrastructure." },
+                  { title: "Building modules", text: "Container modules for rent (Airbnb, seasonal or yearly)." },
+                  { title: "Monthly income during appreciation", text: "Income generation while the area appreciates." },
+                  { title: "Future swap with a developer", text: "Conversion into units with high value potential." },
+                ],
+                flow: ["Income today", "Continuous appreciation", "Wealth for the future"],
+              },
               sobrevoo: {
                 tag: "Flyover",
                 title1: "The Santa Catarina coast,",
@@ -2743,7 +2900,7 @@
                   "Northern coast of Santa Catarina: buying, investing and land swaps with people who know the region.",
                   "Northern coast of Santa Catarina: buying, investing and land swaps with people who know the region.",
                   "Land and properties to invest in, near the Itajaí–Camboriú axis.",
-                  "One of the main hubs of the coast. Opportunities to live and invest.",
+                  "One of the main hubs of the coast. Opportunities to invest and live.",
                   "Neighboring city and gateway to off-plan opportunities and land for swaps.",
                   "Where Thiago has worked since 1988: from auction properties to new launches."
                 ],
@@ -2856,11 +3013,11 @@
                 brandLine: "Inversiones Inmobiliarias",
               },
               hero: {
-                title1: "Vivir, invertir o dejar el alquiler en el",
+                title1: "Invertir, vivir o dejar el alquiler en el",
                 title2: "litoral catarinense",
                 title3: "comienza aquí",
                 subtitle:
-                  "Encontramos el inmueble ideal para vivir, invertir o dejar el alquiler en Itapoá, Balneário Camboriú, Itajaí y todo el litoral de SC.",
+                  "Encontramos el inmueble ideal para invertir, vivir o dejar el alquiler en Itapoá, Balneário Camboriú, Itajaí y todo el litoral de SC.",
                 cta1: "Contáctanos",
                 cta2: "Ver Inmuebles",
                 marqueeCities: "Itapoá · Balneário Camboriú · Itajaí",
@@ -2944,15 +3101,15 @@
                 title2: "y formamos amistades",
                 p1: '<strong class="text-gray-600">Thiago Carneiro</strong><br>El corredor de las OPORTUNIDADES.<br>✔ Casado | Padre de 6 hijos<br>✔ En Balneário Camboriú desde 1988<br>✔ 1° Inmueble de subasta vendido en 2013.<br>Especialista en OPORTUNIDADES: áreas para permuta, inmuebles en planta e inmuebles por debajo del mercado. Foco estratégico: ITAPOÁ-SC, la próxima gran oportunidad del litoral catarinense.',
                 p2: '<strong class="text-gray-600">Giordano Chiaradia</strong> actúa en el mercado desde 2010. Residente de Florianópolis desde 1984, trabajó como piloto de helicóptero en una de las mayores loteadoras de SC, con contacto directo con grandes emprendimientos.',
-                p3: 'Juntos, atienden a quienes quieren <strong class="text-gray-600">comprar para vivir, invertir o dejar el alquiler</strong> en Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha y Navegantes.',
+                p3: 'Juntos, atienden a quienes quieren <strong class="text-gray-600">comprar para invertir, vivir o dejar el alquiler</strong> en Itapoá, Camboriú, Balneário Camboriú, Itajaí, Barra Velha, Piçarras, Penha y Navegantes.',
                 cta: "Contáctanos",
               },
               services: {
                 tag: "Nuestros Servicios",
-                title1: "Para vivir o invertir en el",
+                title1: "Para invertir o vivir en el",
                 title2: "litoral catarinense",
                 subtitle:
-                  "Te ayudamos a encontrar el inmueble ideal para vivir o invertir. Conectamos familias, inversores y constructoras con las mejores oportunidades del litoral de SC.",
+                  "Te ayudamos a encontrar el inmueble ideal para invertir o vivir. Conectamos familias, inversores y constructoras con las mejores oportunidades del litoral de SC.",
                 items: [
                   {
                     title: "Compra para Vivir",
@@ -2976,7 +3133,7 @@
                   },
                   {
                     title: "Consultoría Personalizada",
-                    desc: "Orientación a medida para quienes quieren vivir en el litoral o invertir con seguridad, con análisis de mercado y proyecciones de crecimiento.",
+                    desc: "Orientación a medida para quienes quieren invertir con seguridad o vivir en el litoral, con análisis de mercado y proyecciones de crecimiento.",
                   },
                 ],
               },
@@ -2989,7 +3146,7 @@
                 items: [
                   {
                     title: "Conversa con Nosotros",
-                    desc: "Habla con Thiago o Giordano por WhatsApp. Entenderemos si buscas comprar para vivir, invertir o dejar el alquiler.",
+                    desc: "Habla con Thiago o Giordano por WhatsApp. Entenderemos si buscas comprar para invertir, vivir o dejar el alquiler.",
                   },
                   {
                     title: "Selección Personalizada",
@@ -3046,6 +3203,38 @@
                 metricCoamo:
                   "previstos para una nueva terminal portuaria de Coamo",
               },
+              potential: {
+                title1: "Resultados reales",
+                title2: "y gran potencial",
+                sub: "Región en plena expansión, con infraestructura, puerto, duplicaciones y nuevos lanzamientos.",
+                stats: [
+                  { title: "Puerto en expansión", text: "(meta 2030)" },
+                  { title: "Puerto Coamo", text: "R$ 100 millones/año en tributos (proyección)" },
+                  { title: "Puente PR/SC", text: "(en marcha)" },
+                  { title: "Duplicaciones", text: "en la región" },
+                  { title: "Valorización media", text: "en 24 meses: 40% a 45%" },
+                ],
+                formatsTitle: "Oportunidades en diversos formatos",
+                formats: [
+                  { title: "Terrenos", text: "Para futura permuta (5 a 15 años)" },
+                  { title: "Containers / Lofts", text: "Renta mensual inmediata" },
+                  { title: "Inmuebles en planos", text: "Oportunidades por debajo del mercado" },
+                ],
+                cities: ["Itapoá", "Bal. Camboriú", "Camboriú", "Itajaí", "Barra Velha", "Piçarras", "Penha", "Navegantes", "Porto Belo"],
+              },
+              strategy: {
+                title1: "Estrategia que genera",
+                title2: "renta y valorización",
+                sub: "Terrenos con potencial, renta en el presente, patrimonio en el futuro.",
+                steps: [
+                  { title: "Adquisición del área", text: "Terrenos con potencial de crecimiento en regiones estratégicas." },
+                  { title: "Preparación y licencias", text: "Liberación ambiental (cuando sea necesario), movimiento de tierra e infraestructura." },
+                  { title: "Construcción de módulos", text: "Módulos en container para alquiler (Airbnb, temporada o anual)." },
+                  { title: "Renta mensual durante la valorización", text: "Generación de renta mientras el área se valoriza." },
+                  { title: "Permuta futura con constructora", text: "Conversión en unidades con alto potencial de valor." },
+                ],
+                flow: ["Renta hoy", "Valorización continua", "Patrimonio en el futuro"],
+              },
               sobrevoo: {
                 tag: "Sobrevuelo",
                 title1: "El litoral catarinense,",
@@ -3065,7 +3254,7 @@
                   "Litoral norte catarinense: compra, inversión y permuta con quien conoce la región.",
                   "Litoral norte catarinense: compra, inversión y permuta con quien conoce la región.",
                   "Terrenos e inmuebles para invertir cerca del eje Itajaí–Camboriú.",
-                  "Uno de los principales polos del litoral. Oportunidades para vivir e invertir.",
+                  "Uno de los principales polos del litoral. Oportunidades para invertir y vivir.",
                   "Ciudad vecina y puerta de entrada a oportunidades en planos y terrenos para permuta.",
                   "Donde Thiago actúa desde 1988: del inmueble de remate al lanzamiento."
                 ],
@@ -3233,6 +3422,26 @@
             '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
             '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>',
             '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>',
+          ];
+
+          const potentialIcons = [
+            '<circle cx="12" cy="5" r="2"/><path d="M12 7v14M7 11h10M4 15c0 3 3.5 6 8 6s8-3 8-6"/>',
+            '<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>',
+            '<path d="M2 17c4-8 6-8 10-8s6 0 10 8M2 21h20M7 11v10M17 11v10M12 9v12"/>',
+            '<path d="M8 3 5 21M16 3l3 18M12 4v3M12 10v4M12 17v3"/>',
+            '<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>',
+          ];
+          const potentialImgs = [
+            "assets/terreno.jpg",
+            "assets/container.jpg",
+            "assets/predios.jpg",
+          ];
+          const strategyImgs = [
+            "assets/terreno.jpg",
+            "assets/obra.jpg",
+            "assets/container.jpg",
+            "assets/sala.jpg",
+            "assets/predios.jpg",
           ];
 
           const services = computed(() =>
@@ -3555,7 +3764,7 @@
                 [selectedProperty.value.image, ...images].filter(Boolean),
               ),
             ];
-            if (gallery.length === 1) {
+            if (gallery.length === 1 && !selectedProperty.value.fromApi) {
               gallery.push(
                 "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1000&h=750&fit=crop",
                 "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1000&h=750&fit=crop",
@@ -3687,6 +3896,7 @@
                     (p.images && p.images[0]) ||
                     "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop",
                   images: p.images || [],
+                  fromApi: true,
                   details: p.description || "",
                   features: p.features || [],
                   intent: p.intent || null,
@@ -3931,6 +4141,9 @@
             heroColumns,
             stats,
             services,
+            potentialIcons,
+            potentialImgs,
+            strategyImgs,
             steps,
             properties,
             filteredProperties,
