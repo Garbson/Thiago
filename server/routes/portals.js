@@ -143,7 +143,7 @@ function listingXml(prop, images, baseUrl) {
       `<PropertyAdministrationFee currency="BRL">${int(prop.condominium_fee)}</PropertyAdministrationFee>`
     );
   if (Number(prop.iptu) > 0)
-    details.push(`<Iptu currency="BRL" period="Yearly">${int(prop.iptu)}</Iptu>`);
+    details.push(`<YearlyTax currency="BRL">${int(prop.iptu)}</YearlyTax>`);
   details.push(
     LOT_AREA_TYPES.includes(type)
       ? `<LotArea unit="square metres">${int(prop.area)}</LotArea>`
