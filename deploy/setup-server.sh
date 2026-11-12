@@ -51,7 +51,7 @@ if [ ! -f "$APP_DIR/.env" ]; then
   mysql -e "ALTER USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD';"
   mysql -e "GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO '$DB_USER'@'localhost'; FLUSH PRIVILEGES;"
 
-  if [ -n "$DOMAIN" ]; then PUBLIC_URL="https://$DOMAIN"; else PUBLIC_URL="http://$(curl -s https://api.ipify.org || hostname -I | awk '{print $1}')"; fi
+  if [ -n "$DOMAIN" ]; then PUBLIC_URL="https://$DOMAIN"; else PUBLIC_URL="http://$(curl -s https://api.ipify.org || hostname -I | awk '{print $1}'):8081"; fi
   cat > "$APP_DIR/.env" <<ENV
 PORT=$APP_PORT
 HOST=127.0.0.1
@@ -105,7 +105,11 @@ NGINX
   certbot --nginx -d "$DOMAIN" --non-interactive --agree-tos -m "$CONTACT_EMAIL" --redirect || \
     echo "certbot falhou: confirme que o DNS de $DOMAIN aponta para esta VPS e rode de novo."
 else
-  echo "Sem DOMAIN: nginx não alterado. Acesse por túnel: ssh -L 3011:127.0.0.1:$APP_PORT root@IP"
+  # Sem domínio: porta 8081 expõe só feed e fotos (site novo, não mexe nos existentes).
+  cp "$(dirname "$0")/nginx-feed.conf" /etc/nginx/sites-available/carneiro-feed
+  ln -sf /etc/nginx/sites-available/carneiro-feed /etc/nginx/sites-enabled/carneiro-feed
+  nginx -t && systemctl reload nginx
+  echo "Sem DOMAIN: feed e fotos em :8081; painel só por túnel. nginx dos outros sites não alterado. Acesse por túnel: ssh -L 3011:127.0.0.1:$APP_PORT root@IP"
 fi
 
 echo "Servidor preparado. Agora envie o código com deploy/deploy.sh (na sua máquina)."

@@ -1,5 +1,6 @@
 const express = require("express");
 const multer = require("multer");
+const sharp = require("sharp");
 const path = require("path");
 const fs = require("fs");
 const { pool } = require("../db");
@@ -28,6 +29,31 @@ const upload = multer({
     cb(null, ext && mime);
   },
 });
+
+// Os portais só importam JPG: converte PNG/WebP (e normaliza orientação e tamanho) já no envio.
+async function normalizeImages(req, res, next) {
+  const files = req.files || [];
+  try {
+    for (const f of files) {
+      const out = f.path.replace(/\.[^.]+$/, "") + ".jpg";
+      const tmp = out + ".tmp";
+      await sharp(f.path)
+        .rotate()
+        .resize({ width: 2400, height: 2400, fit: "inside", withoutEnlargement: true })
+        .flatten({ background: "#ffffff" })
+        .jpeg({ quality: 85, mozjpeg: true })
+        .toFile(tmp);
+      if (f.path !== out) fs.unlinkSync(f.path);
+      fs.renameSync(tmp, out);
+      f.path = out;
+      f.filename = path.basename(out);
+    }
+    next();
+  } catch (err) {
+    files.forEach((f) => { try { fs.unlinkSync(f.path); } catch {} });
+    res.status(400).json({ error: "Uma das imagens é inválida ou está corrompida" });
+  }
+}
 
 // Formulários enviam booleanos como texto ("0"/"1"/"true"/"false"): "0" não pode virar verdadeiro.
 function flag(value, fallback = 0) {
@@ -88,7 +114,7 @@ router.get("/", authMiddleware, async (req, res) => {
 });
 
 // Admin: create property
-router.post("/", authMiddleware, upload.array("images", 20), async (req, res) => {
+router.post("/", authMiddleware, upload.array("images", 20), normalizeImages, async (req, res) => {
   try {
     const maxProps = parseInt(process.env.MAX_PROPERTIES) || 200;
     const [count] = await pool.query("SELECT COUNT(*) as total FROM properties");
@@ -141,7 +167,7 @@ router.post("/", authMiddleware, upload.array("images", 20), async (req, res) =>
 });
 
 // Admin: update property
-router.put("/:id", authMiddleware, upload.array("images", 20), async (req, res) => {
+router.put("/:id", authMiddleware, upload.array("images", 20), normalizeImages, async (req, res) => {
   try {
     const { id } = req.params;
     const {

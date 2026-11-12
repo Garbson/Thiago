@@ -44,6 +44,7 @@ app.use(
     maxAge: "30d",
   })
 );
+app.use(["/uploads", "/assets"], (req, res) => res.sendStatus(404));
 
 app.use("/api/auth", authRouter);
 app.use("/api/properties", propertiesRouter);
