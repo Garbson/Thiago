@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f4a63"/><stop offset=".55" stop-color="#e7a766"/><stop offset="1" stop-color="#f4cf94"/></linearGradient>
+<linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8b959c"/><stop offset="1" stop-color="#5d676e"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd998"/><stop offset="1" stop-color="#d98a3d"/></linearGradient>
+<linearGradient id="grass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4c6b3a"/><stop offset="1" stop-color="#2c4423"/></linearGradient>
+<pattern id="corr" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="none"/><rect x="0" width="4" height="10" fill="#000" opacity=".12"/></pattern>
+</defs>
+<rect width="600" height="600" fill="url(#sky)"/>
+<circle cx="470" cy="300" r="46" fill="#fff1c9" opacity=".85"/>
+<path d="M0 330 Q120 250 250 310 T600 290 V600 H0Z" fill="#3b5a46"/>
+<path d="M0 380 Q160 320 320 370 T600 350 V600 H0Z" fill="#46663a"/>
+<rect y="430" width="600" height="170" fill="url(#grass)"/>
+<g fill="#1f3a22"><ellipse cx="60" cy="400" rx="34" ry="52"/><ellipse cx="110" cy="415" rx="28" ry="42"/><ellipse cx="545" cy="395" rx="36" ry="56"/><ellipse cx="500" cy="415" rx="26" ry="40"/></g>
+<ellipse cx="300" cy="470" rx="230" ry="16" fill="#000" opacity=".25"/>
+<rect x="95" y="470" width="410" height="12" fill="#6b4a2e"/>
+<g fill="#3d3d3d"><rect x="120" y="482" width="8" height="26"/><rect x="472" y="482" width="8" height="26"/></g>
+<rect x="95" y="268" width="410" height="204" rx="3" fill="url(#body)"/>
+<rect x="95" y="268" width="410" height="204" rx="3" fill="url(#corr)"/>
+<rect x="95" y="262" width="410" height="10" fill="#3f474c"/>
+<rect x="95" y="468" width="410" height="8" fill="#3f474c"/>
+<rect x="140" y="298" width="320" height="150" fill="#2a2f33"/>
+<rect x="148" y="306" width="304" height="134" fill="url(#glow)"/>
+<g stroke="#2a2f33" stroke-width="6"><path d="M300 306V440"/><path d="M148 373H452"/></g>
+<rect x="165" y="395" width="90" height="45" rx="6" fill="#8a4f2a" opacity=".85"/>
+<rect x="335" y="360" width="8" height="80" fill="#6b3d22" opacity=".7"/>
+<circle cx="339" cy="352" r="16" fill="#fff4d6" opacity=".9"/>
+<path d="M148 306 L300 306 L148 440Z" fill="#fff" opacity=".12"/>
+<g fill="#c6ccd0" opacity=".75"><rect x="95" y="268" width="10" height="204"/><rect x="495" y="268" width="10" height="204"/></g>
+</svg>
