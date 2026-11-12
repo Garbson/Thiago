@@ -302,6 +302,7 @@
       @media (min-width: 640px) { .strat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
       @media (min-width: 1024px) { .strat-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
       @media (max-width: 639px) { .strat-grid { grid-template-columns: 1fr; } }
+      #itapoa-texto,
       #itapoa {
         order: 4;
       }
@@ -819,28 +820,6 @@
                 </option>
               </select>
             </label>
-          </div>
-        </div>
-      </section>
-
-      <!-- Stats -->
-      <section class="py-16 border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div
-              v-for="(stat, i) in stats"
-              :key="i"
-              data-aos="fade-up"
-              :data-aos-delay="i * 100"
-              class="text-center"
-            >
-              <div
-                class="text-3xl sm:text-4xl lg:text-5xl font-bold gradient-text mb-2"
-              >
-                {{ stat.value }}
-              </div>
-              <div class="text-gray-500 text-sm">{{ stat.label }}</div>
-            </div>
           </div>
         </div>
       </section>
@@ -1711,6 +1690,97 @@
         </div>
       </transition>
 
+      <!-- Depoimento / Quote — Itapoá -->
+      <section id="itapoa-texto" class="pt-24 lg:pt-32 pb-4 relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+          <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl"
+          ></div>
+        </div>
+        <div
+          class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative"
+        >
+          <div data-aos="zoom-in">
+            <svg
+              class="w-12 h-12 text-primary/30 mx-auto mb-8"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
+              />
+            </svg>
+          </div>
+          <h2
+            data-aos="fade-up"
+            data-aos-delay="100"
+            class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-relaxed"
+          >
+            {{ t('quote').title1 }}
+            <span class="gradient-text">{{ t('quote').title2 }}</span>
+          </h2>
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            class="text-gray-500 text-lg mb-8 max-w-2xl mx-auto"
+          >
+            {{ t('quote').text }}
+          </p>
+          <div class="grid sm:grid-cols-3 gap-3 my-8 text-left">
+            <a
+              href="https://www.ibge.gov.br/cidades-e-estados/sc/itapoa.html"
+              target="_blank"
+              class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition"
+            >
+              <strong class="text-2xl text-primary block">+108%</strong
+              ><span class="text-sm text-gray-600"
+                >{{ t('quote').metricPopulation }}</span
+              >
+            </a>
+            <a
+              href="https://siteinstitucional.sc.senai.br/pt-br/imprensa/porto-itapoa-inaugura-expansao-com-investimento-de-r-815-milhoes"
+              target="_blank"
+              class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition"
+            >
+              <strong class="text-2xl text-primary block">R$ 2,5 bi</strong
+              ><span class="text-sm text-gray-600"
+                >{{ t('quote').metricPort }}</span
+              >
+            </a>
+            <a
+              href="https://www2.ielsc.org.br/pt-br/imprensa/cooperativa-paranaense-coamo-anuncia-novo-porto-em-itapoa"
+              target="_blank"
+              class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/40 transition"
+            >
+              <strong class="text-2xl text-primary block">R$ 3 bi</strong
+              ><span class="text-sm text-gray-600"
+                >{{ t('quote').metricCoamo }}</span
+              >
+            </a>
+          </div>
+          <p class="text-xs text-gray-400 mb-8">{{ t('quote').sources }}</p>
+          <div
+            data-aos="fade-up"
+            data-aos-delay="300"
+            class="flex items-center justify-center gap-4"
+          >
+            <div
+              class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center"
+            >
+              <span class="text-primary font-bold text-lg">CC</span>
+            </div>
+            <div class="text-left">
+              <span class="text-gray-800 font-semibold text-sm block"
+                >Carneiro & Chiaradia</span
+              >
+              <span class="text-gray-500 text-xs"
+                >{{ t('quote').company }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Itapoá — Resultados reais e grande potencial -->
       <section id="itapoa" class="py-16 lg:py-24 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2505,7 +2575,7 @@
                 stats: [
                   { title: "Porto em expansão", text: "(meta 2030)" },
                   { title: "Porto Coamo", text: "R$ 100 milhões/ano em tributos (projeção)" },
-                  { title: "Ponte PR/SC", text: "(em andamento)" },
+                  { title: "Ponte PR/SC", text: "(pronta)" },
                   { title: "Duplicações", text: "na região" },
                   { title: "Valorização média", text: "em 24 meses: 40% a 45%" },
                 ],
@@ -2856,7 +2926,7 @@
                 stats: [
                   { title: "Expanding port", text: "(2030 target)" },
                   { title: "Coamo Port", text: "R$ 100 million/year in taxes (projection)" },
-                  { title: "PR/SC Bridge", text: "(under way)" },
+                  { title: "PR/SC Bridge", text: "(completed)" },
                   { title: "Road duplications", text: "in the region" },
                   { title: "Average appreciation", text: "in 24 months: 40% to 45%" },
                 ],
@@ -3210,7 +3280,7 @@
                 stats: [
                   { title: "Puerto en expansión", text: "(meta 2030)" },
                   { title: "Puerto Coamo", text: "R$ 100 millones/año en tributos (proyección)" },
-                  { title: "Puente PR/SC", text: "(en marcha)" },
+                  { title: "Puente PR/SC", text: "(lista)" },
                   { title: "Duplicaciones", text: "en la región" },
                   { title: "Valorización media", text: "en 24 meses: 40% a 45%" },
                 ],
